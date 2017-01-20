@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Question answer</title>
+    <%= stylesheet_link_tag "application", debug: true %>
+    <%= javascript_include_tag "application", debug: true %>
+  </head>
+  <body>
+    <div id="wrapper">
+      <%= render template: "layouts/_header" %>
+      <%= yield %>
+      <%= render template: "layouts/_footer" %>
+    </div>
+  </body>
+</html>
