@@ -7,10 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 
-
-
-
-User.create :name => "Phan Ngoc",
-            :email => "lequidon.1993@gmail.com",
-            :password => "123456",
-            :avatar => "nopic_192.gif"
+10.times do
+  name = Faker::Name.name
+  User.create :name => name,
+              :email => Faker::Internet.email,
+              :password => "123456",
+              :avatar => Faker::Avatar.image(name + '-avatar', "50x50", "jpg")
+end

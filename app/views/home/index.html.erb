@@ -1,0 +1,12 @@
+<section id="welcome-page">
+  <h2>Chao mung ban den voi index</h2>
+  <% if user_signed_in? %>
+  <li>
+  <%= link_to('Logout', destroy_user_session_path, :method => :delete) %>
+  </li>
+<% else %>
+  <li>
+  <%= link_to('Login', new_user_session_path)  %>
+  </li>
+<% end %>
+</section>

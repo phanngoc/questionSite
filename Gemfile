@@ -39,12 +39,18 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 gem 'omniauth'
-gem 'friendly_id'
+gem 'friendly_id', '~> 5.1.0'
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'seed_dump'
 gem "bower-rails", "~> 0.11.0"
+gem 'kaminari'
+gem 'faker'
+gem 'sidekiq'
+#gem 'omniauth-facebook'
+gem 'simple_form'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
