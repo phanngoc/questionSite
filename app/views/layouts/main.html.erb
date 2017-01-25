@@ -9,7 +9,9 @@
   <body>
     <div id="wrapper">
       <%= render template: "layouts/_header" %>
-      <%= yield %>
+      <div id="wrapper-body">
+        <%= yield %>
+      </div>
       <%= render template: "layouts/_footer" %>
     </div>
   </body>

@@ -1,0 +1,42 @@
+<div id="wr-ask container">
+  <%= render template: "questions/action_more" %>
+  <div class="fr-form-ask row">
+
+    <div class="col-md-5 col-md-offset-1">
+
+      <%= form_for @question, url: {action: "create"} do |f| %>
+        <div class="form-group">
+          <%= f.label :title, 'Title' %>
+          <%= f.text_field :title, class: 'form-control'%>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :content, 'Content' %>
+          <%= f.text_area :content, class: 'form-control' %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :topics %>
+          <%= f.select :topics,
+               options_from_collection_for_select(@topics, :id, :name),
+               multiple: true, class: 'select2 form-control' %>
+        </div>
+
+        <%= f.submit "Ask", class: 'btn btn-primary' %>
+      <% end %>
+
+<!--
+      <%= simple_form_for @question do |f| %>
+        <%= f.input :title, input_html: { class: 'special' } %>
+        <%= f.input :content, :as => 'text' %>
+
+        <%= f.input :topics, input_html: { class: 'special' } do %>
+          <%= f.select :topics, Topic.all.map { |r| [r.name, r.id] }, multiple: true, class: 'multiselectuser' %>
+        <% end %>
+
+        <%= f.button :submit, :label => 'Create question' %>
+      <% end %> -->
+    </div>
+
+  </div>
+</div>
