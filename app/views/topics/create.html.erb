@@ -1,0 +1,34 @@
+<div class="wr-all">
+  <div class="form-add-topic">
+    <div class="errors">
+      <% if @topic.errors.any? %>
+         <div id="error_explanation">
+           <h2><%= pluralize(@topic.errors.count, "error") %> prohibited this user from being saved:</h2>
+           <ul>
+             <% @topic.errors.full_messages.each do |msg| %>
+                 <li><%= msg %></li>
+             <% end %>
+           </ul>
+         </div>
+     <% end %>
+    </div>
+
+    <%= simple_form_for @topic do |f| %>
+
+    <div class="errors">
+      <%= f.error_notification %>
+    </div>
+
+      <%= f.input_field :name, placeholder: 'Enter name'%>
+      <%= f.error :name, id: 'user_name_error' %>
+
+      <%= f.input_field :description, placeholder: 'Enter description'%>
+      <%= f.error :description, id: 'description_error' %>
+
+      <%= f.input_field :icon, as: :file, placeholder: 'Upload icon' %>
+      <%= f.error :icon, id: 'icon_error' %>
+
+      <%= f.button :submit %>
+    <% end %>
+  </div>
+</div>
