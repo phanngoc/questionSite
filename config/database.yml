@@ -16,9 +16,9 @@ default: &default
 development:
   adapter: mysql2
   encoding: utf8
-  database: blog
+  database: questionsite
   username: root
-  password: Phann123@123
+  password: 
   host: 127.0.0.1
   port: 3306
 

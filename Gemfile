@@ -52,7 +52,9 @@ gem 'sidekiq'
 gem 'simple_form'
 gem 'carrierwave', '~> 1.0'
 gem 'pg'
-gem "select2-rails"
+gem 'select2-rails'
+gem 'cancancan'
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
