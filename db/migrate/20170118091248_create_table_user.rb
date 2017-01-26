@@ -6,7 +6,7 @@ class CreateTableUser < ActiveRecord::Migration[5.0]
       t.column :avatar, :string
       t.column :username, :string, :limit => 255
       t.column :password, :string, :limit => 255
-      t.column :email, :string
+      # t.column :email, :string
       t.timestamps
     end
   end

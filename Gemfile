@@ -16,7 +16,8 @@ gem 'mysql2'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
+gem 'bootstrap-sass', '~> 3.3.6'
+gem 'sass-rails', '>= 3.2'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
@@ -41,7 +42,6 @@ gem 'jbuilder', '~> 2.5'
 gem 'omniauth'
 gem 'friendly_id', '~> 5.1.0'
 gem 'devise'
-gem 'bootstrap-sass', '~> 3.2.0'
 gem 'autoprefixer-rails'
 gem 'seed_dump'
 gem "bower-rails", "~> 0.11.0"
@@ -52,11 +52,19 @@ gem 'sidekiq'
 gem 'simple_form'
 gem 'carrierwave', '~> 1.0'
 gem 'pg'
+gem 'select2-rails'
+gem 'cancancan'
+gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+
+gem 'mini_magick'
+gem 'ckeditor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end
+
+require 'byebug'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

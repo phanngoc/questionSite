@@ -1,6 +1,6 @@
 class CreateTableQuestionsTopics < ActiveRecord::Migration[5.0]
   def self.up
-    create_table :questions_topics do |t|
+    create_table :question_topics do |t|
       t.column :question_id, :integer
       t.column :topic_id, :integer
       t.timestamps
@@ -8,6 +8,6 @@ class CreateTableQuestionsTopics < ActiveRecord::Migration[5.0]
   end
 
   def self.down
-    drop_table :questions_topics
+    drop_table :question_topics
   end
 end
