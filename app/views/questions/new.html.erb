@@ -5,14 +5,11 @@
     <div class="col-md-5 col-md-offset-1">
       <%= simple_form_for @question do |f| %>
         <%= f.input :title, input_html: { class: 'special' } %>
-        <%= f.input :content, :as => 'text' %>
+        <%= f.input :content, as: :ckeditor%>
 
-        <%= f.input :topics,:collection => @topics, :label_method => :name, :value_method => :id, :label => "Topics" ,
+        <%= f.input :topics, :collection => @topics, :label_method => :name, :value_method => :id, :label => "Topics" ,
                       :include_blank => true, input_html: { multiple: true, class: 'select2'} %>
 
-        <%= f.input :topics, input_html: { class: 'special' } do %>
-          <%= f.select :topics, Topic.all.map { |r| [r.name, r.id] }, multiple: true, class: 'multiselectuser' %>
-        <% end %>
 
         <%= f.button :submit, :label => 'Create question' %>
       <% end %>

@@ -56,10 +56,15 @@ gem 'select2-rails'
 gem 'cancancan'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
+gem 'mini_magick'
+gem 'ckeditor'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
 end
+
+require 'byebug'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

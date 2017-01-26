@@ -7,13 +7,16 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    Question.create question_params
+
+    @question = Question.create question_params
+    @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
+    
   end
 
   private
 
   def question_params
-    params.permit :title, :content
+    params.require(:question).permit :title, :content, :topics
   end
 
 end
