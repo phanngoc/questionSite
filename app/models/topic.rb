@@ -5,7 +5,7 @@ class Topic < ApplicationRecord
   has_many :actions, as: :targetable
   has_many :follows, as: :followable
 
-  validates :name, presence: true, length: {maximum: 100}, uniqueness: {case_sensitive: false}
+  validates :name, presence: true, length: {maximum: 255}
   validates :description, presence: true, length: {maximum: 255}
   validates :icon, presence: true
 
