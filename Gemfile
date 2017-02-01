@@ -36,6 +36,8 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'bcrypt-ruby', '3.1.5', :require => 'bcrypt'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
@@ -59,13 +61,15 @@ gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
 gem 'mini_magick'
 gem 'ckeditor'
+gem 'byebug'
+gem 'gon'
+gem 'react-rails'
+gem 'font-awesome-sass'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
-
-require 'byebug'
+# group :development, :test do
+#   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+#   gem 'byebug', platform: :mri
+# end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

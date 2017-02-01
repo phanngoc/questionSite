@@ -9,4 +9,8 @@ Rails.application.routes.draw do
     # get '/users', to: 'user#index'
   resources :users
   resources :topics
+  resources :answers
+
+  resources :comments
+  post '/comments/up_vote/:id', to: 'comments#up_vote'
 end

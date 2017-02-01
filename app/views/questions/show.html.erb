@@ -1,0 +1,145 @@
+<div id="wr-detail-question" class="container">
+  <%= render template: "questions/action_more" %>
+  <div class="row wr-combine">
+    <div class="sec-show-question-detail col-md-5 col-md-offset-1">
+        <section class="main-content">
+          <h2 class="title"><%= @question.title %></h2>
+          <div class="inner-content">
+            <div class="content">
+              <%= raw @question.content %>
+            </div>
+            <div class="wrapper-author">
+              <table class="list-author">
+                <tr>
+                  <td class="vt-left">
+                    <div class="post-menu">
+                      <a href="/a/33133995/2259835" title="short permalink to this answer" class="short-link" id="link-post-33133995">share</a><span class="lsep">|</span>
+                      <a href="/posts/33133995/edit" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span>
+                      <a href="#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="33133995">flag</a>
+                    </div>
+                  </td>
+                  <td class="vt-right">
+                    <div class="user-info">
+                      <div class="user-avatar">
+                        <a href="javascript:"><img src="<%= @question.user.avatar.url %>" alt="" width="40" height="40" /></a>
+                      </div>
+                      <div class="user-name"><a href="#"><%= @question.user.name %></a></div>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+            <div class="wrapper-comment-question">
+              <table class="list-comments">
+                <tbody>
+                  <% if @question.comments.any? %>
+                    <% @question.comments.each do |elem| %>
+                        <tr>
+                          <td class="vt-count-vote">
+                            <a href="javascript:" title="short permalink to this answer" class="short-link" id="link-post-33133995">1</a>
+                          </td>
+                          <td class="vt-action-vote">
+                            <a href="javascript:" title="short permalink to this answer" class="short-link" id="link-post-33133995">1</a>
+                          </td>
+                          <td class="vt-comment">
+                            <div>
+                              <%= elem.content %> <a href="" title="<%= elem.user.name %>"><%= elem.user.name %></a> <time><%= elem.created_at %></time>
+                            </div>
+                          </td>
+                        </tr>
+                    <% end %>
+                      <tr><td colspan="3"><a href="javascript:" class="act-add-comment">add a comment</a></td></tr>
+                  <% else %>
+                      <tr><td colspan="3"><a href="javascript:" class="act-add-comment">add a comment</a></td></tr>
+                  <% end %>
+
+                </tbody>
+              </table>
+              <div class="frame-add-comment" style="display: none" role="form">
+                <form action="<%= comment_path %>" id="form-add-comment" method="post">
+                  <table class="table-elem" cellpadding="0" cellspacing="0" width="100%" border="0">
+                    <tr>
+                      <td>
+                        <textarea class="form-control" name="content"></textarea>
+                        <input type="hidden" value="Question" name="targetable_type">
+                        <input type="hidden" value="<%= @question.id %>" name="targetable_id">
+                      </td>
+                      <td>
+                        <button type="submit" class="btn btn-primary btn-add">Add comment</button>
+                      </td>
+                    </tr>
+                  </table>
+                </form>
+              </div>
+            </div> <!-- .wrapper-comment-question -->
+          </div> <!-- .inner-content -->
+
+          <div class="wrapper-answer">
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <%= pluralize(@question.answers.length, 'Answer') %>
+                </div>
+                <div class="panel-body">
+                  <table class="list-answers">
+                    <tbody>
+                      <% @question.answers.each do |answer| %>
+                        <tr>
+                          <td><%= raw answer.content %></td>
+                        </tr>
+                        <tr>
+                          <td class="wr-menu-action">
+                            <ul class="menu-action">
+                              <li><a href="#" class="ac-share">share</a></li>
+                              <li><a href="#" class="ac-edit">edit</a></li>
+                              <li><a href="#" class="ac-flag">flag</a></li>
+                            </ul>
+                          </td>
+                          <td class="td-wr-author">
+                            <div class="user-info">
+                              <div class="user-avatar">
+                                <a href="javascript:"><img src="<%= answer.user.avatar.url %>" alt="" width="40" height="40" /></a>
+                              </div>
+                              <div class="user-name"><a href="#"><%= answer.user.name %></a></div>
+                            </div>
+                          </td>
+                         </tr>
+
+                         <tr>
+                          <td class="pa-comment" colspan="2">
+                            <%= react_component('WrapperListComment', data: answer.to_json(:include => [:user, :comments => {:include => :user}])) %>
+                          </td> 
+                         </tr> 
+                      <% end %>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          </div>
+
+          <div class="wr-answer">
+            <form id="fo-answer-ques" method="POST" action="<%= answers_path %>">
+              <input type="hidden" name="reply_to" value="<%= @question.id %>">
+              <table class="ta-fix">
+                <tbody>
+                  <tr>
+                    <td>
+                      <textarea class="elem-answer-ques" name="content">
+                        
+                      </textarea>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <button class="submit-answer">Submit answer</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </form>
+          </div>
+        </section>
+    </div>
+  </div>
+
+</div>

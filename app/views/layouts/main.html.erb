@@ -5,11 +5,14 @@
     <title>Question answer</title>
     <%= stylesheet_link_tag "application", debug: true %>
     <%= javascript_include_tag "application", debug: true %>
+    <%= csrf_meta_tag %>
+    
+    <%= Gon::Base.render_data %>
   </head>
   <body>
     <div id="wrapper">
       <%= render template: "layouts/_header" %>
-      <div id="wrapper-body">
+      <div id="wrapper-body" class="container">
         <%= yield %>
       </div>
       <%= render template: "layouts/_footer" %>

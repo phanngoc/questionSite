@@ -4,6 +4,10 @@
     "jquery": "latest",
     "bootstrap": "latest",
     "moment": "latest",
-    "select2": "latest"
+    "select2": "latest",
+    "handlebars": "latest",
+    "tinymce": "latest",
+    "markdown": "latest",
+    "underscore": "latest"
   }
 }

@@ -16,4 +16,12 @@
 //= require select2-full
 //= require turbolinks
 //= require ckeditor/init
+//= require react
+//= require react_ujs
+//= require react_ujs
+//= require markdown/lib/markdown
+//= require underscore
+//= require handlebars
+//= require tinymce/tinymce
+
 //= require_tree .
