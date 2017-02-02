@@ -1,19 +1,30 @@
 var ItemComment = React.createClass({
   getInitialState() {
+    var isUpVote = this.checkIsUpVote(this.props.comment.actions);
+    console.log(this.props.comment.actions);
       return {
         styleFrEdit: {display: "none"},
         styleFrShow: {display: "flex"},
         content: this.props.comment.content,
-        up_vote: this.props.comment.up_vote
+        up_vote: this.props.comment.up_vote,
+        isUpVote: isUpVote
       };
   },
-
+  checkIsUpVote(actions) {
+    var isUpVote = false;
+    _.each(actions, function(action, key) {
+      if (action.user_id == gon.current_user.id && action.type_act == "up_vote") {
+        isUpVote = true;
+      }
+    });
+    return isUpVote;
+  },
   componentDidMount() {
     $(this.refs.formEditComment).submit(function(e){
       e.preventDefault();
     })
   },
-  
+
   componentWillReceiveProps(nextProps) {
     this.setState({comment: nextProps.comment, content: nextProps.comment.content});
   },
@@ -23,11 +34,11 @@ var ItemComment = React.createClass({
     this.state.styleFrShow = {display: "none"};
     this.forceUpdate();
   },
-  
+
   handleSave(e) {
     var self = this;
     var formdata = new FormData(this.refs.formEditComment);
-    
+
     $.ajax({
       url: '/comments/' + this.props.comment.id,
       method: 'POST',
@@ -39,10 +50,10 @@ var ItemComment = React.createClass({
         $(self.refs.formEditComment).find('textarea[name="content"]').val("");
         self.setState({
                         styleFrEdit: {display: "none"},
-                        styleFrShow: {display: "flex"} 
-                      });  
+                        styleFrShow: {display: "flex"}
+                      });
       } else {
-        
+
       }
     });
   },
@@ -50,15 +61,15 @@ var ItemComment = React.createClass({
   handleCancel(e) {
     this.setState({
                     styleFrEdit: {display: "none"},
-                    styleFrShow: {display: "flex"} 
-                  });  
+                    styleFrShow: {display: "flex"}
+                  });
   },
 
   handleDelete(e) {
     var self = this;
     var r = confirm("Are you sure to want to delete ?");
-    
-    var fd = new FormData();    
+
+    var fd = new FormData();
     fd.append( '_method', 'DELETE');
 
     if (r == true) {
@@ -79,7 +90,7 @@ var ItemComment = React.createClass({
   handleChangeEdit(e) {
     this.setState({content: e.target.value});
   },
-  
+
   upVote() {
     var self = this;
     var fd = new FormData();
@@ -91,14 +102,31 @@ var ItemComment = React.createClass({
       contentType: false,
     }).done(function(result) {
       if (result.status == 1) {
-        self.setState({up_vote: self.state.up_vote + 1})
+        self.setState({up_vote: self.state.up_vote + 1, isUpVote: true})
+      }
+    });
+  },
+
+  removeVote() {
+    var self = this;
+
+    $.ajax({
+      url: '/comments/remove_vote/' + this.props.comment.id,
+      method: 'POST',
+      processData: false,
+      contentType: false,
+    }).done(function(result) {
+      if (result.status == 1) {
+        self.setState({up_vote: self.state.up_vote - 1, isUpVote: false})
       }
     });
   },
 
   render: function() {
     var rows = [];
-    console.log(this.state.up_vote);
+    var classVoteUp = classNames({ hidden: this.state.isUpVote });
+    var classDontVote = classNames({ hidden: !this.state.isUpVote });
+
     return (
       <div className="item-comment">
         <div className="wr-fr-edit" style={this.state.styleFrEdit}>
@@ -109,7 +137,7 @@ var ItemComment = React.createClass({
                   name="content"
                   defaultValue={this.state.content}
                   onChange={this.handleChangeEdit}>
-              </textarea>  
+              </textarea>
             </div>
 
             <div className="action">
@@ -123,22 +151,27 @@ var ItemComment = React.createClass({
             <a href="javascript:" title="short permalink to this answer" className="short-link">{this.state.up_vote}</a>
           </div>
           <div className="vt-action-vote">
-            <a href="javascript:" title="short permalink to this answer" 
-                  className="short-link" 
+            <a href="javascript:" title="short permalink to this answer"
+                  className={classVoteUp}
                   onClick={this.upVote}>
                   <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:" title="short permalink to this answer"
+                  className={classDontVote}
+                  onClick={this.removeVote}>
+                  <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             </a>
           </div>
 
           <div className="vt-comment" style={this.state.styleFrShow}>
             <p>
-              {this.state.content} <a href="javascript:" title={this.props.comment.user.name}>{this.props.comment.user.name}</a> 
+              {this.state.content} <a href="javascript:" title={this.props.comment.user.name}>{this.props.comment.user.name}</a>
               <time>{this.props.comment.created_at}</time>
               {this.props.comment.user.id == gon.current_user.id && (
                 <span className="wr-act">
                   <a className="edit-com" onClick={this.handleEdit}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                  <a className="delete-com" onClick={this.handleDelete}><i className="fa fa-times" aria-hidden="true"></i></a>  
-                </span>  
+                  <a className="delete-com" onClick={this.handleDelete}><i className="fa fa-times" aria-hidden="true"></i></a>
+                </span>
               )}
             </p>
           </div>

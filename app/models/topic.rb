@@ -11,4 +11,7 @@ class Topic < ApplicationRecord
 
   mount_uploader :icon, IconTopicUploader
 
+  extend FriendlyId
+  friendly_id :name, use: [:slugged, :finders]
+
 end

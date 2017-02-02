@@ -65,63 +65,67 @@
         }
 
         .wrapper-answer{
-          table.list-answers{
-            tbody{
-              tr:nth-child(2) {
-                td.wr-menu-action{
-                  width: 70%;
-                }
-              }
-              tr{
-                td{
-                  ul.menu-action{
-                    list-style: none;
-                    padding-left: 0px;
-                    li{
-                      list-style: none;
-                      display: inline-block;
-                      
-                    }
+          .list-answers{
+            .fr-answer{
+              border: 1px solid #E1E1E1;
+              padding: 10px;
+              tbody{
+                tr:nth-child(2) {
+                  td.wr-menu-action{
+                    width: 70%;
                   }
                 }
-                .td-wr-author{
-                  min-width: 100px;
-                }
+                tr{
+                  td{
+                    ul.menu-action{
+                      list-style: none;
+                      padding-left: 0px;
+                      li{
+                        list-style: none;
+                        display: inline-block;
 
-                td.pa-comment{
-                  .wrapper-comment-answer{
-                    .list-comments{
-                      .item-comment{
-                        min-height: 32px;
-                        border-bottom: 1px #C0C0C0 dashed;
-                        .wr-fr-show{
-                          display: flex;
-                          .vt-count-vote{
-                            min-width: 15px;
+                      }
+                    }
+                  }
+                  .td-wr-author{
+                    min-width: 100px;
+                  }
+
+                  td.pa-comment{
+                    .wrapper-comment-answer{
+                      .list-comments{
+                        .item-comment{
+                          min-height: 32px;
+                          border-bottom: 1px #C0C0C0 dashed;
+                          .wr-fr-show{
+                            display: flex;
+                            .vt-count-vote{
+                              min-width: 15px;
+                            }
+                            .vt-action-vote{
+                              min-width: 15px;
+                            }
+                            .wr-act{
+                              margin-left: 6px;
+                            }
                           }
-                          .vt-action-vote{
-                            min-width: 15px;
-                          }
-                          .wr-act{
-                            margin-left: 6px;
-                          }
-                        }
-                        .wr-fr-edit{
-                          form.fr-edit{
-                            .form-group{
-                              margin-bottom: 2px;
+                          .wr-fr-edit{
+                            form.fr-edit{
+                              .form-group{
+                                margin-bottom: 2px;
+                              }
                             }
                           }
                         }
                       }
-                    }
-                    table.ta-add-comment{
-                      tr{
-                        td:nth-child(1){
-                          width: 70%; 
-                        }
-                        td:nth-child(2){
-                          text-align: right;
+                      table.ta-add-comment{
+                        tr{
+                          td:nth-child(1){
+                            width: 70%;
+                          }
+                          td:nth-child(2){
+                            text-align: right;
+                          }
                         }
                       }
                     }

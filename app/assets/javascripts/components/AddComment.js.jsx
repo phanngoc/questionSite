@@ -22,18 +22,17 @@ var AddComment = React.createClass({
 	    	var formdata = new FormData($formAdd[0]);
 
 	    	$.ajax({
-			    url: self.props.comments_path,
-			    method: 'POST',
-			    processData: false,
-	            contentType: false,
-			    data: formdata
-			}).done(function(result) {
-
-			  	self.props.addCommentToList(result.data);
-			  	$formAdd.find('textarea[name="content"]').val("");
-			});
-	    });	
-	},	
+				    url: self.props.comments_path,
+				    method: 'POST',
+				    processData: false,
+		        contentType: false,
+				    data: formdata
+				}).done(function(result) {
+				  	self.props.addCommentToList(result.data);
+				  	$formAdd.find('textarea[name="content"]').val("");
+				});
+	    });
+	},
 	render: function() {
 		var style = this.state.isShow ? {display: "block"} : {display: "none"};
 		return (
@@ -45,14 +44,14 @@ var AddComment = React.createClass({
 		      		<tr>
 			          <td>
 			            <textarea className="form-control" name="content"></textarea>
-			            <input type="hidden" value={this.props.targetable_type} name="targetable_type" />
-			            <input type="hidden" value={this.props.targetable_id} name="targetable_id" />
+			            <input type="hidden" value={this.props.commentable_type} name="commentable_type" />
+			            <input type="hidden" value={this.props.commentable_id} name="commentable_id" />
 			          </td>
 			          <td>
 			            <button type="submit" className="btn btn-primary btn-add" ref="btnAdd">Add comment</button>
 			          </td>
-			        </tr>	
-		      	</tbody>	
+			        </tr>
+		      	</tbody>
 		      </table>
 		    </form>
 		  </div>

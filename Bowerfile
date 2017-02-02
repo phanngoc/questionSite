@@ -11,3 +11,5 @@ asset 'tinymce', main_files: ["./tinymce.js"]
 asset 'markdown'
 
 asset 'underscore'
+
+asset 'classnames'

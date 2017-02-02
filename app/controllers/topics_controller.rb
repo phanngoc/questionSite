@@ -19,7 +19,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find(params[:id])
+    @topic = Topic.includes({:questions => {:topics, :answers => [:user, {:comments => [:actions, :user]}] }, :user, {:comments => [:actions, :user]}}).find(params[:id])
   end
 
 

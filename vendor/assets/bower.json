@@ -8,6 +8,7 @@
     "handlebars": "latest",
     "tinymce": "latest",
     "markdown": "latest",
-    "underscore": "latest"
+    "underscore": "latest",
+    "classnames": "latest"
   }
 }

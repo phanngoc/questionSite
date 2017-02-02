@@ -4,6 +4,7 @@ class CreateTableTopic < ActiveRecord::Migration[5.0]
       t.column :name, :string
       t.column :description, :string
       t.column :icon, :string, :limit => 255
+      t.column :slug, :string
       t.timestamps
     end
   end

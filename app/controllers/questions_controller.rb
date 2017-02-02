@@ -12,14 +12,25 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.includes({:answers => [:user, {:comments => :user}] }, :user, {:comments => :user}).find(params[:id])
+    @question = Question.includes({:answers => [:user, {:comments => [:actions, :user]}] }, :user, {:comments => [:actions, :user]}).find(params[:id])
+
     gon.comments_path = comments_path
     gon.answers_path = answers_path
     gon.current_user = current_user
-    
-    # ActiveRecord::Base.include_root_in_json = true
-    # gon.question = @question.to_json(:include => [:user, :answers => {:include => :user}, :comments => {:include => :user}])
-    # debugger
+  end
+
+  def edit
+    @question = Question.includes(:topics).find(params[:id])
+    @topics = Topic.all
+  end
+
+  def update
+    @question = Question.find_by_slug(params[:id])
+    @question.update question_params
+    @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
+    @topics = Topic.all
+
+    redirect_to question_path
   end
 
   private

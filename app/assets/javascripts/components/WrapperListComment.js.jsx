@@ -3,21 +3,21 @@ var WrapperListComment = React.createClass({
 	getInitialState() {
 		var dataJson = jQuery.parseJSON(this.props.data);
 	    return {
-	    	comments: dataJson.comments, 
-	    	answer: dataJson
+	    	comments: dataJson.comments,
+	    	parentItem: dataJson
 	    };
 	},
-	
+
 	componentDidMount() {
-		
-	},	
-	
+
+	},
+
 	addCommentToList(data) {
 		var commentCreated = jQuery.parseJSON(data);
 		this.state.comments.push(commentCreated);
 		this.forceUpdate();
 	},
-	
+
 	componentWillReceiveProps(nextProps) {
 
 	},
@@ -25,9 +25,9 @@ var WrapperListComment = React.createClass({
 	removeComment(id) {
 		var arr = _.without(this.state.comments, _.findWhere(this.state.comments, {
 	      id: id
-	    }));
+	  }));
 
-	    this.setState({comments: arr});
+	  this.setState({comments: arr});
 	},
 
 	render: function() {
@@ -35,8 +35,8 @@ var WrapperListComment = React.createClass({
 		return (
 		 	<div className="wrapper-comment-answer">
 		 		<ListComment comments={this.state.comments} removeComment={this.removeComment} />
-		 		<AddComment targetable_type='Answer' 
-		 					targetable_id={this.state.answer.id} 
+		 		<AddComment commentable_type={this.props.type}
+		 					commentable_id={this.state.parentItem.id}
 		 					comments_path={gon.comments_path}
 		 					addCommentToList={this.addCommentToList}
 		 				/>

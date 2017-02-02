@@ -13,4 +13,6 @@ Rails.application.routes.draw do
 
   resources :comments
   post '/comments/up_vote/:id', to: 'comments#up_vote'
+  post '/comments/remove_vote/:id', to: 'comments#remove_vote'
+
 end
