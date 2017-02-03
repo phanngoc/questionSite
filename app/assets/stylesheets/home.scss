@@ -1,5 +1,11 @@
 #wrapper{
   margin-top: 71px;
+  header{
+    a#logo{
+      display: block;
+      float: left;
+    }
+  }
   #wrapper-body {
     min-height: 500px;
     display: block;

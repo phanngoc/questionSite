@@ -8,7 +8,10 @@ class QuestionsController < ApplicationController
 
   def create
     @question = Question.create question_params
+    @question.user_id = current_user.id
     @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
+
+    redirect_to question_path(@question.slug)
   end
 
   def show

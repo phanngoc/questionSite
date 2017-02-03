@@ -1,17 +1,75 @@
 <div id="wr-detail-topic" class="container">
-  <div class="row wr-combine">
-    <div class="wr-title">
+  <div class="wr-combine">
+    <div class="wr-title row">
         <div class="wr-icon">
           <img src="<%= @topic.icon %>" alt="" class="icon-title">
         </div>
         <div class="wr-info">
-          <h2 class="title"><%= @topic.title %></h2>
+          <h2 class="title"><%= @topic.name %></h2>
         </div>
     </div>
 
-    <div class="sec-show-question-topic col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
-      <section class="main-content">
-        
+    <div class="row">
+      <section class="main-content col-md-5 col-lg-5">
+          <div class="question-feed">
+            <% @topic.questions.each do |question| %>
+              <div class="paged-list-item">
+                <div class="feed-item-inner">
+                    <div class="list-topics">
+                      <% question.topics.each do |topic| %>
+                        <span class="item-topic"><a href=""><%= topic.name %></a></span>
+                      <% end %>
+                    </div>
+                    <div class="time">
+                      <%= question.updated_at %>
+                    </div>
+                    <span class="feed-ques-title">
+                      <a href="<%= question_path(question.slug) %>" alt="<%= question.title %>"><%= question.title %></a>
+                    </span>
+                    <span class="author">
+                      <div class="wr-avatar">
+                        <img src="<%= question.user.avatar.url %>" alt="" class="circle img_40">
+                      </div>
+                      <div class="name">
+                        <%= question.user.name %>
+                      </div>
+                    </span>
+                    <div class="ques-content">
+                      <%= raw question.content %>
+                    </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+      </section>
+      <section class="sidebar col-md-5 col-lg-5">
+        <div class="about">
+          <h3 class="title">About</h3>
+          <div class="topicWikiText">
+              <%= @topic.description %>
+          </div>
+          <div class="analytic">
+            <div class="table">
+              <div class="table_row">
+                <div class="table_cell">
+                  <div class="cell_inner">
+                      <strong><%= @countQuestion %></strong> questions
+                  </div>
+                </div>
+                <div class="table_cell">
+                  <div class="cell_inner">
+                    <strong><%= @numberPeopleFollow %></strong> follower
+                  </div>
+                </div>
+                <div class="table_cell">
+                  <div class="cell_inner">
+                      <strong><%= @numberAnswerInTopic %></strong> follower
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
     </div>
   </div>

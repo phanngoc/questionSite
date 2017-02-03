@@ -7,7 +7,7 @@ class Question < ApplicationRecord
 
   has_many :version_questions, foreign_key: "question_target"
 
-  has_many :actions, as: :targetable
+  has_many :actions, as: :actionable
   has_many :follows, as: :followable
 
   has_many :answers, foreign_key: "reply_to"
@@ -21,4 +21,20 @@ class Question < ApplicationRecord
   belongs_to :user
 
   has_many :comments, as: :commentable
+
+  scope :new_feed_nologin,  -> {
+    find_by_sql("select count(distinct an.id) from answers an
+                  inner join questions qu on qu.id = an.reply_to
+                  inner join question_topics qt on qt.question_id = qu.id
+                  and qt.topic_id=#{topic_id}").count
+  }
+
+  scope :with_user, -> {
+    includes(:user)
+  }
+
+  scope :with_topics, -> {
+    includes(:topics).joins(:actions)
+  }
+
 end

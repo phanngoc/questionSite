@@ -10,7 +10,7 @@ class User < ApplicationRecord
   before_save :init_role
 
   mount_uploader :avatar, AvatarUploader
-  enum role: [:admin, :user]
+  enum role: [:admin, :user, :moderator]
 
   private
   def init_role
