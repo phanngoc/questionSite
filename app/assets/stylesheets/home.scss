@@ -7,7 +7,7 @@
       float: left;
     }
     nav{
-      @extend .clearfix;
+      @extend .clearfix !optional;
       margin-bottom: 0px;
       >ul{
         margin-top: 10px;

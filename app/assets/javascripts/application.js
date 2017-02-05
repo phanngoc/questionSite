@@ -23,5 +23,8 @@
 //= require handlebars
 //= require tinymce/tinymce
 //= require classnames
+//= require admin-lte
+
+//= require datatables.net
 
 //= require_tree .

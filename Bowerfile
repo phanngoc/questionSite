@@ -13,3 +13,9 @@ asset 'markdown'
 asset 'underscore'
 
 asset 'classnames'
+
+asset 'admin-lte'
+
+asset 'datatables.net'
+asset 'datatables.net-dt'
+

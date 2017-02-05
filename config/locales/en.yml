@@ -21,3 +21,20 @@
 
 en:
   hello: "Hello world"
+  admin:
+    home: "Home"
+    user:
+      edit:
+        title: "Edit user"
+        sub_title: "Edit information of user"
+    topic:
+      list:
+        title: "List topic"
+        sub_title: "List topic available"
+        
+  flash:
+    admin:
+      user:
+        update:
+          success: "Updated order successfully!"
+          failed: "Updated order unsuccessfully!"
