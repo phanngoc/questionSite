@@ -76,5 +76,102 @@
         }
       }
     }
+    .sidebar-topic-trending{
+      .home-list-topic{
+        h3.title{
+          display: block;
+          height: 34px;
+          border-bottom: 1px solid #C0C0C0;
+          position: relative;
+          margin: 0px;
+          @extend .clearfix;
+
+          .title_with_link{
+            @extend .block_left;
+            font-size: 15px;
+            height: 30px;
+            padding: 10px;
+            font-weight: bold;
+            color: #9e8f8f;
+          }
+          .hover-menu-chose{
+            display: block;
+            position: absolute;
+            left: 272px;
+            width: 200px;
+            min-height: 225px;
+            padding: 3px;
+            border: 1px solid #C0C0C0;
+            background-color: #ffbeaa;
+            z-index: 100;
+
+            .hover-menu-content{
+              .selection_input_interaction{
+                input[name="search_topic"]{
+                  font-size: 15px;
+                  margin-bottom: 4px;
+                }
+              }
+              .container_topic_suggests{
+                .sug_list_topic{
+                  padding-left: 0px;
+                  @extend .clearfix;
+                  li.item-list-choose{
+                    list-style: none;
+                    background-color: #ffd8cc;
+                    padding: 5px;
+                    border-bottom: 1px dashed darkblue;
+                    @extend .clearfix;
+                    .act-add-topic{
+                      text-decoration: none;
+                      font-size: 14px;
+                      @extend .block_left;
+                      margin-right: 10px;
+                    }
+                    .sug_topic_name{
+                      font-size: 14px;
+                      @extend .block_left;
+                      margin-right: 10px;
+                    }
+                    .icon{
+                      @extend .block_right;
+                    }
+                  }
+                }
+              }
+            }
+          }
+          .text-action{
+            @extend .block_right;
+            cursor: pointer;
+            font-size: 14px;
+            height: 30px;
+            padding: 10px;
+          }
+        }
+        .paged-list-topic{
+          ul {
+            padding-left: 0px;
+            li.item-list-follow{
+              list-style: none;
+              display: block;
+              padding: 5px;
+              padding-left: 15px;
+              .removeIcon {
+                text-decoration: none;
+                color: #C0C0C0;
+                display: block;
+                float: left;
+                margin-right: 10px;
+              }
+              .link-topic {
+                text-decoration: none;
+                color: #6b6161;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

@@ -14,5 +14,6 @@ Rails.application.routes.draw do
   resources :comments
   post '/comments/up_vote/:id', to: 'comments#up_vote'
   post '/comments/remove_vote/:id', to: 'comments#remove_vote'
-
+  post '/users/remove_follow_topic/:id', to: 'users#remove_follow_topic'
+  post '/users/add_follow_topic/:id', to: 'users#add_follow_topic'
 end

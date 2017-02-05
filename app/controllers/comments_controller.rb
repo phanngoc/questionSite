@@ -80,8 +80,6 @@ class CommentsController < ApplicationController
 
   private
 
-
-
   def comment_question_params
     params.permit :content, :commentable_type, :commentable_id
   end

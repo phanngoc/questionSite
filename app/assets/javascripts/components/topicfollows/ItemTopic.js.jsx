@@ -6,51 +6,36 @@ var ItemTopic = React.createClass({
   },
 
   componentDidMount() {
-    $(this.refs.formEditComment).submit(function(e){
-      e.preventDefault();
-    })
+
   },
 
   componentWillReceiveProps(nextProps) {
     this.setState({topic: nextProps.topic});
   },
 
-  handleSave(e) {
+  addTopicFollow() {
     var self = this;
-    var formdata = new FormData(this.refs.formEditComment);
-
     $.ajax({
-      url: '/topics/' + this.props.comment.id,
+      url: '/users/add_follow_topic/' + this.props.topic.id,
       method: 'POST',
       processData: false,
       contentType: false,
-      data: formdata
     }).done(function(result) {
       if (result.status == 1) {
-        $(self.refs.formEditComment).find('textarea[name="content"]').val("");
-        self.setState({
-                        styleFrEdit: {display: "none"},
-                        styleFrShow: {display: "flex"}
-                      });
-      } else {
-
+        self.props.addTopicFollow(self.props.topic);
       }
     });
   },
 
-  removeTopic() {
-    this.props.removeTopicFollow(this.props.topic);
-  }
-
-  render: function() {
-
+  render() {
     return (
-      <li className="item-list-follow">
-        <a href="javascript:" onClick={this.removeTopic}>
-          <i className="fa fa-times" aria-hidden="true"></i>
+      <li className="item-list-choose">
+        <a href="javascript:" onClick={this.addTopicFollow} className="act-add-topic">
+          <i className="fa fa-plus-circle" aria-hidden="true"></i>
         </a>
-        <a className="icon">
-          <img src={this.props.topic.icon} className="img_30" />
+        <span className="sug_topic_name">{this.props.topic.name}</span>
+        <a href="javascript:" className="icon">
+          <img src={this.props.topic.icon.url} className="img_25" />
         </a>
       </li>
     );

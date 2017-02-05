@@ -12,6 +12,10 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   enum role: [:admin, :user, :moderator]
 
+  scope :follow_topic, -> (topic_id) {
+    
+  }
+
   private
   def init_role
     self.role ||= :user

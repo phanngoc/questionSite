@@ -5,17 +5,23 @@
     </div>
     <div class="feed-inner-wrap col-md-9">
       <span class="home_main_feed_head">Top question for you</span>
-      <div class="feed_suggest_ask">
-        <div class="user-info">
-          <div class="wr-avatar">
-            <img src="<%= current_user.avatar.url %>" alt="" class="circle img img_30">
-          </div>
-          <span class="name"><%= current_user.name %></span>
-        </div> <!-- .user-info -->
-        <div class="wr-suggest-ask">
+      
+      <% if user_signed_in? %>
+        <div class="feed_suggest_ask">
+          <div class="user-info">
+            <div class="wr-avatar">
+              <img src="<%= current_user.avatar.url %>" alt="" class="circle img img_30">
+            </div>
+            <span class="name"><%= current_user.name %></span>
+          </div> <!-- .user-info -->
+          <div class="wr-suggest-ask">
           <a href="<%= new_question_path %>" class="sentence-suggest-ask">What is your question</a>
         </div>
-      </div> <!-- .feed_suggest_ask -->
+      </div> <!-- .feed_suggest_ask -->  
+      <% else %>
+        
+      <% end %>
+        
       <div class="question-feed">
           <% @questions.each do |question| %>
             <div class="paged-list-item">

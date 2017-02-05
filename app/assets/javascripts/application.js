@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require select2-full
-//= require turbolinks
+
 //= require ckeditor/init
 //= require react
 //= require react_ujs

@@ -1,9 +1,44 @@
 #wrapper{
   margin-top: 71px;
   header{
+    background-color: #bc8371;
     a#logo{
       display: block;
       float: left;
+    }
+    nav{
+      @extend .clearfix;
+      margin-bottom: 0px;
+      >ul{
+        margin-top: 10px;
+        >li {
+          >a{
+            color: #fff7f5;
+            &:hover{
+              background-color: #FFE5DD !important;
+              color: #945947;
+            }
+          }
+          a.dropdown-toggle{
+            background-color: #FFE5DD;
+            color: #945947;
+          }
+          .dash-profile{
+            background-color: #FFE5DD;
+            ul {
+              li{
+                a{
+                  color: #945947;
+                  &:hover{
+                    background-color: #FFE5DD !important;
+                    color: #945947;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
   #wrapper-body {

@@ -1,38 +1,64 @@
 var HomeListTopic = React.createClass({
 
 	getInitialState() {
-    console.log(this.props.topicsFollow, this.props.topics);
-    // var topicsFollow = jQuery.parseJSON(this.props.topicsFollow);
-    // var topics = jQuery.parseJSON(this.props.topics);
-    //
-    // console.log(topics, topicsFollow);
+    var self = this;
+    var topics = _.reject(this.props.topics, function(item){
+                        var alreadyVal = _.find(self.props.topicsFollow, function(val) { 
+                            return val.id == item.id
+                        });
+                        return typeof alreadyVal != "undefined"; 
+                     });
 
-		return {
-      topicsFollow: this.props.topicsFollow,
-      topics: this.props.topics,
-      text_action: "Edit",
-      isShowSuggest: false,
-		}
+  		return {
+        topicsFollow: this.props.topicsFollow,
+        topics: topics,
+        initialTopics: topics,
+        isShowSuggest: false,
+  		}
 	},
+
 	componentDidMount() {
 
 	},
 
-  removeTopicFollow(id) {
-
+  removeTopicFollow(topic) {
+    this.state.topicsFollow = _.filter(this.state.topicsFollow, function(item){
+        return item.id != topic.id; 
+    });
+    this.state.topics.push(topic);
+    this.forceUpdate();
   },
 
-  addTopicFollow(id) {
-
+  addTopicFollow(topic) {
+    this.state.topicsFollow.push(topic);
+    this.state.topics = _.filter(this.state.topics, function(item){
+        return item.id != topic.id; 
+    });
+    this.forceUpdate();
   },
-	render: function() {
+
+  handleChangeMode() {
+    this.setState({isShowSuggest: !this.state.isShowSuggest});
+  },
+
+  handleChangeSearch(e) {
+    this.state.topics = _.filter(this.state.initialTopics, function(item){
+        return item.name.includes(e.target.value); 
+    });
+    this.forceUpdate();
+  },
+
+	render() {
 		var styleFrameSuggest = this.state.isShowSuggest ? {display: "block"} : {display: "none"};
-    var text_action = this.state.isShowSuggest ?  : "Done" : "Edit";
+    var text_action = this.state.isShowSuggest ? "Done" : "Edit";
 
     var rowTopicsFollow = [];
+    var rowTopics = [];
+    var self = this;
+
     this.state.topicsFollow.forEach(function(topic, key) {
-        rowTopics.push(
-          <ItemTopicFollow topic={topic} key={key} removeTopicFollow={self.removeTopicFollow}/>
+        rowTopicsFollow.push(
+          <ItemTopicFollow topic={topic} key={key} isShowRemove={self.state.isShowSuggest} removeTopicFollow={self.removeTopicFollow} />
         );
     });
 
@@ -49,16 +75,16 @@ var HomeListTopic = React.createClass({
           <div className="hover-menu-chose" style={styleFrameSuggest}>
             <div className="hover-menu-content">
               <div className="selection_input_interaction">
-                <input placeholder="Search topic to follow" name="search_input"/>
+                <input placeholder="Search topic to follow" name="search_topic" onChange={this.handleChangeSearch} />
               </div>
               <div className="container_topic_suggests">
-                <ul>
-                  {rowTopicsFollow}
+                <ul className="sug_list_topic">
+                  {rowTopics}
                 </ul>
               </div>
             </div>
           </div>
-          <div className="text-action">{this.state.text_action}</div>
+          <div className="text-action" onClick={this.handleChangeMode}>{text_action}</div>
         </h3>
         <div className="paged-list-topic">
           <ul>
