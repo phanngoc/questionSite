@@ -1,7 +1,7 @@
 var ItemComment = React.createClass({
   getInitialState() {
     var isUpVote = this.checkIsUpVote(this.props.comment.actions);
-    console.log(this.props.comment.actions);
+
       return {
         styleFrEdit: {display: "none"},
         styleFrShow: {display: "flex"},
@@ -12,11 +12,14 @@ var ItemComment = React.createClass({
   },
   checkIsUpVote(actions) {
     var isUpVote = false;
-    _.each(actions, function(action, key) {
-      if (action.user_id == gon.current_user.id && action.type_act == "up_vote") {
-        isUpVote = true;
-      }
-    });
+    if (gon.current_user != null) {
+      _.each(actions, function(action, key) {
+        if (action.user_id == gon.current_user.id && action.type_act == "up_vote") {
+          isUpVote = true;
+        }
+      });
+    }
+
     return isUpVote;
   },
   componentDidMount() {
@@ -167,7 +170,7 @@ var ItemComment = React.createClass({
             <p>
               {this.state.content} <a href="javascript:" title={this.props.comment.user.name}>{this.props.comment.user.name}</a>
               <time>{this.props.comment.created_at}</time>
-              {this.props.comment.user.id == gon.current_user.id && (
+              {gon.current_user && this.props.comment.user.id == gon.current_user.id && (
                 <span className="wr-act">
                   <a className="edit-com" onClick={this.handleEdit}><i className="fa fa-pencil-square-o" aria-hidden="true"></i></a>
                   <a className="delete-com" onClick={this.handleDelete}><i className="fa fa-times" aria-hidden="true"></i></a>

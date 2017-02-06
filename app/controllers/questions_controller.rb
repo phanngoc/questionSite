@@ -1,5 +1,6 @@
 class QuestionsController < ApplicationController
   layout "main"
+  before_filter :authenticate_user!, :except => [:show]
 
   def new
     @question = Question.new
@@ -20,6 +21,7 @@ class QuestionsController < ApplicationController
     gon.comments_path = comments_path
     gon.answers_path = answers_path
     gon.current_user = current_user
+    gon.new_user_session_path = new_user_session_path
   end
 
   def edit

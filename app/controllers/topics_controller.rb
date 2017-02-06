@@ -9,13 +9,7 @@ class TopicsController < ApplicationController
   end
 
   def create
-    @topic = Topic.new topic_params
 
-    if @topic.save
-
-    else
-
-    end
   end
 
   def show
@@ -25,8 +19,4 @@ class TopicsController < ApplicationController
     @numberAnswerInTopic = Topic.numberAnwserInTopic @topic.id
   end
 
-
-  def topic_params
-    params.require(:topic).permit(:icon, :name, :description)
-  end
 end

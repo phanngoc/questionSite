@@ -17,10 +17,11 @@ Rails.application.routes.draw do
   post '/comments/remove_vote/:id', to: 'comments#remove_vote'
   post '/users/remove_follow_topic/:id', to: 'users#remove_follow_topic'
   post '/users/add_follow_topic/:id', to: 'users#add_follow_topic'
+  get '/search', to: 'home#search'
 
 
   namespace :admin do
-    root "admin/home#index", path: "/"
+    root "home#index", path: "/"
     resources :users
     resources :topics
   end

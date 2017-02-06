@@ -1,6 +1,7 @@
 class CommentsController < ApplicationController
   layout "main"
-
+  before_filter :authenticate_user!
+  
   def index
 
   end
@@ -53,7 +54,7 @@ class CommentsController < ApplicationController
   def remove_vote
     @comment = Comment.find(params[:id])
     @comment.up_vote = @comment.up_vote - 1
-    
+
     p = Action.where(:user_id => current_user.id,
                      :type_act => :up_vote,
                      :actionable_type => 'Comment',

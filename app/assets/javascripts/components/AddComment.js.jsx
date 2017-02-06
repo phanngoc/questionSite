@@ -11,27 +11,31 @@ var AddComment = React.createClass({
 		var self = this;
 
 		$addComment.click(function() {
-			self.setState({isShow: true});
+			if (gon.current_user) {
+				 self.setState({isShow: true});
+			} else {
+				 $(this).attr('href', gon.new_user_session_path);
+			}
 		});
 
 		$formAdd.submit(function(e){
-	        e.preventDefault();
-	    });
+        e.preventDefault();
+    });
 
-	    $btnAdd.click(function() {
-	    	var formdata = new FormData($formAdd[0]);
+    $btnAdd.click(function() {
+    	var formdata = new FormData($formAdd[0]);
 
-	    	$.ajax({
-				    url: self.props.comments_path,
-				    method: 'POST',
-				    processData: false,
-		        contentType: false,
-				    data: formdata
-				}).done(function(result) {
-				  	self.props.addCommentToList(result.data);
-				  	$formAdd.find('textarea[name="content"]').val("");
-				});
-	    });
+    	$.ajax({
+			    url: self.props.comments_path,
+			    method: 'POST',
+			    processData: false,
+	        contentType: false,
+			    data: formdata
+			}).done(function(result) {
+			  	self.props.addCommentToList(result.data);
+			  	$formAdd.find('textarea[name="content"]').val("");
+			});
+    });
 	},
 	render: function() {
 		var style = this.state.isShow ? {display: "block"} : {display: "none"};
