@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   layout "main"
   respond_to :json, :html
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => [:show]
 
   def index
   end
@@ -11,28 +11,44 @@ class UsersController < ApplicationController
    @numberQuestionsOfUser = @user.questions.count
    @numberAnswersOfUser = @user.answers.count
    @numberCommentsOfUser = @user.comments.count
+   @numberUserFollow = User.number_user_follow(params[:id])
+   if user_signed_in?
+     @isFollowUser = User.is_follow_user(params[:id], current_user.id)
+   else
+   end
   end
 
   def follow_user
     followObj = Action.create({:user_id => current_user.id,
                             :actionable_id => params[:id],
-                            :actionable_type => 'User',
+                            :actionable_type => "User",
                             :type_act => :follow})
-    debugger
-    redirect_to :back
+    if followObj.nil?
+      result = {:status => 0}
+    else
+      result = {:status => 1}
+    end
+
+    render :json => result
   end
 
-  def un_follow
+  def unfollow_user
     followObj = Action.where({:user_id => current_user.id, :actionable_id => params[:id],
                   :actionable_type => 'User', :type_act => :follow}).destroy_all;
-    redirect_to :back
+    if followObj.nil? || followObj.length == 0
+      result = {:status => 0}
+    else
+      result = {:status => 1}
+    end
+
+    render :json => result
   end
 
   def remove_follow_topic
     objDelete = Action.where({:user_id => current_user.id, :actionable_id => params[:id],
                   :actionable_type => 'Topic', :type_act => :follow}).destroy_all;
 
-    if objDelete.nil?
+    if objDelete.nil? || objDelete.length == 0
       result = {:status => 0}
     else
       result = {:status => 1}

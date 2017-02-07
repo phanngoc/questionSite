@@ -8,9 +8,26 @@
         <div class="wrapper_info">
           <div class="info_inner">
             <h2 class="info_name"><%= @user.name %></h2>
-            <div class="action_follow">
-              <span><a href="javascript:">Follow</a>|<strong>12</strong></span>
-            </div>
+              <div class="wr_action_follow">
+                <span>
+                  <% if user_signed_in? && @isFollowUser %>
+                     <a href="javascript:" class="action_follow"
+                           data-unfollow="<%= t "user.show.unfollow" %>"
+                           data-follow="<%= t "user.show.follow" %>"
+                           data-action="unfollow"
+                           data-id="<%= @user.id %>"><%= t "user.show.unfollow" %></a>|
+                  <% elsif user_signed_in? && current_user.id != @user.id %>
+                    <a href="javascript:" class="action_follow"
+                            data-unfollow="<%= t "user.show.unfollow" %>"
+                            data-follow="<%= t "user.show.follow" %>"
+                            data-action="follow"
+                            data-id="<%= @user.id %>"><%= t "user.show.follow" %></a>|
+                  <% else %>
+                    <a href="javascript:"><%= t "user.show.follower" %></a>|
+                  <% end %>
+                  <strong><%= @numberUserFollow %></strong>
+                </span>
+              </div>
             <div class="info_story">
               <span class="text_story">
                 <%= @user.story %>

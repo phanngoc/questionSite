@@ -41,6 +41,12 @@ en:
           topic: "Topics"
           action: "Action"
 
+  user:
+    show:
+      follow: "Follow"
+      unfollow: "Unfollow"
+      follower: "Follower"
+
   flash:
     admin:
       user:

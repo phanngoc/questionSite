@@ -2,7 +2,6 @@ class Question < ApplicationRecord
   has_many :question_topics
   has_many :topics, through: :question_topics
 
-  # has_and_belongs_to_many :topics
   accepts_nested_attributes_for :topics
 
   has_many :version_questions, foreign_key: "question_target"
@@ -27,6 +26,19 @@ class Question < ApplicationRecord
                   inner join questions qu on qu.id = an.reply_to
                   inner join question_topics qt on qt.question_id = qu.id
                   and qt.topic_id=#{topic_id}").count
+  }
+
+  scope :new_feed_login, -> user_id {
+    find_by_sql("select q.*, IF(EXISTS(
+            				select * from actions a where a.user_id = #{user_id}
+            				and a.type_act = #{Action.type_acts[:follow]} and a.actionable_type = 'Topic'
+            				and a.actionable_id in (
+            					select qt.topic_id from question_topics qt where qt.question_id = q.id
+            				)
+            			),1,0) AS is_follow, (select count(an.id) from answers an
+                  where an.reply_to = q.id) as number_answer
+            			from questions q order by q.updated_at desc, is_follow desc, number_answer desc, q.up_vote desc
+                ")
   }
 
   scope :with_user, -> {

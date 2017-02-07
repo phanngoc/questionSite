@@ -6,11 +6,14 @@ Rails.application.routes.draw do
 
   resources :questions
 
-    # get '/users', to: 'user#index'
   resources :users do
-    post '/remove_follow_topic/:id', to: 'users#remove_follow_topic'
-    post '/add_follow_topic/:id', to: 'users#add_follow_topic'
+
   end
+
+  post '/users/remove_follow_topic/:id', to: 'users#remove_follow_topic'
+  post '/users/add_follow_topic/:id', to: 'users#add_follow_topic'
+  post '/users/follow_user/:id', to: 'users#follow_user'
+  post '/users/unfollow_user/:id', to: 'users#unfollow_user'
 
   resources :topics
   resources :answers
