@@ -1,30 +1,24 @@
-class Admin::TopicsController < AdminController
+class Admin::QuestionsController < AdminController
 
   def index
-    @topics = Topic.all
+    @questions = Question.includes([:user, :topics]).all
   end
 
   def new
-    @topic = Topic.new
+
   end
 
   def edit
-    @topic = Topic.find params[:id]
+
   end
 
   def update
-    @topic = Topic.find_by :slug => params[:id]
-    if @topic.update_attributes topic_params
-      flash[:success] = t "flash.admin.topic.update.success"
-      redirect_to admin_topics_path
-    else
-      flash[:danger] = t "flash.admin.topic.update.failed"
-      render :edit
-    end
+
   end
 
   def destroy
-    result = Topic.destroy params[:id]
+    result = Question.destroy params[:id]
+
     if result.nil?
       flash[:danger] = t "flash.admin.topic.delete.failed"
       redirect_to(:back)

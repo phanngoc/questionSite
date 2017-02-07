@@ -31,7 +31,16 @@ en:
       list:
         title: "List topic"
         sub_title: "List topic available"
-        
+    question:
+      list:
+        title: "List question"
+        sub_title: "List detail question"
+        table:
+          title: "Title"
+          user: "User"
+          topic: "Topics"
+          action: "Action"
+
   flash:
     admin:
       user:

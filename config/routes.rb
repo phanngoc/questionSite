@@ -7,16 +7,19 @@ Rails.application.routes.draw do
   resources :questions
 
     # get '/users', to: 'user#index'
-  resources :users
+  resources :users do
+    post '/remove_follow_topic/:id', to: 'users#remove_follow_topic'
+    post '/add_follow_topic/:id', to: 'users#add_follow_topic'
+  end
+
   resources :topics
   resources :answers
 
-  resources :comments
+  resources :comments do
+    post '/up_vote/:id', to: 'comments#up_vote'
+    post '/remove_vote/:id', to: 'comments#remove_vote'
+  end
 
-  post '/comments/up_vote/:id', to: 'comments#up_vote'
-  post '/comments/remove_vote/:id', to: 'comments#remove_vote'
-  post '/users/remove_follow_topic/:id', to: 'users#remove_follow_topic'
-  post '/users/add_follow_topic/:id', to: 'users#add_follow_topic'
   get '/search', to: 'home#search'
 
 
@@ -24,5 +27,6 @@ Rails.application.routes.draw do
     root "home#index", path: "/"
     resources :users
     resources :topics
+    resources :questions
   end
 end
