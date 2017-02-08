@@ -35,7 +35,7 @@ class CommentsController < ApplicationController
   end
 
   def up_vote
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:comment_id])
     @comment.up_vote = @comment.up_vote + 1
 
     p = Action.create action_upvote_params
@@ -51,13 +51,13 @@ class CommentsController < ApplicationController
   end
 
   def remove_vote
-    @comment = Comment.find(params[:id])
+    @comment = Comment.find(params[:comment_id])
     @comment.up_vote = @comment.up_vote - 1
 
     p = Action.where(:user_id => current_user.id,
                      :type_act => :up_vote,
                      :actionable_type => 'Comment',
-                     :actionable_id => params[:id]).destroy_all
+                     :actionable_id => params[:comment_id]).destroy_all
 
     if @comment.save
       result = { :status => 1, :data => @comment }
@@ -74,11 +74,11 @@ class CommentsController < ApplicationController
     render :json => result
   end
 
-  def action_upvote_params
-    {:actionable_id => params[:id], :actionable_type => 'Comment', :user_id => current_user.id, :type_act => :up_vote}
-  end
-
   private
+
+  def action_upvote_params
+    {:actionable_id => params[:comment_id], :actionable_type => 'Comment', :user_id => current_user.id, :type_act => :up_vote}
+  end
 
   def comment_question_params
     params.permit :content, :commentable_type, :commentable_id

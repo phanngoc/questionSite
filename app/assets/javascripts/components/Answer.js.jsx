@@ -6,7 +6,8 @@ var Answer = React.createClass({
       answer: answer,
       content: answer.content,
       isShow: false,
-      errors: (<span></span>)
+      errors: (<span></span>),
+      act: 0
 		}
 	},
   
@@ -60,6 +61,36 @@ var Answer = React.createClass({
     this.setState({content: e.target.value});
   },
 
+  handleUp() {
+    var self = this;
+    $.ajax({
+			    url: '/answers/' + self.state.answer.id + '/up_vote',
+			    method: 'POST',
+			    processData: false,
+	        contentType: false,
+			}).done(function(result) {
+          if (result.status == 1) {
+            self.setState({act: 1, answer: Object.assign({}, self.state.answer, result.data)});
+            self.forceUpdate();
+          }
+			});
+  },
+
+  handleDown() {
+    var self = this;
+    $.ajax({
+			    url: '/answers/' + self.state.answer.id + '/down_vote',
+			    method: 'POST',
+			    processData: false,
+	        contentType: false,
+			}).done(function(result) {
+          if (result.status == 1) {
+            self.setState({act: -1, answer: Object.assign({}, self.state.answer, result.data)});
+            self.forceUpdate();
+          }
+			});
+  },
+
 	render: function() {
 		var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
     var styleShow = this.state.isShow ? {display: "none"} : {display: "block"};
@@ -68,11 +99,11 @@ var Answer = React.createClass({
         <table className="answer">
           <tbody>
             <tr>
-              <td>
+              <td className="col-vote">
                 <div className="wr-vote">
-                  <a href="javascript:"><i class="fa fa-sort-asc" aria-hidden="true"></i></a>
+                  <a href="javascript:" onClick={this.handleUp} className="icon-up"><i className="fa fa-sort-asc" aria-hidden="true"></i></a>
                   <span className="number-sum">{this.state.answer.up_vote - this.state.answer.down_vote}</span>
-                  <a href="javascript:"><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+                  <a href="javascript:" onClick={this.handleDown} className="icon-down"><i className="fa fa-sort-desc" aria-hidden="true"></i></a>
                 </div>
               </td>
               <td>
@@ -105,8 +136,8 @@ var Answer = React.createClass({
               <td></td>
               <td className="wr-menu-action">
                 <ul className="menu-action">
-                  <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>
-                  <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>
+                  <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
+                  <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>|
                   <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
                 </ul>
               </td>

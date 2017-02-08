@@ -16,11 +16,15 @@ Rails.application.routes.draw do
   post '/users/unfollow_user/:id', to: 'users#unfollow_user'
 
   resources :topics
-  resources :answers
+  
+  resources :answers do
+    post '/up_vote', to: 'answers#up_vote'
+    post '/down_vote', to: 'answers#down_vote'
+  end
 
   resources :comments do
-    post '/up_vote/:id', to: 'comments#up_vote'
-    post '/remove_vote/:id', to: 'comments#remove_vote'
+    post '/up_vote', to: 'comments#up_vote'
+    post '/remove_vote', to: 'comments#remove_vote'
   end
 
   get '/search', to: 'home#search'

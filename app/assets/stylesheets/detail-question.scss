@@ -76,6 +76,23 @@
                   }
                 }
                 tr{
+                  td.col-vote{
+                    width: 20px;
+                    .wr-vote{
+                      display: block;
+                      position: relative;
+                      font-size: 19px;
+                      .icon-up{
+                        position: absolute;
+                        top: -13px;
+                      }
+                      .icon-down{
+                        position: absolute;
+                        top: 14px;
+                        left: 0px;
+                      }
+                    }
+                  }
                   td{
                     ul.menu-action{
                       list-style: none;

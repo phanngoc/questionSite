@@ -80,9 +80,9 @@ en:
     add_comment: "Add a comment"
     cancel: "Cancel"
     save: "Save"
-    share: "Share"
-    edit: "Edit"
-    flag: "Flag"
+    share: "share"
+    edit: "edit"
+    flag: "flag"
     confirm_delete: "Do you really want to delete ?"
     errors:
       not_empty_comment: "Your comment can't empty"

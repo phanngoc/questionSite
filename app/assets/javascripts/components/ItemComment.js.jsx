@@ -102,7 +102,7 @@ var ItemComment = React.createClass({
     var fd = new FormData();
 
     $.ajax({
-      url: '/comments/up_vote/' + this.props.comment.id,
+      url: '/comments/' + this.props.comment.id + '/up_vote',
       method: 'POST',
       processData: false,
       contentType: false,
@@ -117,7 +117,7 @@ var ItemComment = React.createClass({
     var self = this;
 
     $.ajax({
-      url: '/comments/remove_vote/' + this.props.comment.id,
+      url: '/comments/' + this.props.comment.id + '/remove_vote',
       method: 'POST',
       processData: false,
       contentType: false,
