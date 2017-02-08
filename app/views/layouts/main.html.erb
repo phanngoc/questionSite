@@ -2,7 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Question answer</title>
+    <title><%= t "title" %></title>
+
+    <%= javascript_include_tag "i18n" %>
+    <%= javascript_include_tag "translations" %>
 
     <%= stylesheet_link_tag "application", debug: true, media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag "application", debug: true %>
@@ -19,4 +22,8 @@
       <%= render template: "layouts/_footer" %>
     </div>
   </body>
+  <script type="text/javascript">
+    I18n.defaultLocale = "<%= I18n.default_locale %>";
+    I18n.locale = "<%= I18n.locale %>";
+  </script>
 </html>

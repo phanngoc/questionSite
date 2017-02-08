@@ -41,7 +41,7 @@ var AddComment = React.createClass({
 		var style = this.state.isShow ? {display: "block"} : {display: "none"};
 		return (
 		  <div className="frame-add-comment">
-		  	<a href="javascript:" className="act-add-comment" ref="addComment">add a comment</a>
+				<a href="javascript:" className="act-add-comment" ref="addComment">{I18n.t("question_page.add_comment")}</a>
 		    <form action={this.props.comments_path} className="form-add-comment" method="post" ref="formAddComment" style={style}>
 		      <table className="ta-add-comment ta-fix" cellPadding="0" cellSpacing="0" width="100%">
 		      	<tbody>
@@ -52,7 +52,7 @@ var AddComment = React.createClass({
 			            <input type="hidden" value={this.props.commentable_id} name="commentable_id" />
 			          </td>
 			          <td>
-			            <button type="submit" className="btn btn-primary btn-add" ref="btnAdd">Add comment</button>
+			            <button type="submit" className="btn btn-primary btn-add" ref="btnAdd">{I18n.t("question_page.add_comment")}</button>
 			          </td>
 			        </tr>
 		      	</tbody>

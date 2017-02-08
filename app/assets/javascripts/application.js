@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require select2-full
-
 //= require ckeditor/init
 //= require react
 //= require react_ujs
@@ -24,7 +23,8 @@
 //= require tinymce/tinymce
 //= require classnames
 //= require admin-lte
-
 //= require datatables.net
+//= require i18n
+//= require i18n/translations
 
 //= require_tree .

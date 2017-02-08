@@ -21,6 +21,7 @@
 
 en:
   hello: "Hello world"
+  title: "Ask & Answer"
   admin:
     home: "Home"
     user:
@@ -40,12 +41,39 @@ en:
           user: "User"
           topic: "Topics"
           action: "Action"
-
   user:
     show:
       follow: "Follow"
       unfollow: "Unfollow"
       follower: "Follower"
+
+  login_page:
+    title: "Log in"
+
+  home_page:
+    home: "Home"
+    login_in: "Login"
+    profile: "profile"
+    edit_profile: "Edit profile"
+    logout: "Logout"
+    top_question_for_you: "Top question for you"
+    sentence_suggest_ask: "What is your question ?"
+    account: "Account"
+    feed: "Feed"
+    done: "Done"
+    edit: "Edit"
+
+  sign_up_page:
+    title: "Sign up"
+
+  question_page:
+    add_comment: "Add a comment"
+    cancel: "Cancel"
+    save: "Save"
+    share: "Share"
+    edit: "Edit"
+    flag: "Flag"
+    confirm_delete: "Do you really want to delete ?"
 
   flash:
     admin:

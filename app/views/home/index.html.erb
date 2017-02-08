@@ -6,7 +6,7 @@
       <% end %>
     </div>
     <div class="feed-inner-wrap col-md-9">
-      <span class="home_main_feed_head">Top question for you</span>
+      <span class="home_main_feed_head"><%= t "home_page.top_question_for_you" %></span>
 
       <% if user_signed_in? %>
         <div class="feed_suggest_ask">
@@ -17,11 +17,9 @@
             <span class="name"><%= current_user.name %></span>
           </div> <!-- .user-info -->
           <div class="wr-suggest-ask">
-          <a href="<%= new_question_path %>" class="sentence-suggest-ask">What is your question</a>
+          <a href="<%= new_question_path %>" class="sentence-suggest-ask"><%= t "home_page.sentence_suggest_ask" %></a>
         </div>
       </div> <!-- .feed_suggest_ask -->
-      <% else %>
-
       <% end %>
 
       <div class="question-feed">

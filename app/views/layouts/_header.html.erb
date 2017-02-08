@@ -23,28 +23,26 @@
         </div>
       </div>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/">Home</a></li>
-        <li><a href="/help">Help</a></li>
-
+        <li><a href="/"><%= t "home_page.home" %></a></li>
         <% if user_signed_in? %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
+              <%= t "home_page.account" %> <b class="caret"></b>
             </a>
             <ul class="dropdown-menu dash-profile">
-              <li><a href="/users/1">Profile</a></li>
+              <li><a href="/users/1"><%= t "home_page.profile" %></a></li>
               <li>
-                <a href="<%= edit_user_registration_path %>">Edit Profile</a>
+                <a href="<%= edit_user_registration_path %>"><%= t "home_page.edit_profile" %></a>
               </li>
               <li class="divider"></li>
               <li>
-                <a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Logout</a>
+                <a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t "home_page.logout" %></a>
               </li>
             </ul>
           </li>
         <% else %>
           <li>
-            <%= link_to('Login', new_user_session_path)  %>
+            <%= link_to(t("home_page.login"), new_user_session_path)  %>
           </li>
         <% end %>
 

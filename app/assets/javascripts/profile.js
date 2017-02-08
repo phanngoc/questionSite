@@ -14,7 +14,7 @@ $(document).ready(function() {
         if (result.status == 1) {
           self.data('action', 'unfollow');
           self.text(self.data('unfollow'));
-          var num = parseInt(self.next().text()) + 1;
+          var num = parseInt(self.next().text()) - 1;
           self.next().text(num);
         }
       });
@@ -28,7 +28,7 @@ $(document).ready(function() {
         if (result.status == 1) {
           self.data('action', 'follow');
           self.text(self.data('follow'));
-          var num = parseInt(self.next().text()) - 1;
+          var num = parseInt(self.next().text()) + 1;
           self.next().text(num);
         }
       });

@@ -13,6 +13,7 @@ module Blog
     # -- all .rb files in that directory are automatically loaded.
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    config.middleware.use I18n::JS::Middleware
     
   end
 end

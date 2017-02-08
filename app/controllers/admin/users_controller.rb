@@ -9,7 +9,7 @@ class Admin::UsersController < AdminController
   end
 
   def show
-   
+
   end
 
   def update

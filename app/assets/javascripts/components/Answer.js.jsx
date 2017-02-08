@@ -71,8 +71,8 @@ var Answer = React.createClass({
                         </tr>
                         <tr>
                           <td>
-                            <a href="javascript:" className="btn btn-default" ref="btnCancel" onClick={this.cancelEditForm}>Cancel</a>
-                            <button type="submit" className="btn btn-primary btn-save" ref="btnSave">Save</button>
+                            <a href="javascript:" className="btn btn-default" ref="btnCancel" onClick={this.cancelEditForm}>{I18n.t("question_page.cancel")}</a>
+                            <button type="submit" className="btn btn-primary btn-save" ref="btnSave">{I18n.t("question_page.save")}</button>
                           </td>
                         </tr>
                       </tbody>
@@ -84,9 +84,9 @@ var Answer = React.createClass({
             <tr>
               <td className="wr-menu-action">
                 <ul className="menu-action">
-                  <li><a href="#" className="ac-share">share</a></li>
-                  <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>edit</a></li>
-                  <li><a href="#" className="ac-flag">flag</a></li>
+                  <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>
+                  <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>
+                  <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
                 </ul>
               </td>
               <td className="td-wr-author">

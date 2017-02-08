@@ -50,7 +50,7 @@ var HomeListTopic = React.createClass({
 
 	render() {
 		var styleFrameSuggest = this.state.isShowSuggest ? {display: "block"} : {display: "none"};
-    var text_action = this.state.isShowSuggest ? "Done" : "Edit";
+    var text_action = this.state.isShowSuggest ? I18n.t("home_page.done") : I18n.t("home_page.edit");
 
     var rowTopicsFollow = [];
     var rowTopics = [];
@@ -71,7 +71,7 @@ var HomeListTopic = React.createClass({
 		return (
       <div className="home-list-topic">
         <h3 className="title">
-          <span className="title_with_link">Feed</span>
+          <span className="title_with_link">{I18n.t("home_page.feed")}</span>
           <div className="hover-menu-chose" style={styleFrameSuggest}>
             <div className="hover-menu-content">
               <div className="selection_input_interaction">

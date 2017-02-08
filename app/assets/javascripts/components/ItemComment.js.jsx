@@ -1,4 +1,5 @@
 var ItemComment = React.createClass({
+  
   getInitialState() {
     var isUpVote = this.checkIsUpVote(this.props.comment.actions);
 
@@ -10,6 +11,7 @@ var ItemComment = React.createClass({
         isUpVote: isUpVote
       };
   },
+  
   checkIsUpVote(actions) {
     var isUpVote = false;
     if (gon.current_user != null) {
@@ -22,6 +24,7 @@ var ItemComment = React.createClass({
 
     return isUpVote;
   },
+
   componentDidMount() {
     $(this.refs.formEditComment).submit(function(e){
       e.preventDefault();
@@ -70,7 +73,7 @@ var ItemComment = React.createClass({
 
   handleDelete(e) {
     var self = this;
-    var r = confirm("Are you sure to want to delete ?");
+    var r = confirm(I18n.t("question_page.confirm_delete"));
 
     var fd = new FormData();
     fd.append( '_method', 'DELETE');
@@ -144,22 +147,22 @@ var ItemComment = React.createClass({
             </div>
 
             <div className="action">
-              <button className="btn-save-edit btn btn-primary" onClick={this.handleSave}>Save</button>
-              <button className="btn-save-cancel btn btn-default" onClick={this.handleCancel}>Cancel</button>
+              <button className="btn-save-edit btn btn-primary" onClick={this.handleSave}>{I18n.t("question_page.save")}</button>
+              <button className="btn-save-cancel btn btn-default" onClick={this.handleCancel}>{I18n.t("question_page.cancel")}</button>
             </div>
           </form>
         </div>
         <div className="wr-fr-show" style={this.state.styleFrShow}>
           <div className="vt-count-vote">
-            <a href="javascript:" title="short permalink to this answer" className="short-link">{this.state.up_vote}</a>
+            <a href="javascript:" className="short-link">{this.state.up_vote}</a>
           </div>
           <div className="vt-action-vote">
-            <a href="javascript:" title="short permalink to this answer"
+            <a href="javascript:"
                   className={classVoteUp}
                   onClick={this.upVote}>
                   <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
             </a>
-            <a href="javascript:" title="short permalink to this answer"
+            <a href="javascript:"
                   className={classDontVote}
                   onClick={this.removeVote}>
                   <i className="fa fa-thumbs-up" aria-hidden="true"></i>
