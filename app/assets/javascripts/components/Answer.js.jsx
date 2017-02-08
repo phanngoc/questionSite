@@ -6,8 +6,18 @@ var Answer = React.createClass({
       answer: answer,
       content: answer.content,
       isShow: false,
+      errors: (<span></span>)
 		}
 	},
+  
+  extractErrors(errors) {
+    var rows = [];
+    $.each(errors.content, function(k, value) {
+      rows.push((<span className="error" key={k}>{value}</span>));
+    });
+    return rows;
+  },
+
 	componentDidMount() {
 
 		var $formEditAnswer = $(ReactDOM.findDOMNode(this.refs.formEditAnswer));
@@ -29,8 +39,10 @@ var Answer = React.createClass({
 	        contentType: false,
 			    data: formdata
 			}).done(function(result) {
-          if (result.state == 1) {
-              self.setState({isShow: false});
+          if (result.status == 1) {
+            self.setState({isShow: false});
+          } else {
+            self.setState({errors: self.extractErrors(result.errors)});
           }
 			});
     });
@@ -57,6 +69,13 @@ var Answer = React.createClass({
           <tbody>
             <tr>
               <td>
+                <div className="wr-vote">
+                  <a href="javascript:"><i class="fa fa-sort-asc" aria-hidden="true"></i></a>
+                  <span className="number-sum">{this.state.answer.up_vote - this.state.answer.down_vote}</span>
+                  <a href="javascript:"><i class="fa fa-sort-desc" aria-hidden="true"></i></a>
+                </div>
+              </td>
+              <td>
                 <div className="wr-content-answer" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>
                 </div>
                 <div className="wr-edit-answer">
@@ -67,6 +86,7 @@ var Answer = React.createClass({
                         <tr>
                           <td>
                             <textarea className="form-control" name="content" defaultValue={this.state.content} onChange={this.handleChangeContent}></textarea>
+                            <div className="errors">{this.state.errors}</div>
                           </td>
                         </tr>
                         <tr>
@@ -82,6 +102,7 @@ var Answer = React.createClass({
               </td>
             </tr>
             <tr>
+              <td></td>
               <td className="wr-menu-action">
                 <ul className="menu-action">
                   <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>
@@ -98,8 +119,8 @@ var Answer = React.createClass({
                 </div>
               </td>
              </tr>
-
              <tr>
+                <td></td>
                 <td className="pa-comment" colSpan="2">
                     <WrapperListComment type='Answer' data={this.props.answer} />
                 </td>

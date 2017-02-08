@@ -12,9 +12,9 @@ class AnswersController < ApplicationController
 
     @answer.user_id = current_user.id;
     if @answer.save
-      result = { :status => 1 }.to_json
+      result = {:status => 1}.to_json
     else
-      result = { :status => 0 }.to_json
+      result = {:status => 0, :errors => @answer.errors}.to_json
     end
 
     redirect_to question_path(params[:reply_to])
@@ -25,9 +25,9 @@ class AnswersController < ApplicationController
     @answer.content = params[:content];
 
     if @answer.save
-      result = { :status => 1 }.to_json
+      result = {:status => 1}.to_json
     else
-      result = { :status => 0 }.to_json
+      result = {:status => 0, :errors => @answer.errors}.to_json
     end
 
     render :json => result

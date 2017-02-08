@@ -7,17 +7,16 @@ class CommentsController < ApplicationController
   end
 
   def create
-
     @comment = Comment.includes(:user).create comment_question_params;
 
     @comment.user_id = current_user.id;
     if @comment.save
       comment = @comment.to_json(:include => [:user])
-      result = { :status => 1, :data => comment }
+      result = {:status => 1, :data => comment}
       render :json => result
     else
       comment = @comment.to_json(:include => [:user])
-      result = { :status => 0, :data => comment }
+      result = {:status => 0, :data => comment, :errors => @comment.errors}
       render :json => result
     end
   end
@@ -27,9 +26,9 @@ class CommentsController < ApplicationController
     @comment.content = params[:content]
 
     if @comment.save
-      result = { :status => 1, :data => @comment }
+      result = {:status => 1, :data => @comment}
     else
-      result = { :status => 0, :data => @comment }
+      result = { :status => 0, :data => @comment, :errors => @comment.errors}
     end
 
     render :json => result
@@ -71,7 +70,7 @@ class CommentsController < ApplicationController
 
   def destroy
     Comment.destroy(params[:id])
-    result = { :status => 1 }
+    result = {status: 1}
     render :json => result
   end
 
