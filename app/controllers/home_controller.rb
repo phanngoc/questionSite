@@ -3,11 +3,12 @@ class HomeController < ApplicationController
 
   def index
     @topics = Topic.all
+
     if user_signed_in?
-      @questions = Question.includes([:topics, :user, :actions]).new_feed_login current_user.id
+      @questions =  Question.new_feed_login(current_user.id, params[:page])
       @topicsFollow = Topic.topics_login_user current_user.id
     else
-      @questions = Question.includes([:topics, :user, :actions]).order(:updated_at)
+      @questions = Question.includes([:topics, :user, :actions]).paginate(:page => params[:page], :per_page => 1)
     end
   end
 
