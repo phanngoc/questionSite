@@ -25,6 +25,16 @@ en:
   admin:
     home: "Home"
     user:
+      list:
+        title: "List users"
+        sub_title: "List all user"
+        name: "Name"
+        email: "Email"
+        story: "Story"
+        avatar: "Avatar"
+        register_date: "Registed date"
+        role: "Role"
+        action: "Action"
       edit:
         title: "Edit user"
         sub_title: "Edit information of user"
@@ -76,8 +86,18 @@ en:
     confirm_delete: "Do you really want to delete ?"
 
   flash:
+    user:
+      email: "Your email not correct"
     admin:
       user:
         update:
           success: "Updated order successfully!"
           failed: "Updated order unsuccessfully!"
+
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              invalid: "Your email isn't correct'"
