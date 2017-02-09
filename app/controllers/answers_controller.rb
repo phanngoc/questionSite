@@ -12,9 +12,9 @@ class AnswersController < ApplicationController
 
     @answer.user_id = current_user.id;
     if @answer.save
-      result = {:status => 1}.to_json
+      result = {status: 1}.to_json
     else
-      result = {:status => 0, :errors => @answer.errors}.to_json
+      result = {status: 0, errors: @answer.errors}.to_json
     end
 
     redirect_to question_path(params[:reply_to])
@@ -25,9 +25,9 @@ class AnswersController < ApplicationController
     @answer.content = params[:content];
 
     if @answer.save
-      result = {:status => 1}.to_json
+      result = {status: 1}.to_json
     else
-      result = {:status => 0, :errors => @answer.errors}.to_json
+      result = {status: 0, errors: @answer.errors}.to_json
     end
 
     render :json => result
@@ -35,7 +35,7 @@ class AnswersController < ApplicationController
 
   def up_vote
     if User.is_upvote_answer(current_user.id, params[:answer_id])
-      result = {:status => 0}
+      result = {status: 0}
     else
       @answer = Answer.find(params[:answer_id])
       if User.is_downvote_answer(current_user.id, params[:answer_id])
@@ -48,15 +48,15 @@ class AnswersController < ApplicationController
       p = Action.create action_upvote_params
       p.save
 
-      p = Action.where(:user_id => current_user.id,
-            :type_act => :down_vote,
-              :actionable_type => "Answer",
-                :actionable_id => params[:answer_id]).destroy_all
+      p = Action.where(user_id: current_user.id,
+            type_act: :down_vote,
+            actionable_type: "Answer",
+            actionable_id: params[:answer_id]).destroy_all
 
       if @answer.save
-        result = {:status => 1, :data => @answer}
+        result = {status: 1, data: @answer}
       else
-        result = {:status => 0, :data => @answer, :errors => @answer.errors}
+        result = {status: 0, data: @answer, errors: @answer.errors}
       end
     end
 
@@ -78,15 +78,15 @@ class AnswersController < ApplicationController
       p = Action.create action_downvote_params
       p.save
 
-      p = Action.where(:user_id => current_user.id,
-            :type_act => :up_vote,
-              :actionable_type => "Answer",
-                :actionable_id => params[:answer_id]).destroy_all
+      p = Action.where(user_id: current_user.id,
+            type_act: :up_vote,
+            actionable_type: "Answer",
+            actionable_id: params[:answer_id]).destroy_all
 
       if @answer.save
-        result = {:status => 1, :data => @answer}
+        result = {status: 1, data: @answer}
       else
-        result = {:status => 0, :data => @answer, :errors => @answer.errors}
+        result = {status: 0, data: @answer, errors: @answer.errors}
       end
     end
 
@@ -100,11 +100,11 @@ class AnswersController < ApplicationController
   end
 
   def action_upvote_params
-    {:actionable_id => params[:answer_id], :actionable_type => "Answer", :user_id => current_user.id, :type_act => :up_vote}
+    {actionable_id: params[:answer_id], actionable_type: "Answer", user_id: current_user.id, type_act: :up_vote}
   end
 
   def action_downvote_params
-    {:actionable_id => params[:answer_id], :actionable_type => "Answer", :user_id => current_user.id, :type_act => :down_vote}
+    {actionable_id: params[:answer_id], actionable_type: "Answer", user_id: current_user.id, type_act: :down_vote}
   end
 
 end

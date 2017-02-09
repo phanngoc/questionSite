@@ -64,5 +64,4 @@ class Question < ApplicationRecord
     @questions =  Question.includes([:topics, :user, :actions]).paginate_by_sql(sql, :page => page, :per_page => per_page)
     return @questions
   end
-
 end

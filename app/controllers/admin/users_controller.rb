@@ -13,7 +13,7 @@ class Admin::UsersController < AdminController
   end
 
   def update
-    @user = User.find_by :slug => params[:id]
+    @user = User.find_by slug: params[:id]
     if @user.update_attributes user_params
       flash[:success] = t "flash.admin.user.update.success"
       redirect_to admin_users_path

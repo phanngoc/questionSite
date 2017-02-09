@@ -3,6 +3,9 @@
   <div class="row wr-combine">
     <div class="sec-show-question-detail col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
         <section class="main-content">
+
+          <%= react_component("VoteQuestion", question: @question) %>
+
           <h2 class="title"><%= @question.title %></h2>
           <div class="inner-content">
             <div class="content">
@@ -13,35 +16,35 @@
                 <tr>
                   <td class="vt-left">
                     <div class="post-menu">
-                      <a href="" title="short permalink to this answer" class="short-link" id="link-post-33133995">share</a><span class="lsep">|</span>
-                      <a href="<%= edit_question_path %>" class="suggest-edit-post" title="revise and improve this post">edit</a><span class="lsep">|</span>
-                      <a href="#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="33133995">flag</a>
+                      <a href="" title="short permalink to this answer" class="short-link" id="link-post-33133995"><%= t("question_page.share") %></a><span class="lsep">|</span>
+                      <a href="<%= edit_question_path %>" class="suggest-edit-post" title="revise and improve this post"><%= t("question_page.edit") %></a><span class="lsep">|</span>
+                      <a href="#" class="flag-post-link" title="flag this post for serious problems or moderator attention" data-postid="33133995"><%= t("question_page.flag") %></a>
                     </div>
                   </td>
                   <td class="vt-right">
                     <div class="user-info">
                       <div class="user-avatar">
-                        <a href="javascript:"><img src="<%= @question.user.avatar.url %>" alt="" width="40" height="40" /></a>
+                        <a href="<%= user_path(@question.user.id) %>"><img src="<%= @question.user.avatar.url %>" alt="" width="40" height="40" /></a>
                       </div>
-                      <div class="user-name"><a href="#"><%= @question.user.name %></a></div>
+                      <div class="user-name"><a href="<%= user_path(@question.user.id) %>"><%= @question.user.name %></a></div>
                     </div>
                   </td>
                 </tr>
               </table>
             </div>
 
-            <%= react_component('WrapperListComment', type: 'Question', data: @question.to_json(:include => [:user, :comments => {:include => [:actions, :user]}])) %>
+            <%= react_component("WrapperListComment", type: "Question", data: @question.to_json(:include => [:user, :comments => {:include => [:actions, :user]}])) %>
           </div> <!-- .inner-content -->
 
           <div class="wrapper-answer">
               <div class="panel panel-default">
                 <div class="panel-heading">
-                  <%= pluralize(@question.answers.length, 'Answer') %>
+                  <%= pluralize(@question.answers.length, "Answer") %>
                 </div>
                 <div class="panel-body">
                   <div class="list-answers">
                     <% @question.answers.each do |answer| %>
-                      <%= react_component('Answer', answer_path: answer_path(answer.id), answer: answer.to_json(:include => [:user, :comments => {:include => [:actions, :user]}])) %>
+                      <%= react_component("Answer", answer_path: answer_path(answer.id), answer: answer.to_json(:include => [:user, :comments => {:include => [:actions, :user]}])) %>
                     <% end %>
                   </div> <!-- .list-answers -->
                 </div>
@@ -63,7 +66,7 @@
                       </tr>
                       <tr>
                         <td>
-                          <button class="submit-answer">Submit answer</button>
+                          <button class="submit-answer"><%= t("question_page.submit_answer") %></button>
                         </td>
                       </tr>
                     </tbody>
@@ -72,7 +75,7 @@
             <% else %>
                 <div class="advice-answer">
                   <span class="text">
-                    Please <%= link_to('Login', new_user_session_path)  %>  to answer question.
+                    <%= t("question_page.link_to_answer", {link: new_user_session_path}) %>
                   </span>
                 </div>
             <% end %>

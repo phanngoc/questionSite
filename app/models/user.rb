@@ -46,6 +46,18 @@ class User < ApplicationRecord
     return query.length != 0
   end
 
+  def self.is_upvote_question(current_user_id, question_id)
+    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+                  current_user_id, "Question", question_id, Action.type_acts[:up_vote]]);
+    return query.length != 0
+  end
+
+  def self.is_downvote_question(current_user_id, question_id)
+    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+                  current_user_id, "Question", question_id, Action.type_acts[:down_vote]]);
+    return query.length != 0
+  end
+
   def is_admin?
     self.admin?
   end

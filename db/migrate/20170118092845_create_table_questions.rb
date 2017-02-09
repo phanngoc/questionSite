@@ -4,8 +4,8 @@ class CreateTableQuestions < ActiveRecord::Migration[5.0]
       t.column :title, :string
       t.column :content, :string
       t.column :user_id, :integer
-      t.column :up_vote, :integer
-      t.column :down_vote, :integer
+      t.column :up_vote, :integer, default: 0
+      t.column :down_vote, :integer, default: 0
       t.column :views, :integer
       t.timestamps
     end

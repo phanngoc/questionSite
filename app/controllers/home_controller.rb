@@ -8,7 +8,7 @@ class HomeController < ApplicationController
       @questions =  Question.new_feed_login(current_user.id, params[:page])
       @topicsFollow = Topic.topics_login_user current_user.id
     else
-      @questions = Question.includes([:topics, :user, :actions]).paginate(:page => params[:page], :per_page => 1)
+      @questions = Question.includes([:topics, :user, :actions]).paginate(page: params[:page], per_page: 1)
     end
   end
 

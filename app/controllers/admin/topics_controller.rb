@@ -13,7 +13,7 @@ class Admin::TopicsController < AdminController
   end
 
   def update
-    @topic = Topic.find_by :slug => params[:id]
+    @topic = Topic.find_by slug: params[:id]
     if @topic.update_attributes topic_params
       flash[:success] = t "flash.admin.topic.update.success"
       redirect_to admin_topics_path

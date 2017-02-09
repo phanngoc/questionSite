@@ -13,7 +13,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.includes({:questions => [:topics, :user, :answers => [:user, {:comments => [:actions, :user]}]]}).find(params[:id])
+    @topic = Topic.includes({questions: [:topics, :user, answers: [:user, {comments: [:actions, :user]}]]}).find(params[:id])
     @questions = @topic.questions.paginate(:page => params[:page], :per_page => 2)
 
     @countQuestion = @topic.questions.count

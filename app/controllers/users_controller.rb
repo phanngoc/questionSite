@@ -7,67 +7,74 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes([:actions, :questions, {:answers => :question}, :comments]).find(params[:id])
+    @user = User.includes([:actions, :questions, {answers: :question}, :comments]).find(params[:id])
     @numberQuestionsOfUser = @user.questions.count
     @numberAnswersOfUser = @user.answers.count
     @numberCommentsOfUser = @user.comments.count
     @numberUserFollow = User.number_user_follow(params[:id])
+
     if user_signed_in?
       @isFollowUser = User.is_follow_user(params[:id], current_user.id)
-    else
     end
   end
 
   def follow_user
-    followObj = Action.create({:user_id => current_user.id,
-                            :actionable_id => params[:id],
-                            :actionable_type => "User",
-                            :type_act => :follow})
+    followObj = Action.create({user_id: current_user.id,
+                  actionable_id: params[:id],
+                  actionable_type: "User",
+                  type_act: :follow})
     if followObj.nil?
-      result = {:status => 0}
+      result = {status: 0}
     else
-      result = {:status => 1}
+      result = {status: 1}
     end
 
-    render :json => result
+    render json: result
   end
 
   def unfollow_user
-    followObj = Action.where({:user_id => current_user.id, :actionable_id => params[:id],
-                  :actionable_type => 'User', :type_act => :follow}).destroy_all;
+    followObj = Action.where({user_id: current_user.id, 
+                  actionable_id: params[:id],
+                  actionable_type: "User", 
+                  type_act: :follow}).destroy_all;
+
     if followObj.nil? || followObj.length == 0
-      result = {:status => 0}
+      result = {status: 0}
     else
-      result = {:status => 1}
+      result = {status: 1}
     end
 
-    render :json => result
+    render json: result
   end
 
   def remove_follow_topic
-    objDelete = Action.where({:user_id => current_user.id, :actionable_id => params[:id],
-                  :actionable_type => 'Topic', :type_act => :follow}).destroy_all;
+    objDelete = Action.where({user_id: current_user.id,
+                  actionable_id: params[:id],
+                  actionable_type: "Topic", 
+                  type_act: :follow}).destroy_all;
 
     if objDelete.nil? || objDelete.length == 0
-      result = {:status => 0}
+      result = {status: 0}
     else
-      result = {:status => 1}
+      result = {status: 1}
     end
 
-    render :json => result
+    render json: result
   end
 
   def add_follow_topic
-    objInter = Action.create({:user_id => current_user.id, :actionable_id => params[:id],
-                  :actionable_type => 'Topic', :type_act => :follow});
+    objInter = Action.create({user_id: current_user.id, 
+                actionable_id: params[:id],
+                actionable_type: "Topic", 
+                type_act: :follow});
 
     if objInter.nil?
-      result = {:status => 0}
+      result = {status: 0}
     else
-      result = {:status => 1}
+      result = {status: 1}
     end
 
-    render :json => result
+    render json: result
   end
 
 end
