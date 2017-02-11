@@ -14,13 +14,15 @@ default: &default
 #   database: db/development.sqlite3
 
 development:
-  adapter: mysql2
-  encoding: utf8
-  database: blog
-  username: root
-  password: Phann123@123
-  host: 127.0.0.1
-  port: 3306
+  adapter: postgresql
+  encoding: unicode
+  database: d8r3e0866rii1d
+  username: blraknzreszweu
+  password: 07fb88c5fca2076f70aa73304e7f66331415f4943283bbb78d4d3fea77988598
+  host: ec2-54-221-217-158.compute-1.amazonaws.com
+  port: 5432
+
+
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -30,5 +32,11 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: d8r3e0866rii1d
+  username: blraknzreszweu
+  password: 07fb88c5fca2076f70aa73304e7f66331415f4943283bbb78d4d3fea77988598
+  host: ec2-54-221-217-158.compute-1.amazonaws.com
+  port: 5432
+
