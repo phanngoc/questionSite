@@ -104,3 +104,14 @@ en:
           attributes:
             email:
               invalid: "Your email isn't correct'"
+
+  views:
+    pagination:
+      first: "First nhe ban"
+
+  activity:
+    question:
+      create: "is created by"
+      update: "Someone has edited the question"
+      destroy: "Some user removed an question!"
+      owner: "you have ower %{owner_id}"

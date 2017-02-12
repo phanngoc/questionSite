@@ -21,6 +21,8 @@ class Question < ApplicationRecord
 
   has_many :comments, as: :commentable
 
+  include PublicActivity::Model
+
   scope :new_feed_nologin,  -> {
     find_by_sql("select count(distinct an.id) from answers an
                   inner join questions qu on qu.id = an.reply_to
@@ -60,7 +62,7 @@ class Question < ApplicationRecord
                   where an.reply_to = q.id) as number_answer
             			from questions q order by q.updated_at desc, is_follow desc, number_answer desc, q.up_vote desc
                 ";
-    per_page = 1;            
+    per_page = 1;
     @questions =  Question.includes([:topics, :user, :actions]).paginate_by_sql(sql, :page => page, :per_page => per_page)
     return @questions
   end

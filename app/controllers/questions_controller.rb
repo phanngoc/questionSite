@@ -11,6 +11,9 @@ class QuestionsController < ApplicationController
     @question = Question.create question_params
     @question.user_id = current_user.id
     @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
+    @question.save
+
+    @question.create_activity key: 'question.create', owner: current_user
 
     redirect_to question_path(@question.slug)
   end
@@ -47,8 +50,8 @@ class QuestionsController < ApplicationController
         @question.up_vote = @question.up_vote + 2
       else
         @question.up_vote = @question.up_vote + 1
-      end  
-      
+      end
+
       p = Action.create action_upvote_params
       p.save
 
@@ -77,7 +80,7 @@ class QuestionsController < ApplicationController
         @question.down_vote = @question.down_vote + 2
       else
         @question.down_vote = @question.down_vote + 1
-      end  
+      end
 
       p = Action.create action_downvote_params
       p.save

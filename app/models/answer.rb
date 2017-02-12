@@ -8,5 +8,7 @@ class Answer < ApplicationRecord
   validates :content, presence: true, length: {maximum: 255, minimum: 6}
   validates :user_id, presence: true
   validates :reply_to, presence: true
-  
+
+  include PublicActivity::Model
+  tracked
 end

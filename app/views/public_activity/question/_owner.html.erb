@@ -1,0 +1,8 @@
+<span>
+  <%= a.trackable.title %>
+   is owned by
+
+  <% if a.owner.present? %>
+    <b class="owner_name"><%= a.owner.name %></b>
+  <% end %>
+</span>

@@ -3,6 +3,9 @@ class Action < ApplicationRecord
   enum type_act: [ :down_vote, :up_vote, :share_fa, :share_tw, :follow ], _suffix: true
 
   delegate :url_helpers, to: 'Rails.application.routes'
+  
+  include PublicActivity::Model
+  tracked
 
   def obj_down_vote
     if self.actionable_type == "Question"

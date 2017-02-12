@@ -16,6 +16,8 @@ class UsersController < ApplicationController
     if user_signed_in?
       @isFollowUser = User.is_follow_user(params[:id], current_user.id)
     end
+
+    @activities = PublicActivity::Activity.all
   end
 
   def follow_user
