@@ -20,3 +20,12 @@ home:
 answer:
   max_content: 255
   min_content: 6
+  up: 1
+  down: 0
+status:
+  ok: 1
+  not_ok: 0
+
+profile:
+  activity:
+    per_page: 5  

@@ -21,7 +21,8 @@ var VoteQuestion = React.createClass({
         data: {_method: "PUT", act: 1}
     }).done(function(result) {
         if (result.status == 1) {
-            self.setState({act: 1, question: Object.assign({}, self.state.question, result.data)});
+            self.setState({act: 1, question: Object.assign({},
+              self.state.question, result.data)});
             self.forceUpdate();
         }
     });
@@ -36,7 +37,8 @@ var VoteQuestion = React.createClass({
         data: {_method: "PUT", act: 0}
     }).done(function(result) {
         if (result.status == 1) {
-            self.setState({act: -1, question: Object.assign({}, self.state.question, result.data)});
+            self.setState({act: -1, question: Object.assign({},
+              self.state.question, result.data)});
             self.forceUpdate();
         }
     });
@@ -45,9 +47,16 @@ var VoteQuestion = React.createClass({
   render() {
     return (
         <div className="wr-vote">
-            <a href="javascript:" onClick={this.handleUp} className="icon-up"><i className="fa fa-sort-asc" aria-hidden="true"></i></a>
-            <span className="number-sum">{this.state.question.up_vote - this.state.question.down_vote}</span>
-            <a href="javascript:" onClick={this.handleDown} className="icon-down"><i className="fa fa-sort-desc" aria-hidden="true"></i></a>
+            <a href="javascript:" onClick={this.handleUp} className="icon-up">
+              <i className="fa fa-sort-asc" aria-hidden="true"></i>
+            </a>
+            <span className="number-sum">
+              {this.state.question.up_vote - this.state.question.down_vote}
+            </span>
+            <a href="javascript:" onClick={this.handleDown}
+              className="icon-down">
+                <i className="fa fa-sort-desc" aria-hidden="true"></i>
+            </a>
         </div>
     );
   }

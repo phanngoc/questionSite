@@ -16,10 +16,9 @@ var ItemTopic = React.createClass({
   addTopicFollow() {
     var self = this;
     $.ajax({
-      url: '/users/add_follow_topic/' + this.props.topic.id,
+      url: '/topics/' + this.props.topic.id + '/fotopics',
       method: 'POST',
-      processData: false,
-      contentType: false,
+      data: {type: 1}
     }).done(function(result) {
       if (result.status == 1) {
         self.props.addTopicFollow(self.props.topic);

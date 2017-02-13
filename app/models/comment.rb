@@ -1,5 +1,7 @@
 class Comment < ApplicationRecord
 
+  include PublicActivity::Model
+  
   before_create :initial_value
   belongs_to :commentable, polymorphic: true
   belongs_to :user

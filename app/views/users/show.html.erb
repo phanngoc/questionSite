@@ -41,18 +41,18 @@
     <div class="row second_info">
       <div class="col-md-3 analytic">
         <div class="header">
-          <h2>Feed</h2>
+          <h2><%= t "profile_page.feed" %></h2>
         </div>
         <div class="inner_show_analytic">
           <ul class="list_analytic_info">
             <li>
-              <span>Ask: <strong><%= @numberQuestionsOfUser %></strong></span>
+              <span><%= t "profile_page.ask" %>: <strong><%= @numberQuestionsOfUser %></strong></span>
             </li>
             <li>
-              <span>Answer: <strong><%= @numberAnswersOfUser %></strong></span>
+              <span><%= t "profile_page.answers" %>: <strong><%= @numberAnswersOfUser %></strong></span>
             </li>
             <li>
-              <span>Comment: <strong><%= @numberCommentsOfUser %></strong></span>
+              <span><%= t "profile_page.comments" %>: <strong><%= @numberCommentsOfUser %></strong></span>
             </li>
           </ul>
         </div>
@@ -60,19 +60,13 @@
       <section class="wrapper_activity col-md-9">
         <div class="activity_inner">
           <div class="act_header">
-            Last activity
+            <%= t "profile_page.last_activity" %>
           </div>
           <div class="wr_list_activity">
             <ul class="list_activity">
-              <% @user.actions.each do |action| %>
-                <li class="item_act">
-                  <span>
-                    <i class="fa fa-paperclip" aria-hidden="true"></i>
-                    <%= raw action.info %>
-                  </span>
-                </li>
-              <% end %>
+              <%= render_activities(@activities) %>
             </ul>
+            <%= will_paginate @activities %>
           </div> <!-- .wr_list_activity -->
         </div>
       </section> <!-- .wrapper_activity -->
@@ -82,7 +76,7 @@
     <section class="wrapper_main_act row">
       <div class="col-md-4 frame_questions">
         <div class="panel panel-primary">
-          <div class="panel-heading">Lastest questions</div>
+          <div class="panel-heading"><%= t "profile_page.last_questions" %></div>
           <div class="panel-body">
             <div class="wr_list_questions">
               <ul class="list_questions">
@@ -101,7 +95,7 @@
       </div>
       <div class="col-md-4 frame_answers">
         <div class="panel panel-primary">
-          <div class="panel-heading">Last answers</div>
+          <div class="panel-heading"><%= t "profile_page.last_answers" %></div>
           <div class="panel-body">
             <div class="wr_list_answers">
               <ul class="list_answers">
@@ -120,7 +114,7 @@
       </div>
       <div class="col-md-4 frame_comments">
         <div class="panel panel-primary">
-          <div class="panel-heading">Last comments</div>
+          <div class="panel-heading"><%= t "profile_page.last_comments" %></div>
           <div class="panel-body">
             <div class="wr_list_comments">
               <ul class="list_comments">

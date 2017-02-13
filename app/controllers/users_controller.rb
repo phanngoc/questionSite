@@ -13,6 +13,11 @@ class UsersController < ApplicationController
     @numberCommentsOfUser = @user.comments.count
     @numberUserFollow = User.number_user_follow(params[:id])
 
+    @activities = PublicActivity::Activity.order("created_at desc")
+      .where("owner_id", params[:id])
+      .paginate(:page => params[:page],
+      per_page: Settings.profile.activity.per_page)
+    
     if user_signed_in?
       @isFollowUser = User.is_follow_user(params[:id], current_user.id)
     end
