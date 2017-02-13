@@ -1,7 +1,7 @@
 class Admin::TopicsController < AdminController
 
   def index
-    @topics = Topic.all
+    @topics = Topic.page(params[:page]).per Settings.admin.per_page
   end
 
   def new

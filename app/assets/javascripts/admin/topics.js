@@ -1,3 +1,3 @@
 $(document).ready(function() {
-    $('#list-topics').DataTable();
+    // $('#list-topics').DataTable();
 });

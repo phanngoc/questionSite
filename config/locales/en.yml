@@ -115,7 +115,13 @@ en:
         update:
           success: "Updated user successfully!"
           failed: "Updated user unsuccessfully!"
+        not_found: "User is not found"  
       topic:
+        list:
+          name: "Name"
+          description: "Description"
+          icon: "Icon"
+          action: "Action"
         not_found: "Topic is not found"
         update:
           success: "Updat topic successfully!"

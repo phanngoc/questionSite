@@ -1,7 +1,8 @@
 class Admin::QuestionsController < AdminController
 
   def index
-    @questions = Question.includes([:user, :topics]).all
+    @questions = Question.includes([:user, :topics])
+      .page(params[:page]).per Settings.admin.per_page
   end
 
   def destroy
