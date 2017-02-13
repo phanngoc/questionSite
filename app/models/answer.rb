@@ -5,7 +5,7 @@ class Answer < ApplicationRecord
   has_many :comments, as: :commentable
   belongs_to :user
 
-  validates :content, presence: true, length: {maximum: 255, minimum: 6}
+  validates :content, presence: true, length: {maximum: Settings.answer.max_content, minimum: Settings.answer.min_content}
   validates :user_id, presence: true
   validates :reply_to, presence: true
   

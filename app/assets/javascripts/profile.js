@@ -6,33 +6,30 @@ $(document).ready(function() {
 
     if (action == 'follow') {
       $.ajax({
-          url: '/users/follow_user/' + user_id,
+          url: '/users/' + user_id + '/follows',
           method: 'POST',
-          processData: false,
-          contentType: false,
+          data: {type: 'follow'}
       }).done(function(result) {
         if (result.status == 1) {
           self.data('action', 'unfollow');
           self.text(self.data('unfollow'));
-          var num = parseInt(self.next().text()) - 1;
+          var num = parseInt(self.next().text()) + 1;
           self.next().text(num);
         }
       });
     } else {
       $.ajax({
-          url: '/users/unfollow_user/' + user_id,
+          url: '/users/' + user_id + '/follows',
           method: 'POST',
-          processData: false,
-          contentType: false,
+          data: {type: 'unfollow'}
       }).done(function(result) {
         if (result.status == 1) {
           self.data('action', 'follow');
           self.text(self.data('follow'));
-          var num = parseInt(self.next().text()) + 1;
+          var num = parseInt(self.next().text()) - 1;
           self.next().text(num);
         }
       });
     }
-
   });
 });

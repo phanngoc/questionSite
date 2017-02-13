@@ -99,13 +99,11 @@ var ItemComment = React.createClass({
 
   upVote() {
     var self = this;
-    var fd = new FormData();
 
     $.ajax({
-      url: '/comments/' + this.props.comment.id + '/up_vote',
+      url: '/comments/' + this.props.comment.id,
       method: 'POST',
-      processData: false,
-      contentType: false,
+      data: {_method:"PUT", act: 1}
     }).done(function(result) {
       if (result.status == 1) {
         self.setState({up_vote: self.state.up_vote + 1, isUpVote: true})
@@ -117,10 +115,9 @@ var ItemComment = React.createClass({
     var self = this;
 
     $.ajax({
-      url: '/comments/' + this.props.comment.id + '/remove_vote',
+      url: '/comments/' + this.props.comment.id,
       method: 'POST',
-      processData: false,
-      contentType: false,
+      data: {_method:"PUT", act: 0}
     }).done(function(result) {
       if (result.status == 1) {
         self.setState({up_vote: self.state.up_vote - 1, isUpVote: false})

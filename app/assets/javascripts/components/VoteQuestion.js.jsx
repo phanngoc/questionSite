@@ -15,10 +15,10 @@ var VoteQuestion = React.createClass({
   handleUp() {
     var self = this;
     $.ajax({
-        url: '/questions/' + self.state.question.id + '/up_vote',
+        url: '/questions/' + self.state.question.id,
         method: 'POST',
-        processData: false,
-        contentType: false,
+        dataType: "json",
+        data: {_method: "PUT", act: 1}
     }).done(function(result) {
         if (result.status == 1) {
             self.setState({act: 1, question: Object.assign({}, self.state.question, result.data)});
@@ -30,10 +30,10 @@ var VoteQuestion = React.createClass({
   handleDown() {
     var self = this;
     $.ajax({
-        url: '/questions/' + self.state.question.id + '/down_vote',
+        url: '/questions/' + self.state.question.id,
         method: 'POST',
-        processData: false,
-        contentType: false,
+        dataType: "json",
+        data: {_method: "PUT", act: 0}
     }).done(function(result) {
         if (result.status == 1) {
             self.setState({act: -1, question: Object.assign({}, self.state.question, result.data)});

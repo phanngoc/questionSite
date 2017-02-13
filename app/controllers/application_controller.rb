@@ -1,9 +1,9 @@
 class ApplicationController < ActionController::Base
 	protect_from_forgery with: :exception
 
-	private
+	include StatusHelper
 
-	def load_user
-		@user = current_user
+	def not_found
+		raise ActionController::RoutingError.new('Not Found')
 	end
 end

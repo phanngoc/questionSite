@@ -21,15 +21,20 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.find(params[:id]);
-    @answer.content = params[:content];
-
-    if @answer.save
-      result = {status: 1}.to_json
+    @answer = Answer.find_by id: params[:id];
+    
+    if @answer.present?
+      @answer.content = params[:content];
+      
+      if @answer.save
+        result = {status: 1}.to_json
+      else
+        result = {status: 0, errors: @answer.errors}.to_json
+      end
     else
-      result = {status: 0, errors: @answer.errors}.to_json
-    end
-
+      result = {status: 0}  
+    end    
+    
     render :json => result
   end
 

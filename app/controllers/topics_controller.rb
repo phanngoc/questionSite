@@ -8,17 +8,24 @@ class TopicsController < ApplicationController
     @topic = Topic.new
   end
 
-  def create
-
-  end
-
   def show
-    @topic = Topic.includes({questions: [:topics, :user, answers: [:user, {comments: [:actions, :user]}]]}).find(params[:id])
-    @questions = @topic.questions.paginate(:page => params[:page], :per_page => 2)
+    @topic = Topic.includes({questions: [:topics, :user, 
+      answers: [:user, {comments: [:actions, :user]}]]}).find_by id: params[:id]
 
-    @countQuestion = @topic.questions.count
-    @numberPeopleFollow = Topic.numberFollow @topic.id
-    @numberAnswerInTopic = Topic.numberAnwserInTopic @topic.id
+    if @topic.present?
+      @questions = @topic.questions.paginate(:page => params[:page], :per_page => Settings.topic.per_page)
+      
+      if user_signed_in?
+        @isFollow = Topic.is_follow(current_user.id, params[:id])
+      end  
+      
+      @countQuestion = @topic.questions.count
+      @numberPeopleFollow = Topic.numberFollow @topic.id
+      @numberAnswerInTopic = Topic.numberAnwserInTopic @topic.id
+    else
+      redirect_to root_path;
+    end      
+    
   end
 
 end

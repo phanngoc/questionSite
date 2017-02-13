@@ -5,11 +5,10 @@ class Admin::UsersController < AdminController
   end
 
   def edit
-    @user = User.find params[:id]
-  end
-
-  def show
-
+    @user = User.find_by id: params[:id]
+    if @user.nil?
+      redirect_to admin_root_path
+    end
   end
 
   def update

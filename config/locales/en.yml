@@ -56,6 +56,15 @@ en:
       follow: "Follow"
       unfollow: "Unfollow"
       follower: "Follower"
+      action:
+        downvote: "<strong>%{name}</strong> is down vote on <a href='%{link}'>%{title}</a>"
+        upvote: "<strong>%{name}</strong> is up vote on <a href='%{link}' >%{title}</a>"
+        follow: "<strong>%{name}</strong> follow on topic <a href='%{link}'>%{title}</a>"
+
+  topic:
+    show:
+      follow: "Follow"
+      unfollow: "Unfollow"
 
   login_page:
     title: "Log in"
@@ -89,6 +98,8 @@ en:
     errors:
       not_empty_comment: "Your comment can't empty"
   flash:
+    question:
+      not_found: "Question is not found"
     user:
       email: "Your email not correct"
     admin:

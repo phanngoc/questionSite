@@ -2,6 +2,8 @@
   .wr-combine{
     .wr-title{
       margin-top: 30px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #C0C0C0;
       .wr-icon{
         display: block;
         float: left;
@@ -15,42 +17,56 @@
         display: block;
         float: left;
         h2.title{
-
+          margin-top: 9px;
+        }
+      }
+      .wr-vote{
+        padding: 5px;
+        background: #d3c167;
+        border-radius: 6px;
+        width: 42px;
+        a {
+          text-decoration: none;
+          color: white;
         }
       }
     }
-    .main-content{
-      .question-feed{
-        .paged-list-item{
-          padding: 10px;
-          border-bottom: 1px dashed #C0C0C0;
-          .feed-item-inner{
-            .list-topics{
-              margin-bottom: 5px;
-              .item-topic{
-                border-radius: 8px;
-                display: inline-block;
-                background-color: #C0C0C0;
-                a{
-                  color: white;
-                  text-decoration: none;
-                  font-size: 12px;
-                  padding: 4px;
+    .inner-content {
+      padding-top: 18px;
+      .main-content{
+        .question-feed{
+          .paged-list-item{
+            padding: 10px;
+            border-bottom: 1px dashed #C0C0C0;
+            .feed-item-inner{
+              .list-topics{
+                margin-bottom: 5px;
+                .item-topic{
+                  border-radius: 8px;
+                  display: inline-block;
+                  background-color: #C0C0C0;
+                  a{
+                    color: white;
+                    text-decoration: none;
+                    font-size: 12px;
+                    padding: 4px;
+                  }
                 }
               }
-            }
-            .feed-ques-title{
-              font-weight: bold;
-              font-size: 20px;
-              a{
-                text-decoration: none;
-                color: black;
+              .feed-ques-title{
+                font-weight: bold;
+                font-size: 20px;
+                a{
+                  text-decoration: none;
+                  color: black;
+                }
               }
             }
           }
         }
       }
     }
+
     .sidebar{
       .about{
         .title{

@@ -9,7 +9,7 @@ class Admin::TopicsController < AdminController
   end
 
   def edit
-    @topic = Topic.find params[:id]
+    @topic = Topic.find_by params[:id]
   end
 
   def update
@@ -27,7 +27,7 @@ class Admin::TopicsController < AdminController
     result = Topic.destroy params[:id]
     if result.nil?
       flash[:danger] = t "flash.admin.topic.delete.failed"
-      redirect_to(:back)
+      redirect_to :back
     else
       flash[:success] = t "flash.admin.topic.delete.success"
       redirect_to admin_topics_path

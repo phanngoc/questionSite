@@ -26,5 +26,7 @@
 //= require datatables.net
 //= require i18n
 //= require i18n/translations
+//= require Chart.bundle
+//= require chartkick
 
 //= require_tree .

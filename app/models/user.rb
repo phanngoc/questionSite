@@ -16,11 +16,13 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   enum role: [:admin, :user, :moderator]
 
-  validates :name, presence: true, length: {maximum: 255}
-  validates :story, length: {maximum: 255}
-  validates :email, presence: true, length: {maximum: 255}
+  validates :name, presence: true, length: {maximum: Settings.user[:name_max]}
+  validates :story, length: {maximum: Settings.user[:story_max]}
+  validates :email, presence: true, length: {maximum: Settings.user[:email_max]}
   validates :role, presence: true
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: I18n.t("flash.user.email")
+
+
 
   def self.is_follow_user(user_id, current_user_id)
     query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
@@ -34,30 +36,28 @@ class User < ApplicationRecord
     return query.length
   end
 
-  def self.is_upvote_answer(current_user_id, answer_id)
-    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
-                  current_user_id, "Answer", answer_id, Action.type_acts[:up_vote]]);
-    return query.length != 0
-  end
+  class << self
+    def is_upvote_answer(current_user_id, answer_id)
+      query = Action.is_upvote_answer current_user_id, answer_id
+      return query.length != 0
+    end
 
-  def self.is_downvote_answer(current_user_id, answer_id)
-    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
-                  current_user_id, "Answer", answer_id, Action.type_acts[:down_vote]]);
-    return query.length != 0
-  end
+    def is_downvote_answer(current_user_id, answer_id)
+      query = Action.is_downvote_answer current_user_id, answer_id;
+      return query.length != 0
+    end
 
-  def self.is_upvote_question(current_user_id, question_id)
-    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
-                  current_user_id, "Question", question_id, Action.type_acts[:up_vote]]);
-    return query.length != 0
-  end
+    def is_upvote_question(current_user_id, question_id)
+      query = Action.is_upvote_question current_user_id, question_id;
+      return query.length != 0
+    end
 
-  def self.is_downvote_question(current_user_id, question_id)
-    query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
-                  current_user_id, "Question", question_id, Action.type_acts[:down_vote]]);
-    return query.length != 0
-  end
-
+    def is_downvote_question(current_user_id, question_id)
+      query = Action.is_downvote_question current_user_id, question_id;
+      return query.length != 0
+    end
+  end  
+  
   def is_admin?
     self.admin?
   end

@@ -2,6 +2,7 @@ var Answer = React.createClass({
 
 	getInitialState() {
     var answer = jQuery.parseJSON(this.props.answer);
+
 		return {
       answer: answer,
       content: answer.content,
@@ -64,10 +65,9 @@ var Answer = React.createClass({
   handleUp() {
     var self = this;
     $.ajax({
-			    url: '/answers/' + self.state.answer.id + '/up_vote',
+			    url: '/answers/' + self.state.answer.id + '/votes/1',
 			    method: 'POST',
-			    processData: false,
-	        contentType: false,
+          data: {_method:"PUT"}
 			}).done(function(result) {
           if (result.status == 1) {
             self.setState({act: 1, answer: Object.assign({}, self.state.answer, result.data)});
@@ -79,10 +79,9 @@ var Answer = React.createClass({
   handleDown() {
     var self = this;
     $.ajax({
-			    url: '/answers/' + self.state.answer.id + '/down_vote',
+			    url: '/answers/' + self.state.answer.id + '/votes/0',
 			    method: 'POST',
-			    processData: false,
-	        contentType: false,
+          data: {_method:"PUT"}
 			}).done(function(result) {
           if (result.status == 1) {
             self.setState({act: -1, answer: Object.assign({}, self.state.answer, result.data)});

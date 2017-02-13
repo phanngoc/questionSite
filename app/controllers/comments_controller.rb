@@ -22,50 +22,65 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    @comment.content = params[:content]
-
-    if @comment.save
-      result = {status: 1, data: @comment}
-    else
-      result = {status: 0, data: @comment, errors: @comment.errors}
+    @comment = Comment.find_by id: params[:id]
+    if @comment.present?
+      if params.has_key? :act
+        if params[:act].to_i == Settings.vote[:down]
+            result = remove_vote
+        else
+          result = up_vote
+        end
+      else
+        @comment.content = params[:content]
+        if @comment.save
+          result = {status: 1, data: @comment}
+        else
+          result = {status: 0, data: @comment, errors: @comment.errors}
+        end
+      end
     end
 
     render json: result
   end
 
+  private
+
   def up_vote
-    @comment = Comment.find(params[:comment_id])
-    @comment.up_vote = @comment.up_vote + 1
+    @comment = Comment.find_by id: params[:id]
+    if @comment.present?
+      @comment.up_vote = @comment.up_vote + 1
 
-    p = Action.create action_upvote_params
-    p.save
+      p = Action.create action_upvote_params
+      p.save
 
-    if @comment.save
-      result = {status: 1, data: @comment }
+      if @comment.save
+        result = {status: 1, data: @comment}
+      else
+        result = {status: 0, data: @comment, errors: @comment.errors}
+      end
     else
-      result = {status: 0, data: @comment }
-    end
+      result = {status: 0}
+    end    
 
-    render json: result
+    return result
   end
 
   def remove_vote
-    @comment = Comment.find(params[:comment_id])
-    @comment.up_vote = @comment.up_vote - 1
+    @comment = Comment.find_by id: params[:id]
+    if @comment.present?
+      @comment.up_vote = @comment.up_vote - 1
+      
+      Action.by_user(current_user.id).target("Comment").with_id(params[:id]).is_upvote.destroy_all
 
-    p = Action.where(user_id: current_user.id,
-                     type_act: :up_vote,
-                     actionable_type: "Comment",
-                     actionable_id: params[:comment_id]).destroy_all
-
-    if @comment.save
-      result = {status: 1, data: @comment }
+      if @comment.save
+        result = {status: 1, data: @comment}
+      else
+        result = {status: 0, data: @comment, errors: @comment.errors}
+      end
     else
-      result = {status: 0, data: @comment }
+      result = {status: 0}
     end
-
-    render json: result
+    return result
   end
 
   def destroy
@@ -74,10 +89,8 @@ class CommentsController < ApplicationController
     render json: result
   end
 
-  private
-
   def action_upvote_params
-    {actionable_id: params[:comment_id], actionable_type: "Comment", user_id: current_user.id, type_act: :up_vote}
+    {actionable_id: params[:id], actionable_type: "Comment", user_id: current_user.id, type_act: :up_vote}
   end
 
   def comment_question_params

@@ -16,7 +16,13 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = Question.includes({answers: [:user, {comments: [:actions, :user]}] }, :user, {comments: [:actions, :user]}).find(params[:id])
+    @question = Question.includes({answers: [:user, {comments: [:actions, :user]}] }, 
+      :user, {comments: [:actions, :user]}).find_by slug: params[:id]
+    
+    unless @question
+      flash[:notice] = t "flash.question.not_found"
+      redirect_to root_path
+    end
 
     gon.comments_path = comments_path
     gon.answers_path = answers_path
@@ -25,90 +31,105 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.includes(:topics).find(params[:id])
+    @question = Question.includes(:topics).find_by slug: params[:id]
     @topics = Topic.all
+
+    unless @question
+      flash[:notice] = t "flash.question.not_found"
+      redirect_to root_path
+    end
   end
 
   def update
-    @question = Question.find_by_slug(params[:id])
-    @question.update question_params
-    @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
-    @topics = Topic.all
-
-    redirect_to question_path
+    if params.has_key? :act
+      respond_to do |format|
+        format.html
+        format.json {
+          if params[:act].to_i == Settings.vote[:down]
+            result = down_vote
+          else
+            result = up_vote
+          end
+          render json: result
+        }
+      end
+    else
+      @question = Question.find_by_slug params[:id]
+      @question.update question_params
+      @question.topic_ids = params[:question][:topics]
+        .reject {|c| c.empty?}.map(&:to_i)
+      @topics = Topic.all
+      redirect_to question_path
+    end
   end
 
+  private
+
   def up_vote
-    if User.is_upvote_question(current_user.id, params[:question_id])
+    @question = Question.find_by id: params[:id]
+
+    if @question.nil? || User.is_upvote_question(current_user.id, params[:id])
       result = {status: 0}
     else
-      @question = Question.find(params[:question_id])
-      if User.is_downvote_question(current_user.id, params[:question_id])
+      if User.is_downvote_question current_user.id, params[:id]
         @question.up_vote = @question.up_vote + 2
       else
         @question.up_vote = @question.up_vote + 1
-      end  
-      
+      end
+
       p = Action.create action_upvote_params
       p.save
 
-      p = Action.where(user_id: current_user.id,
-            type_act: :down_vote,
-            actionable_type: "Question",
-            actionable_id: params[:question_id]).destroy_all
+      p.destroy_question_down current_user.id, params[:id]
 
       if @question.save
-        result = {status: 1, data: @question}
+        result = {status: StatusHelper::OK, data: @question}
       else
-        result = {status: 0, data: @question, errors: @question.errors}
+        result = {status: StatusHelper::NOT_OK, data: @question, errors: @question.errors}
       end
     end
 
-    render :json => result
+    return result
   end
 
   def down_vote
-    if User.is_downvote_question(current_user.id, params[:question_id])
+    @question = Question.find_by id: params[:id]
+    if @question.nil? || User.is_downvote_question(current_user.id, params[:id])
       result = {status: 0}
     else
-      @question = Question.find(params[:question_id])
+      @question = Question.find(params[:id])
 
-      if User.is_upvote_question(current_user.id, params[:question_id])
+      if User.is_upvote_question current_user.id, params[:id]
         @question.down_vote = @question.down_vote + 2
       else
         @question.down_vote = @question.down_vote + 1
-      end  
+      end
 
       p = Action.create action_downvote_params
       p.save
 
-      p = Action.where(user_id: current_user.id,
-            type_act: :up_vote,
-            actionable_type: "Question",
-            actionable_id: params[:question_id]).destroy_all
+      p.destroy_question_up current_user.id, params[:id]
 
       if @question.save
-        result = {status: 1, data: @question}
+        result = {status: StatusHelper::OK, data: @question}
       else
-        result = {status: 0, data: @question, errors: @question.errors}
+        result = {status: StatusHelper::NOT_OK, data: @question, errors: @question.errors}
       end
     end
 
-    render :json => result
+    return result
   end
-
-  private
 
   def question_params
     params.require(:question).permit :title, :content, :topics
   end
 
   def action_upvote_params
-    {actionable_id: params[:question_id], actionable_type: "Question", user_id: current_user.id, type_act: :up_vote}
+    {actionable_id: params[:id], actionable_type: :question, user_id: current_user.id, type_act: :up_vote}
   end
 
   def action_downvote_params
-    {actionable_id: params[:question_id], actionable_type: "Question", user_id: current_user.id, type_act: :down_vote}
+    {actionable_id: params[:id], actionable_type: :question, user_id: current_user.id, type_act: :down_vote}
   end
 
 end

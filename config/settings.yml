@@ -1,0 +1,22 @@
+user:
+  name_max: 255
+  email_max: 255
+  story_max: 255
+  follow: "follow"
+  unfollow: "unfollow"
+question:
+  content_max: 255  
+vote:
+  up: 1
+  down: 0
+topic:
+  name_max: 255
+  description_max: 255
+  follow: 1
+  unfollow: 0
+  per_page: 5
+home:
+  per_page: 5
+answer:
+  max_content: 255
+  min_content: 6
