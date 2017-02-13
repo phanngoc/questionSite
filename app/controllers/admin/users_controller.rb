@@ -1,18 +1,23 @@
 class Admin::UsersController < AdminController
 
   def index
-    @users = User.all;
+    @users = User.page(params[:page]).per Settings.admin.per_page;
   end
 
   def edit
     @user = User.find_by id: params[:id]
-    if @user.nil?
-      redirect_to admin_root_path
+    unless @user
+      flash[:danger] = t "flash.admin.user.not_found"
+      redirect_to admin_topics_path
     end
   end
 
   def update
     @user = User.find_by slug: params[:id]
+    unless @user
+      flash[:danger] = t "flash.admin.user.not_found"
+      redirect_to admin_topics_path
+    end
     if @user.update_attributes user_params
       flash[:success] = t "flash.admin.user.update.success"
       redirect_to admin_users_path

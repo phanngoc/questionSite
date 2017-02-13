@@ -16,9 +16,9 @@
   <body>
     <div id="wrapper">
       <%= render template: "layouts/_header" %>
-        <% flash.each do |name, msg| %>
-          <%= content_tag :div, msg, class: "alert alert-info" %>
-        <% end %>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert alert-#{name}" %>
+      <% end %>
       <div id="wrapper-body" class="container">
         <%= yield %>
       </div>
