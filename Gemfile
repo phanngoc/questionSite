@@ -47,7 +47,7 @@ gem 'devise'
 gem 'autoprefixer-rails'
 gem 'seed_dump'
 gem "bower-rails", "~> 0.11.0"
-gem 'kaminari'
+gem "kaminari"
 gem 'faker'
 gem 'sidekiq'
 #gem 'omniauth-facebook'
@@ -72,6 +72,7 @@ gem "config"
 
 gem "groupdate"
 gem "chartkick"
+gem "public_activity"
 
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

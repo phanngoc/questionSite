@@ -18,10 +18,9 @@ var ItemTopicFollow = React.createClass({
     var self = this;
     
     $.ajax({
-      url: '/users/remove_follow_topic/' + this.props.topic.id,
+      url: '/topics/' + this.props.topic.id + '/fotopics',
       method: 'POST',
-      processData: false,
-      contentType: false,
+      data: {type: 0}
     }).done(function(result) {
       if (result.status == 1) {
         self.props.removeTopicFollow(self.props.topic);

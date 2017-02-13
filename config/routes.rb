@@ -21,6 +21,7 @@ Rails.application.routes.draw do
 
 
   resources :comments do
+    resources :votes
   end
 
   namespace :admin do

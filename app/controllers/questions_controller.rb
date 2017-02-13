@@ -11,6 +11,9 @@ class QuestionsController < ApplicationController
     @question = Question.create question_params
     @question.user_id = current_user.id
     @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
+    @question.save
+
+    @question.create_activity key: "question.create", owner: current_user
 
     redirect_to question_path(@question.slug)
   end
@@ -71,6 +74,7 @@ class QuestionsController < ApplicationController
     if @question.nil? || User.is_upvote_question(current_user.id, params[:id])
       result = {status: 0}
     else
+      @question.create_activity key: "question.up_vote", owner: current_user
       if User.is_downvote_question current_user.id, params[:id]
         @question.up_vote = @question.up_vote + 2
       else
@@ -83,9 +87,9 @@ class QuestionsController < ApplicationController
       p.destroy_question_down current_user.id, params[:id]
 
       if @question.save
-        result = {status: StatusHelper::OK, data: @question}
+        result = {status: Settings.status.ok, data: @question}
       else
-        result = {status: StatusHelper::NOT_OK, data: @question, errors: @question.errors}
+        result = {status: Settings.status.not_ok, data: @question, errors: @question.errors}
       end
     end
 
@@ -94,10 +98,12 @@ class QuestionsController < ApplicationController
 
   def down_vote
     @question = Question.find_by id: params[:id]
+
     if @question.nil? || User.is_downvote_question(current_user.id, params[:id])
-      result = {status: 0}
+      result = {status: Settings.status.not_ok}
     else
       @question = Question.find(params[:id])
+      @question.create_activity key: "question.down_vote", owner: current_user
 
       if User.is_upvote_question current_user.id, params[:id]
         @question.down_vote = @question.down_vote + 2
@@ -111,9 +117,9 @@ class QuestionsController < ApplicationController
       p.destroy_question_up current_user.id, params[:id]
 
       if @question.save
-        result = {status: StatusHelper::OK, data: @question}
+        result = {status: Settings.status.ok, data: @question}
       else
-        result = {status: StatusHelper::NOT_OK, data: @question, errors: @question.errors}
+        result = {status: Settings.status.not_ok, data: @question, errors: @question.errors}
       end
     end
 

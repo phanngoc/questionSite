@@ -4,11 +4,11 @@ var ListComment = React.createClass({
       comments: this.props.comments
     }
   },
-  
+
   componentDidMount() {
 
   },
-  
+
   removeComment(id) {
     this.props.removeComment(id);
   },
@@ -22,7 +22,8 @@ var ListComment = React.createClass({
     var self = this;
     this.state.comments.forEach(function(comment, key) {
         rows.push(
-          <ItemComment comment={comment} key={key} removeComment={self.removeComment}/>
+          <ItemComment comment={comment} key={key}
+            removeComment={self.removeComment}/>
         );
     });
     return (
