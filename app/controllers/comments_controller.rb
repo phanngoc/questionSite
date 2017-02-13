@@ -9,14 +9,13 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.includes(:user).create comment_question_params;
     @comment.user_id = current_user.id;
-    
     if @comment.save
       @comment.create_activity key: "comment.create", owner: current_user
-      comment = @comment.to_json(:include => [:user])
+      comment = @comment.to_json(include: [:user])
       result = {status: Settings.status.ok, data: comment}
       render json: result
     else
-      comment = @comment.to_json(:include => [:user])
+      comment = @comment.to_json(include: [:user])
       result = {status: Settings.status.not_ok, data: comment, errors: @comment.errors}
       render json: result
     end
@@ -24,7 +23,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = Comment.find_by id: params[:id]
-    if @comment.present?
+    if @comment
       @comment.content = params[:content]
       if @comment.save
         result = {status: Settings.status.ok, data: @comment}
@@ -38,8 +37,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Comment.destroy(params[:id])
-    result = {status: Settings.status.ok}
+    isDestroyed = Comment.destroyed? params[:id]
+    if isDestroyed
+      result = {status: Settings.status.ok}
+    else
+      result = {status: Settings.status.not_ok}
+    end  
     render json: result
   end
 

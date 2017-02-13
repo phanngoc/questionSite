@@ -37,8 +37,10 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%= admin_topics_path %>"><%= t "admin.sidebar.list_topic" %></a></li>
-                <li><a href="<%= new_admin_topic_path %>"><%= t "admin.sidebar.create_topic" %></a></li>
+                <li><a href="<%= admin_topics_path %>">
+                  <%= t "admin.sidebar.list_topic" %></a></li>
+                <li><a href="<%= new_admin_topic_path %>">
+                  <%= t "admin.sidebar.create_topic" %></a></li>
               </ul>
             </li>
             <li class="treeview">
@@ -50,7 +52,8 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="<%= admin_questions_path %>"><%= t "admin.sidebar.list_question" %></a></li>
+                <li><a href="<%= admin_questions_path %>">
+                  <%= t "admin.sidebar.list_question" %></a></li>
               </ul>
             </li>
           </ul>

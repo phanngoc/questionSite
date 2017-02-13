@@ -98,6 +98,7 @@ en:
     cancel: "Cancel"
     save: "Save"
     share: "share"
+    delete: "delete"
     edit: "edit"
     flag: "flag"
     confirm_delete: "Do you really want to delete ?"

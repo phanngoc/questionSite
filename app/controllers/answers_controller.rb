@@ -9,7 +9,6 @@ class AnswersController < ApplicationController
 
   def create
     @answer = Answer.create answer_params;
-
     @answer.user_id = current_user.id;
     if @answer.save
       @answer.create_activity key: "answer.create", owner: current_user
@@ -17,16 +16,13 @@ class AnswersController < ApplicationController
     else
       result = {status: Settings.status.not_ok, errors: @answer.errors}.to_json
     end
-
     redirect_to question_path(params[:reply_to])
   end
 
   def update
     @answer = Answer.find_by id: params[:id];
-    
-    if @answer.present?
+    if @answer
       @answer.content = params[:content];
-      
       if @answer.save
         @answer.create_activity key: "answer.update", owner: current_user
         result = {status: Settings.status.ok}.to_json
@@ -35,9 +31,18 @@ class AnswersController < ApplicationController
       end
     else
       result = {status: Settings.status.not_ok}  
-    end    
-    
-    render :json => result
+    end
+    render json: result
+  end
+
+  def destroy
+    @answer = Answer.destroy params[:id]
+    if @answer.destroyed?
+      result = {status: Settings.status.ok}
+    else
+      result = {status: Settings.status.not_ok}
+    end  
+    render json: result
   end
 
   private

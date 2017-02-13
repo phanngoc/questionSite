@@ -22,7 +22,6 @@ class Admin::TopicsController < AdminController
       flash[:danger] = t "flash.admin.topic.not_found"
       redirect_to admin_topics_path
     end
-
     if @topic.update_attributes topic_params
       flash[:success] = t "flash.admin.topic.update.success"
       redirect_to admin_topics_path
@@ -33,19 +32,20 @@ class Admin::TopicsController < AdminController
   end
 
   def destroy
-    result = Topic.destroy params[:id]
-    if result.nil?
-      flash[:danger] = t "flash.admin.topic.delete.failed"
-      redirect_to :back
-    else
+    @topic = Topic.find_by id: params[:id]
+    @topic.questions.destroy_all
+    @topic = Topic.destroy params[:id]
+    if @topic.destroyed?
       flash[:success] = t "flash.admin.topic.delete.success"
       redirect_to admin_topics_path
+    else
+      flash[:danger] = t "flash.admin.topic.delete.failed"
+      redirect_to :back
     end
   end
 
   def create
     @topic = Topic.new topic_params
-
     if @topic.save
       redirect_to admin_topics_path
     else

@@ -26,13 +26,13 @@ class User < ApplicationRecord
 
   def self.is_follow_user(user_id, current_user_id)
     query = Action.where(["user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
-                  current_user_id, "User", user_id, Action.type_acts[:follow]]);
+      current_user_id, "User", user_id, Action.type_acts[:follow]]);
     return query.length != 0
   end
 
   def self.number_user_follow(user_id)
     query = Action.where(["actionable_type = ? and actionable_id = ? and type_act = ?",
-                          "User", user_id, Action.type_acts[:follow]]);
+      "User", user_id, Action.type_acts[:follow]]);
     return query.length
   end
 
