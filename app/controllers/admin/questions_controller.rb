@@ -8,11 +8,11 @@ class Admin::QuestionsController < AdminController
     result = Question.destroy params[:id]
 
     if result.nil?
-      flash[:danger] = t "flash.admin.topic.delete.failed"
+      flash[:danger] = t "flash.admin.question.delete.failed"
       redirect_to :back
     else
       flash[:success] = t "flash.admin.topic.delete.success"
-      redirect_to admin_topics_path
+      redirect_to admin_questions_path
     end
   end
 end

@@ -24,6 +24,14 @@ en:
   title: "Ask & Answer"
   admin:
     home: "Home"
+    sidebar:
+      manage_user: "Manage users"
+      manage_topic: "Manage topics"
+      list_topic: "List topics"
+      create_topic: "Create topic"
+      manage_question: "Manage question"
+      list_question: "List question"
+
     user:
       list:
         title: "List users"
@@ -105,8 +113,16 @@ en:
     admin:
       user:
         update:
-          success: "Updated order successfully!"
-          failed: "Updated order unsuccessfully!"
+          success: "Updated user successfully!"
+          failed: "Updated user unsuccessfully!"
+      topic:
+        not_found: "Topic is not found"
+        update:
+          success: "Updat topic successfully!"
+          failed: "Updat topic unsuccessfully!"
+        delete:
+          success: "Delete topic successfully!"
+          failed: "Delete topic unsuccessfully!"
 
   profile_page:
     feed: "Feed"
@@ -126,6 +142,7 @@ en:
     down_vote: "is downvote by"
     is_answered: "is answered by"
     is_commented: "is commented by"
+
 
   activerecord:
     errors:

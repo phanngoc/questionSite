@@ -9,11 +9,20 @@ class Admin::TopicsController < AdminController
   end
 
   def edit
-    @topic = Topic.find_by params[:id]
+    @topic = Topic.find_by id: params[:id]
+    unless @topic
+      flash[:danger] = t "flash.admin.topic.not_found"
+      redirect_to admin_topics_path
+    end
   end
 
   def update
     @topic = Topic.find_by slug: params[:id]
+    unless @topic
+      flash[:danger] = t "flash.admin.topic.not_found"
+      redirect_to admin_topics_path
+    end
+
     if @topic.update_attributes topic_params
       flash[:success] = t "flash.admin.topic.update.success"
       redirect_to admin_topics_path
@@ -40,7 +49,7 @@ class Admin::TopicsController < AdminController
     if @topic.save
       redirect_to admin_topics_path
     else
-      redirect_to(:back)
+      redirect_to :back
     end
   end
 
