@@ -2,22 +2,26 @@
   <div class="feed-wrap row">
     <div class="sidebar-topic-trending col-md-3">
       <% if user_signed_in? %>
-        <%= react_component('HomeListTopic', topicsFollow: @topicsFollow, topics: @topics) %>
+        <%= react_component("HomeListTopic", topicsFollow: @topicsFollow,
+          topics: @topics) %>
       <% end %>
     </div>
     <div class="feed-inner-wrap col-md-9">
-      <span class="home_main_feed_head"><%= t "home_page.top_question_for_you" %></span>
+      <span class="home_main_feed_head">
+        <%= t "home_page.top_question_for_you" %></span>
 
       <% if user_signed_in? %>
         <div class="feed_suggest_ask">
           <div class="user-info">
             <div class="wr-avatar">
-              <img src="<%= current_user.avatar.url %>" alt="" class="circle img img_30">
+              <img src="<%= current_user.avatar.url %>" alt=""
+                class="circle img img_30">
             </div>
             <span class="name"><%= current_user.name %></span>
           </div> <!-- .user-info -->
           <div class="wr-suggest-ask">
-          <a href="<%= new_question_path %>" class="sentence-suggest-ask"><%= t "home_page.sentence_suggest_ask" %></a>
+          <a href="<%= new_question_path %>" class="sentence-suggest-ask">
+            <%= t "home_page.sentence_suggest_ask" %></a>
         </div>
       </div> <!-- .feed_suggest_ask -->
       <% end %>
@@ -28,18 +32,22 @@
               <div class="feed-item-inner">
                   <div class="list-topics">
                     <% question.topics.each do |topic| %>
-                      <span class="item-topic"><a href="<%= topic_path(topic.slug) %>"><%= topic.name %></a></span>
+                      <span class="item-topic">
+                        <a href="<%= topic_path(topic.slug) %>">
+                          <%= topic.name %></a></span>
                     <% end %>
                   </div>
                   <div class="time">
                     <%= question.updated_at %>
                   </div>
                   <span class="feed-ques-title">
-                    <a href="<%= question_path(question.slug) %>" alt="<%= question.title %>"><%= question.title %></a>
+                    <a href="<%= question_path(question.slug) %>"
+                      alt="<%= question.title %>"><%= question.title %></a>
                   </span>
                   <span class="author">
                     <div class="wr-avatar">
-                      <img src="<%= question.user.avatar.url %>" alt="" class="circle img_40">
+                      <img src="<%= question.user.avatar.url %>" alt=""
+                        class="circle img_40">
                     </div>
                     <div class="name">
                       <%= question.user.name %>
@@ -51,7 +59,7 @@
               </div>
             </div> <!-- .paged-list-item -->
           <% end %>
-          
+
           <%= will_paginate @questions %>
       </div> <!-- .question-feed -->
     </div>

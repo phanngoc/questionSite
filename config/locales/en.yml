@@ -46,6 +46,7 @@ en:
       edit:
         title: "Edit user"
         sub_title: "Edit information of user"
+        save: "Save user"
     topic:
       list:
         title: "List topic"
@@ -106,6 +107,9 @@ en:
     link_to_answer: "Please %{link} to answer question."
     errors:
       not_empty_comment: "Your comment can't empty"
+    question_page:
+      save_question: "Save question"
+
   flash:
     question:
       not_found: "Question is not found"

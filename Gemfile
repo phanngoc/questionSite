@@ -59,12 +59,12 @@ gem 'cancancan'
 gem 'select2-rails'
 gem 'wdm', '>= 0.1.0' if Gem.win_platform?
 
-gem 'mini_magick'
-gem 'ckeditor'
-gem 'byebug'
-gem 'gon'
-gem 'react-rails'
-gem 'font-awesome-sass'
+gem "mini_magick"
+gem "ckeditor"
+gem "byebug"
+gem "gon"
+gem "react-rails"
+gem "font-awesome-sass"
 gem "ransack"
 gem "i18n-js", ">= 3.0.0.rc11"
 gem "will_paginate", "~> 3.1.0"

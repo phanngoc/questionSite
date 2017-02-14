@@ -20,7 +20,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.includes({answers: [:user, {comments: [:actions, :user]}] }, 
-      :user, {comments: [:actions, :user]}).find_by slug: params[:id]
+      :user, {comments: [:actions, :user]}).find_muti params[:id]
     
     unless @question
       flash[:notice] = t "flash.question.not_found"
@@ -34,7 +34,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.includes(:topics).find_by slug: params[:id]
+    @question = Question.includes(:topics).find_muti params[:id]
     @topics = Topic.all
 
     unless @question

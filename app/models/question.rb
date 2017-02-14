@@ -2,17 +2,17 @@ class Question < ApplicationRecord
 
   include PublicActivity::Model
 
-  has_many :question_topics
+  has_many :question_topics, dependent: :destroy
   has_many :topics, through: :question_topics
 
   accepts_nested_attributes_for :topics
 
   has_many :version_questions, foreign_key: "question_target"
 
-  has_many :actions, as: :actionable
+  has_many :actions, as: :actionable, dependent: :destroy
   has_many :follows, as: :followable
 
-  has_many :answers, foreign_key: "reply_to"
+  has_many :answers, foreign_key: "reply_to", dependent: :destroy
 
   validates :title, presence: true
   validates :content, presence: true, length: {maximum: Settings.question[:content_max]}
@@ -41,8 +41,23 @@ class Question < ApplicationRecord
       ),1,0) AS is_follow, (select count(an.id) from answers an
       where an.reply_to = q.id) as number_answer
       from questions q order by q.updated_at desc, is_follow desc, number_answer desc, q.up_vote desc";
-    per_page = 1;            
-    @questions =  Question.includes([:topics, :user, :actions]).paginate_by_sql(sql, :page => page, :per_page => per_page)
+    per_page = Settings.home.per_page;            
+    @questions =  Question.includes([:topics, :user, :actions])
+      .paginate_by_sql(sql, page: page, per_page: per_page)
     return @questions
   end
+
+  def self.find_muti id
+    question = Question.find_by slug: id
+    unless question
+      question = Question.find_by id: id
+      if question
+        return question
+      else
+        return false
+      end   
+    else
+      return question  
+    end
+  end  
 end
