@@ -35,4 +35,18 @@ class Topic < ApplicationRecord
     query = Action.by_user(current_user_id).target("Topic").with_id(topic_id).is_follow
     query.length != 0
   end
+
+  def self.find_muti id
+    topic = Topic.find_by slug: id
+    unless topic
+      topic = Topic.find_by id: id
+      if topic
+        return topic
+      else
+        return false
+      end   
+    else
+      return topic  
+    end
+  end  
 end

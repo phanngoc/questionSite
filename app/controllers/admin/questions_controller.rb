@@ -2,7 +2,7 @@ class Admin::QuestionsController < AdminController
 
   def index
     @questions = Question.includes([:user, :topics])
-      .page(params[:page]).per Settings.admin.per_page
+      .paginate(per_page: Settings.admin.per_page, page: params[:page]);
   end
 
   def destroy

@@ -10,10 +10,10 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.includes({questions: [:topics, :user, 
-      answers: [:user, {comments: [:actions, :user]}]]}).find_by id: params[:id]
+      answers: [:user, {comments: [:actions, :user]}]]}).find_muti params[:id]
     if @topic
-      @questions = @topic.questions.paginate(:page => params[:page], 
-        :per_page => Settings.topic.per_page)
+      @questions = @topic.questions.paginate(page: params[:page], 
+        per_page: Settings.topic.per_page)
       if user_signed_in?
         @isFollow = Topic.is_follow(current_user.id, params[:id])
       end
