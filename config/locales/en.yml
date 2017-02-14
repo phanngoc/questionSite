@@ -74,6 +74,12 @@ en:
     show:
       follow: "Follow"
       unfollow: "Unfollow"
+  
+  topic_page:
+    title: "Result search for work:"
+    questions: "questions"
+    followers: "followers"
+    answers: "answers"
 
   login_page:
     title: "Log in"

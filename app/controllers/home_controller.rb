@@ -6,7 +6,6 @@ class HomeController < ApplicationController
     @topics = Topic.all
     if params.has_key? :word_search
       @q = Question.ransack(title_or_content_cont: params[:word_search])
-      @q.sorts = "updated_at desc"
       @questions = @q.result.includes([:topics, :user, :actions]).paginate(page: 
         params[:page], per_page: Settings.home.per_page)
 
