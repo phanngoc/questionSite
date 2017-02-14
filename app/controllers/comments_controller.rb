@@ -1,9 +1,9 @@
 class CommentsController < ApplicationController
   layout "main"
   before_filter :authenticate_user!
+  authorize_resource
 
   def index
-
   end
 
   def create

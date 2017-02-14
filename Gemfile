@@ -41,23 +41,23 @@ gem 'bcrypt-ruby', '3.1.5', :require => 'bcrypt'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'omniauth'
-gem 'friendly_id', '~> 5.1.0'
-gem 'devise'
-gem 'autoprefixer-rails'
-gem 'seed_dump'
+gem "omniauth"
+gem "friendly_id", "~> 5.1.0"
+gem "devise"
+gem "autoprefixer-rails"
+gem "seed_dump"
 gem "bower-rails", "~> 0.11.0"
 gem "kaminari"
-gem 'faker'
-gem 'sidekiq'
+gem "faker"
+gem "sidekiq"
 #gem 'omniauth-facebook'
-gem 'simple_form'
-gem 'carrierwave', '~> 1.0'
-gem 'pg'
+gem "simple_form"
+gem "carrierwave", "~> 1.0"
+gem "pg"
 
-gem 'cancancan'
-gem 'select2-rails'
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+gem "cancancan"
+gem "select2-rails"
+gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
 gem "mini_magick"
 gem "ckeditor"

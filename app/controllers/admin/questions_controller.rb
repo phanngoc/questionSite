@@ -7,7 +7,6 @@ class Admin::QuestionsController < AdminController
 
   def destroy
     result = Question.destroy params[:id]
-
     if result.nil?
       flash[:danger] = t "flash.admin.question.delete.failed"
       redirect_to :back

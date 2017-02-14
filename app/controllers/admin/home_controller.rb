@@ -5,7 +5,7 @@ class Admin::HomeController < AdminController
   end
 
   def show
-   
+  
   end
 
   private
