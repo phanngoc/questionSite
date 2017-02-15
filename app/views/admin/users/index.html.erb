@@ -47,15 +47,12 @@
             <td><%= user.role %></td>
             <td>
               <a href="<%= edit_admin_user_path(user.id) %>">
-              <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                <i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
             </td>
           </tr>
         <% end %>
     </tbody>
   </table>
   <%= paginate @users %>
-  <div class="chart">
-    <%= line_chart User.group_by_day(:created_at).count %>
-  </div>
 </section>
 <!-- /.content -->

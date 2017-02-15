@@ -13,26 +13,14 @@ class Topic < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: [:slugged, :finders]
 
-  scope :numberFollow, -> topic_id do
-    find_by_sql("select count(distinct user_id) from actions where actionable_id=#{topic_id}
-      and actionable_type='Topic' and type_act=#{Action.type_acts[:follow]}").count
+  scope :topics_login_user, -> user_id do
+    joins(:actions).where(actions: {actionable_type: Action.target_acts[:topic],
+      type_act: Action.type_acts[:follow], user_id: user_id})
   end
-
-  scope :numberAnwserInTopic, -> topic_id do
-    find_by_sql("select count(distinct an.id) from answers an
-      inner join questions qu on qu.id = an.reply_to
-      inner join question_topics qt on qt.question_id = qu.id
-      and qt.topic_id=#{topic_id}").count
-  end
-
-  scope :topics_login_user, -> (user_id) {
-    find_by_sql("select topics.* from topics
-      inner join actions ac on ac.actionable_id = topics.id and ac.actionable_type='Topic'
-      and ac.type_act=#{Action.type_acts[:follow]} and ac.user_id = #{user_id}")
-  }
 
   def self.is_follow current_user_id, topic_id
-    query = Action.by_user(current_user_id).target("Topic").with_id(topic_id).is_follow
+    query = Action.by_user(current_user_id).target("Topic")
+      .with_id(topic_id).is_follow
     query.length != 0
   end
 

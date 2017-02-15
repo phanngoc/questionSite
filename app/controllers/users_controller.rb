@@ -7,14 +7,19 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.includes([:actions, :questions, {answers: :question}, :comments]).find(params[:id])
+    @user = User.includes([:actions, :questions, {answers: :question}, :comments])
+      .find_by id: params[:id]
+
+    unless @user
+      flash[:danger] = t "flash.user.not_found"
+      redirect_to root_path
+    end
     @numberQuestionsOfUser = @user.questions.count
     @numberAnswersOfUser = @user.answers.count
     @numberCommentsOfUser = @user.comments.count
     @numberUserFollow = User.number_user_follow(params[:id])
 
-    @activities = PublicActivity::Activity.order("created_at desc")
-      .where("owner_id", params[:id])
+    @activities = User.activity_by_user(params[:id])
       .paginate(:page => params[:page],
       per_page: Settings.profile.activity.per_page)
     

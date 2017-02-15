@@ -1,6 +1,6 @@
 <li>
   <span>
-    <a href="<%= question_path(a.trackable.question.id) %>"><%= a.trackable.question.title %></a>
+    <%= link_to a.trackable.question.title, question_path(a.trackable.question.id) %>
     <%= t "activity.down_vote" %>
     <% if a.owner.present? %>
       <b class="owner_name"><%= a.owner.name %></b>

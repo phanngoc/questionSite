@@ -16,11 +16,11 @@ class TopicsController < ApplicationController
       @questions = @topic.questions.paginate(page: params[:page], 
         per_page: Settings.topic.per_page)
       if user_signed_in?
-        @isFollow = Topic.is_follow(current_user.id, params[:id])
+        @isFollow = Topic.is_follow(current_user.id, @topic.id)
       end
       @countQuestion = @topic.questions.count
-      @numberPeopleFollow = Topic.numberFollow @topic.id
-      @numberAnswerInTopic = Topic.numberAnwserInTopic @topic.id
+      @numberPeopleFollow = Action.numberFollow(@topic.id).distinct.count(:user_id)
+      @numberAnswerInTopic = Answer.numberAnwserInTopic(@topic.id).distinct.count
     else
       redirect_to root_path;
     end

@@ -13,10 +13,12 @@ class Comment < ApplicationRecord
   validates :commentable_id, presence: true
   validates :user_id, presence: true
 
+  enum comment_type: {answer: "Answer", question: "Question"} 
+
   def final_question
-    if self.commentable_type == "Question"
+    if self.commentable_type == Comment.comment_types[:question]
       return Question.find self.commentable_id
-    elsif self.commentable_type == "Answer"
+    elsif self.commentable_type == Comment.comment_types[:answer]
       return Answer.find(self.commentable_id).question
     end
   end
