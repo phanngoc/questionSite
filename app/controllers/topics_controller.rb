@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   layout "main"
-
+  authorize_resource
+  
   def index
   end
 

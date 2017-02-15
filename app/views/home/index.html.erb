@@ -20,47 +20,47 @@
             <span class="name"><%= current_user.name %></span>
           </div> <!-- .user-info -->
           <div class="wr-suggest-ask">
-          <a href="<%= new_question_path %>" class="sentence-suggest-ask">
-            <%= t "home_page.sentence_suggest_ask" %></a>
-        </div>
-      </div> <!-- .feed_suggest_ask -->
+          <%= link_to t("home_page.sentence_suggest_ask"), new_question_path,
+            class: "sentence-suggest-ask" %>
+          </div>
+        </div> <!-- .feed_suggest_ask -->
       <% end %>
 
       <div class="question-feed">
-          <% @questions.each do |question| %>
-            <div class="paged-list-item">
-              <div class="feed-item-inner">
-                  <div class="list-topics">
-                    <% question.topics.each do |topic| %>
-                      <span class="item-topic">
-                        <a href="<%= topic_path(topic.slug) %>">
-                          <%= topic.name %></a></span>
-                    <% end %>
-                  </div>
-                  <div class="time">
-                    <%= question.updated_at %>
-                  </div>
-                  <span class="feed-ques-title">
-                    <a href="<%= question_path(question.slug) %>"
-                      alt="<%= question.title %>"><%= question.title %></a>
+        <% @questions.each do |question| %>
+          <div class="paged-list-item">
+            <div class="feed-item-inner">
+              <div class="list-topics">
+                <% question.topics.each do |topic| %>
+                  <span class="item-topic">
+                    <%= link_to topic.name, topic_path(topic.slug) %>
                   </span>
-                  <span class="author">
-                    <div class="wr-avatar">
-                      <img src="<%= question.user.avatar.url %>" alt=""
-                        class="circle img_40">
-                    </div>
-                    <div class="name">
-                      <%= question.user.name %>
-                    </div>
-                  </span>
-                  <div class="ques-content">
-                    <%= raw question.content %>
-                  </div>
+                <% end %>
               </div>
-            </div> <!-- .paged-list-item -->
-          <% end %>
+              <div class="time">
+                <%= question.updated_at %>
+              </div>
+              <span class="feed-ques-title">
+                <%= link_to question.title, question_path(question.slug),
+                  alt: question.title %>
+              </span>
+              <span class="author">
+                <div class="wr-avatar">
+                  <%= image_tag question.user.avatar.url,
+                    class: "circle img_40" %>
+                </div>
+                <div class="name">
+                  <%= question.user.name %>
+                </div>
+              </span>
+              <div class="ques-content">
+                <%= raw question.content %>
+              </div>
+            </div>
+          </div> <!-- .paged-list-item -->
+        <% end %>
 
-          <%= will_paginate @questions %>
+        <%= will_paginate @questions %>
       </div> <!-- .question-feed -->
     </div>
   </div>

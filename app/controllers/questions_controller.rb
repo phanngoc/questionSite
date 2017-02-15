@@ -1,7 +1,8 @@
 class QuestionsController < ApplicationController
   layout "main"
   before_filter :authenticate_user!, :except => [:show]
-
+  authorize_resource
+  
   def new
     @question = Question.new
     @topics = Topic.all
@@ -57,7 +58,7 @@ class QuestionsController < ApplicationController
         }
       end
     else
-      @question = Question.find_by_slug params[:id]
+      @question = Question.find_muti params[:id]
       @question.update question_params
       @question.topic_ids = params[:question][:topics]
         .reject {|c| c.empty?}.map(&:to_i)

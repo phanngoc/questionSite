@@ -48,5 +48,5 @@ class Topic < ApplicationRecord
     else
       return topic  
     end
-  end  
+  end
 end
