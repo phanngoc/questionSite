@@ -5,7 +5,7 @@ class Action < ApplicationRecord
   belongs_to :actionable, polymorphic: true
   enum type_act: [:down_vote, :up_vote, :share_fa, :share_tw, :follow], _suffix: true
 
-  enum target_act: [answer: "Answer", question: "Question", topic: "Topic", comment: "Comment"], _suffix: true
+  enum target_act: {answer: "Answer", question: "Question", topic: "Topic", comment: "Comment", user: "User"}
 
   delegate :url_helpers, to: "Rails.application.routes"
 
@@ -20,6 +20,16 @@ class Action < ApplicationRecord
   scope :is_downvote, ->{where type_act: Action.type_acts[:down_vote]}
 
   scope :is_follow, ->{where type_act: Action.type_acts[:follow]}
+
+  scope :numberFollow, -> topic_id do
+    where(actionable_id: topic_id, actionable_type: Action.target_acts[:topic],
+      type_act: Action.type_acts[:follow])
+  end
+
+  scope :follow_user, -> user_id do
+    where(actionable_id: topic_id, actionable_type: Action.target_acts[:topic],
+      type_act: Action.type_acts[:follow])
+  end
 
   scope :is_upvote_answer, -> (current_user_id, answer_id) do
     where "user_id = ? and actionable_type = ? and actionable_id = ?

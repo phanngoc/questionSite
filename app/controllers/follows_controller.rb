@@ -7,38 +7,41 @@ class FollowsController < ApplicationController
     else
       result = unfollow
     end
-
     render json: result
   end
   
   private
 
   def follow
-    followObj = Action.create({user_id: current_user.id,
-      actionable_id: params[:id],
-      actionable_type: "User",
-      type_act: :follow})
-    if followObj.nil?
-      result = {status: 0}
-    else
-      result = {status: 1}
+    followObj = Action.create follow_params
+    @user = User.find_by id: params[:user_id]
+    if @user
+      @user.create_activity key: Settings.activity.user.follow, owner: current_user
     end
-
+    unless followObj
+      result = {status: Settings.status.not_ok}
+    else
+      result = {status: Settings.status.ok}
+    end
     return result
   end
 
   def unfollow
-    followObj = Action.where({user_id: current_user.id, 
-      actionable_id: params[:id],
-      actionable_type: "User", 
-      type_act: :follow}).destroy_all;
-
-    if followObj.nil? || followObj.length == 0
-      result = {status: 0}
-    else
-      result = {status: 1}
+    followObj = Action.where(follow_params).destroy_all
+    @user = User.find_by id: params[:user_id]
+    if @user
+      @user.create_activity key: Settings.activity.user.unfollow, owner: current_user
     end
-
+    if followObj.nil? || followObj.length == 0
+      result = {status: Settings.status.not_ok}
+    else
+      result = {status: Settings.status.ok}
+    end
     return result
+  end
+
+  def follow_params
+    {user_id: current_user.id, actionable_id: params[:user_id],
+      actionable_type: Action.target_acts[:user], type_act: :follow}
   end
 end

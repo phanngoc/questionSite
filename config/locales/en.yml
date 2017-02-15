@@ -87,7 +87,7 @@ en:
   home_page:
     home: "Home"
     login_in: "Login"
-    profile: "profile"
+    profile: "Profile"
     edit_profile: "Edit profile"
     logout: "Logout"
     top_question_for_you: "Top question for you"
@@ -159,7 +159,8 @@ en:
     down_vote: "is downvote by"
     is_answered: "is answered by"
     is_commented: "is commented by"
-
+    follow: "is followed by"
+    unfollow: "is unfollowed by"
 
   activerecord:
     errors:

@@ -13,4 +13,7 @@ class Answer < ApplicationRecord
   validates :user_id, presence: true
   validates :reply_to, presence: true
   
+  scope :numberAnwserInTopic, -> topic_id do
+    joins(question: :question_topics).where(question: {question_topics: {topic_id: topic_id}})
+  end
 end

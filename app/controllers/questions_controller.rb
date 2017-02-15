@@ -14,7 +14,7 @@ class QuestionsController < ApplicationController
     @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
     @question.save
 
-    @question.create_activity key: "question.create", owner: current_user
+    @question.create_activity key: Settings.activity.question.create, owner: current_user
 
     redirect_to question_path(@question.slug)
   end
@@ -60,6 +60,8 @@ class QuestionsController < ApplicationController
     else
       @question = Question.find_muti params[:id]
       @question.update question_params
+      @question.create_activity key: Settings.activity.question.update, owner: current_user
+
       @question.topic_ids = params[:question][:topics]
         .reject {|c| c.empty?}.map(&:to_i)
       @topics = Topic.all
@@ -75,7 +77,7 @@ class QuestionsController < ApplicationController
     if @question.nil? || User.is_upvote_question(current_user.id, params[:id])
       result = {status: 0}
     else
-      @question.create_activity key: "question.up_vote", owner: current_user
+      @question.create_activity key: Settings.activity.question.up_vote, owner: current_user
       if User.is_downvote_question current_user.id, params[:id]
         @question.up_vote = @question.up_vote + 2
       else
@@ -104,7 +106,7 @@ class QuestionsController < ApplicationController
       result = {status: Settings.status.not_ok}
     else
       @question = Question.find(params[:id])
-      @question.create_activity key: "question.down_vote", owner: current_user
+      @question.create_activity key: Settings.activity.question.down_vote, owner: current_user
 
       if User.is_upvote_question current_user.id, params[:id]
         @question.down_vote = @question.down_vote + 2

@@ -66,9 +66,9 @@ var ItemComment = React.createClass({
 
   handleCancel(e) {
     this.setState({
-                    styleFrEdit: {display: "none"},
-                    styleFrShow: {display: "flex"}
-                  });
+      styleFrEdit: {display: "none"},
+      styleFrShow: {display: "flex"}
+    });
   },
 
   handleDelete(e) {
