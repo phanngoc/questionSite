@@ -9,7 +9,9 @@
         
         <%= f.input :content, as: :ckeditor%>
 
-        <%= f.input :topics, as: :select, selected: @question.topics.map {|x| x.id.to_i}, collection: @topics, label_method: :name,
+        <%= f.input :topics, as: :select, 
+          selected: @question.topics.map {|x| x.id.to_i}, 
+          collection: @topics, label_method: :name,
           value_method: :id, label: t("question_page.topics") ,
           include_blank: true,
           input_html: {multiple: true, class: "select2"} %>

@@ -28,5 +28,5 @@
 //= require i18n/translations
 //= require Chart.bundle
 //= require chartkick
-
+//= require jsdiff
 //= require_tree .

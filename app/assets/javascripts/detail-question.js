@@ -16,7 +16,9 @@ $(document).ready(function () {
 			'searchreplace visualblocks code fullscreen',
 			'insertdatetime media table contextmenu paste code'
 		],
-		toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		toolbar: 'undo redo | insert | styleselect | bold italic | alignleft \
+			aligncenter alignright alignjustify | bullist numlist outdent indent \
+			| link image',
 		content_css: '//www.tinymce.com/css/codepen.min.css'
 	});
 
@@ -24,5 +26,38 @@ $(document).ready(function () {
 		tinyMCE.triggerSave();
 	});
 
-	
+	$('select[name="verques"]').change(function() {
+		var verque_id = $(this).val();
+		var question_id = $(this).attr('quesid');
+		window.location = '/questions/' + question_id + '/verques/' + verque_id + '/edit';
+	});
+
+	var textOriginal = $('.original .content').text();
+	var textTitleOriginal = $('.original .title').text();
+
+	function getFragment(original, compare) {
+		var diff = JsDiff.diffChars(original, compare);
+		var fragment = document.createDocumentFragment();
+		diff.forEach(function(part){
+			color = part.added ? 'green' :
+				part.removed ? 'red' : 'grey';
+			span = document.createElement('span');
+			span.style.color = color;
+			span.appendChild(document
+				.createTextNode(part.value));
+			fragment.appendChild(span);
+		});
+		return fragment;
+	}
+	$('.item-verque .content').each(function(key, item) {
+		var text = $(item).text();
+		var fragment = getFragment(textOriginal, text);
+		$(item).html(fragment);
+	});
+
+	$('.item-verque .title').each(function(key, item) {
+		var text = $(item).text();
+		var fragment = getFragment(textTitleOriginal, text);
+		$(item).html(fragment);
+	});
 });

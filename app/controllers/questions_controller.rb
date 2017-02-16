@@ -37,11 +37,15 @@ class QuestionsController < ApplicationController
   def edit
     @question = Question.includes(:topics).find_muti params[:id]
     @topics = Topic.all
-
+    
     unless @question
       flash[:notice] = t "flash.question.not_found"
       redirect_to root_path
     end
+
+    if @question.id != current_user.id
+      redirect_to edit_verque_path(@question.id)
+    end  
   end
 
   def update

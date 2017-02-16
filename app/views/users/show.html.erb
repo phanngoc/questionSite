@@ -27,7 +27,7 @@
                   <% else %>
                     <a href="javascript:"><%= t "user.show.follower" %></a>|
                   <% end %>
-                  <strong><%= @numberUserFollow %></strong>
+                  <strong><%= @support.numberUserFollow %></strong>
                 </span>
               </div>
             <div class="info_story">
@@ -48,16 +48,16 @@
         <div class="inner_show_analytic">
           <ul class="list_analytic_info">
             <li>
-              <span><%= t "profile_page.ask" %>: 
-                <strong><%= @numberQuestionsOfUser %></strong></span>
+              <span><%= t "profile_page.ask" %>:
+                <strong><%= @support.numberQuestion %></strong></span>
             </li>
             <li>
-              <span><%= t "profile_page.answers" %>: 
-                <strong><%= @numberAnswersOfUser %></strong></span>
+              <span><%= t "profile_page.answers" %>:
+                <strong><%= @support.numberAnswer %></strong></span>
             </li>
             <li>
-              <span><%= t "profile_page.comments" %>: 
-                <strong><%= @numberCommentsOfUser %></strong></span>
+              <span><%= t "profile_page.comments" %>:
+                <strong><%= @support.numberComment %></strong></span>
             </li>
           </ul>
         </div>
@@ -140,5 +140,6 @@
         </div>
       </div>
     </section>
+
   </div>
 </div>

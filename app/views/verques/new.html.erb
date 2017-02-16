@@ -1,0 +1,30 @@
+<div id="wr-edit-question container">
+  <div class="fr-form-ask row">
+    <div class="col-md-5 col-md-offset-1">
+      <div class="wr_select_ver">
+        <label for="verques">
+          <%= t "question_page.select_question_to_edit" %>
+          <% if current_user.is_admin? || current_user.is_moderator? ||
+            current_user.id == @question.user_id %>
+            <%= link_to t("question_page.approve_version"), question_verques_path(params[:question_id]),
+              class: "btn btn-sm btn-primary" %>
+          <% end %>
+        </label>
+        <%= select_tag "verques", options_for_select(@verques.collect{|u| 
+          ["Rev #{u.version} #{u.title}-#{u.user.name}-#{u.created_at}", u.id]}), 
+          class: "form-control", quesid: params[:question_id] %>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= simple_form_for @verque, url: "/questions/#{params[:question_id]}/verques", 
+            method: :post do |f| %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <%= f.input :title, input_html: {class: "special"} %>
+            <%= f.input :content, as: :ckeditor %>
+            <%= f.button :submit, t("question_page.save_question") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

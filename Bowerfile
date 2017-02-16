@@ -19,3 +19,4 @@ asset 'admin-lte'
 asset 'datatables.net'
 asset 'datatables.net-dt'
 
+asset 'jsdiff'
