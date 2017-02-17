@@ -9,7 +9,13 @@ class VerquesController < ApplicationController
       flash[:danger] = t "flash.question.not_found"
       redirect_to root_path
     end
-    @verques = Verque.includes(:user).by_ques params[:question_id]
+    if params[:status] && params[:status] != Settings.version_page.all
+      @verques = Verque.includes(:user).by_ques(params[:question_id])
+        .status(params[:status])
+    else
+      @verques = Verque.includes(:user).by_ques(params[:question_id])
+    end
+    gon.page = Settings.page.approve_ques
   end
 
   def new
@@ -19,10 +25,8 @@ class VerquesController < ApplicationController
       @verque = Verque.new(@question.attributes.slice("title", "content"))
     end
     @verques = Verque.version_by_quesid params[:question_id]
-    unless @verque
-      flash[:danger] = t "flash.question.not_found"
-      redirect_to root_path
-    end
+    gon.page = Settings.page.edit_ques
+    gon.question = @question
   end
 
   def create
@@ -33,7 +37,7 @@ class VerquesController < ApplicationController
     @verquetemp = Verque.create verque_params
     if @verquetemp
       redirect_to question_path(params[:question_id])
-    end  
+    end
   end
 
   def edit
@@ -44,6 +48,8 @@ class VerquesController < ApplicationController
       redirect_to root_path
     end
     @verques = Verque.version_by_quesid params[:question_id]
+    gon.page = Settings.page.edit_ques
+    gon.question = @question
   end
 
   def update

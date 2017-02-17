@@ -29,4 +29,5 @@
 //= require Chart.bundle
 //= require chartkick
 //= require jsdiff
+//= require simplemde/dist/simplemde.min.js
 //= require_tree .

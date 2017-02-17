@@ -51,6 +51,12 @@ en:
       list:
         title: "List topic"
         sub_title: "List topic available"
+      new:
+        title: "Create topic"
+        sub_title: "Create topic for question"
+      edit:
+        title: "Edit topic"
+        sub_title: "Edit information topic"
     question:
       list:
         title: "List question"
@@ -126,9 +132,9 @@ en:
     admin:
       user:
         update:
-          success: "Updated user successfully!"
-          failed: "Updated user unsuccessfully!"
-        not_found: "User is not found"  
+          success: "Update user successfully!"
+          failed: "Update user unsuccessfully!"
+        not_found: "User is not found"
       topic:
         list:
           name: "Name"
@@ -137,8 +143,8 @@ en:
           action: "Action"
         not_found: "Topic is not found"
         update:
-          success: "Updat topic successfully!"
-          failed: "Updat topic unsuccessfully!"
+          success: "Update topic successfully!"
+          failed: "Update topic unsuccessfully!"
         delete:
           success: "Delete topic successfully!"
           failed: "Delete topic unsuccessfully!"
@@ -170,6 +176,8 @@ en:
     approved: "Approved"
     rejected: "Rejected"
     rev: "Rev"
+    pending: "Pending"
+    all: "All"
   activerecord:
     errors:
       models:

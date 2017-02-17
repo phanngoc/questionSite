@@ -8,10 +8,12 @@ class Verque < ApplicationRecord
 
   scope :by_ques, -> ques_id{where question_target: ques_id}
 
+  scope :status, -> status{where status: status}
+
   class << self
     def find_newest question_id
-      where(question_target: question_id, status: Verque.statuses[:approved], 
-        version: self.maximum("version")).first
+      where(question_target: question_id, status: Verque.statuses[:approved])
+      .order(version: :desc).first
     end
 
     def version_by_quesid question_id

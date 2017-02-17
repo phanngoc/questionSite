@@ -1,6 +1,3 @@
-/**
- * Created by Ngoc on 1/29/2017.
- */
 $(document).ready(function () {
 
 	$("#form-add-comment").submit(function(e){
@@ -32,9 +29,17 @@ $(document).ready(function () {
 		window.location = '/questions/' + question_id + '/verques/' + verque_id + '/edit';
 	});
 
-	var textOriginal = $('.original .content').text();
-	var textTitleOriginal = $('.original .title').text();
+	var textOriginal = '';
+	var textTitleOriginal = '';
 
+	if (gon.page == 0) {
+		textOriginal = $('.original .content').text();
+		textTitleOriginal = $('.original .title').text();
+	} else if (gon.page == 1) {
+		textOriginal = gon.question.content;
+		textTitleOriginal = gon.question.title;
+	}
+	
 	function getFragment(original, compare) {
 		var diff = JsDiff.diffChars(original, compare);
 		var fragment = document.createDocumentFragment();
@@ -60,4 +65,16 @@ $(document).ready(function () {
 		var fragment = getFragment(textTitleOriginal, text);
 		$(item).html(fragment);
 	});
+
+	var simplemde = new SimpleMDE({element: 
+		document.getElementById("verque_content")});
+
+	$('#col-sort').change(function() {
+		var status = $(this).val();
+		if (status == "all") {
+			window.location = '?status=all';
+		} else {
+			window.location = '?status=' + status;
+		}
+	});	
 });

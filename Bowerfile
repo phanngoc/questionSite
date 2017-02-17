@@ -20,3 +20,5 @@ asset 'datatables.net'
 asset 'datatables.net-dt'
 
 asset 'jsdiff'
+asset 'requirejs'
+asset 'simplemde'

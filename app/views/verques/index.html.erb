@@ -20,6 +20,28 @@
             <%= @question.content %>
           </div>
         </div>
+        <div class="control-sort">
+          <div></div>
+          <div class="wr-sort">
+            <select name="status" class="form-control" id="col-sort">
+              <option value="<%= :all %>"
+                <%= "selected" if params[:status].nil? %>>
+                <%= t "version_question.all" %></option>
+              <option value="<%= :approved %>"
+                <%= "selected" if params[:status] && 
+                  params[:status].to_sym == :approved %>>
+                <%= t "version_question.done" %></option>
+              <option value="<%= :rejected %>" 
+                <%= "selected" if params[:status] && 
+                  params[:status].to_sym == :rejected %>>
+                <%= t "version_question.rejected" %></option>
+              <option value="<%= :pending %>" 
+                <%= "selected" if params[:status] && 
+                  params[:status].to_sym == :pending %>>
+                <%= t "version_question.pending" %></option>
+            </select>
+          </div>
+        </div>
         <ul class="list-version">
           <% @verques.each do |verque| %>
             <div class="item-verque">
