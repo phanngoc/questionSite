@@ -49,7 +49,7 @@ gem "seed_dump"
 gem "kaminari"
 gem "faker"
 gem "sidekiq"
-#gem 'omniauth-facebook'
+gem "omniauth-facebook"
 gem "simple_form"
 gem "carrierwave", "~> 1.0"
 gem "pg"
@@ -72,6 +72,8 @@ gem "config"
 gem "groupdate"
 gem "chartkick"
 gem "public_activity"
+gem "social-share-button"
+gem "pry"
 
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

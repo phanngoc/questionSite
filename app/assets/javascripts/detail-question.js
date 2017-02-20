@@ -76,5 +76,16 @@ $(document).ready(function () {
 		} else {
 			window.location = '?status=' + status;
 		}
-	});	
+	});
+
+	$(".wr-share").css({display: "none"});
+	$(".share-link").click(function() {
+		var $divSocial = $(this).next();
+		var currentStyle = $divSocial.css("display");
+		if (currentStyle == "none") {
+			$divSocial.css("display", "block");
+		} else {
+			$divSocial.css("display", "none")
+		}
+	});
 });

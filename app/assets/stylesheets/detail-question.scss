@@ -182,3 +182,16 @@
     }
   }
 }
+
+
+.wr-collapse{
+  display: inline-block;
+  position: relative;
+  .anchor-item{
+    
+  }
+  .body-item{
+    position: absolute;
+    min-width: 65px;
+  }
+}

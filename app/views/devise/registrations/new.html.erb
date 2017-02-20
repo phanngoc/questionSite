@@ -6,23 +6,15 @@
 
           <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
             <%= devise_error_messages! %>
-
             <%= f.input :name, autofocus: true %>
-
             <%= f.input :story,as: :text, autofocus: true %>
-
             <%= f.input :email, autofocus: true %>
-
             <%= f.input :password, autocomplete: "off" %>
-
             <%= f.input :password_confirmation, autocomplete: "off" %>
-
             <%= f.input :avatar, as: :file %>
-
             <div class="actions">
               <%= f.button :submit, value: "Sign up" %>
             </div>
-
           <% end %>
           <%= render "devise/shared/links" %>
       </div>
