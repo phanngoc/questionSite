@@ -24,7 +24,7 @@ Devise.setup do |config|
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
-  require 'devise/orm/active_record'
+  require "devise/orm/active_record"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -248,6 +248,10 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  
+  config.omniauth :facebook, "1637155526591850", "a18e3d25d0ce8cac5e3c275b053e533b", 
+    callback_url: "http://localhost:3000/users/auth/facebook/callback"
+
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -16,10 +16,17 @@
                 <tr>
                   <td class="vt-left">
                     <div class="post-menu">
-                      <a href="" title="short permalink to this answer"
-                        class="short-link" id="link-post-33133995">
-                        <%= t("question_page.share") %>
-                      </a><span class="lsep">|</span>
+                      <div class="wr-collapse">
+                        <a href="javascript:"
+                          class="share-link anchor-item">
+                          <%= t("question_page.share") %>
+                        </a>
+                        <div class="wr-share body-item">
+                          <%= social_share_button_tag(@question.title) %>
+                        </div>  
+                      </div>
+                      
+                      <span class="lsep">|</span>
                       <% if current_user.id == @question.id %>
                         <a href="<%= edit_question_path %>"
                           class="suggest-edit-post"
@@ -92,9 +99,7 @@
                     <tbody>
                       <tr>
                         <td>
-                          <textarea class="elem-answer-ques" name="content">
-
-                          </textarea>
+                          <textarea class="elem-answer-ques" name="content"></textarea>
                         </td>
                       </tr>
                       <tr>

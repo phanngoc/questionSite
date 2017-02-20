@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
-  mount Ckeditor::Engine => '/ckeditor'
-  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
-  
+  mount Ckeditor::Engine => "/ckeditor"
+  devise_for :users, controllers: {sessions: "users/sessions", 
+    registrations: "users/registrations", 
+    omniauth_callbacks: "callbacks"}
+
   root to: "home#index"
 
   resources :users do
