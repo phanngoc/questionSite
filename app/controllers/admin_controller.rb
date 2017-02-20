@@ -2,7 +2,7 @@ class AdminController < ApplicationController
 	layout "admin"
   respond_to :json, :html
   before_action :verify_admin
-	authorize_resource :class => false
+	authorize_resource class: false
 
 	def verify_admin
 		redirect_to root_url unless current_user.is_admin?

@@ -5,12 +5,27 @@ user:
   follow: "follow"
   unfollow: "unfollow"
 
+comment:
+  content_max: 255
+  content_min: 6
+
 question:
   content_max: 255
+
+answer:
+  min_content: 5
+  max_content: 255
 
 vote:
   up: 1
   down: 0
+
+status:
+  ok: 1
+  not_ok: 0
+
+home:
+  per_page: 5
 
 topic:
   name_max: 255
@@ -19,25 +34,19 @@ topic:
   unfollow: 0
   per_page: 5
 
-home:
-  per_page: 5
-
-answer:
-  max_content: 255
-  min_content: 6
-  up: 1
-  down: 0
-
-status:
-  ok: 1
-  not_ok: 0
-
 profile:
   activity:
     per_page: 5
 
 admin:
   per_page: 10
+
+page:
+  approve_ques: 0
+  edit_ques: 1 
+
+version_page:
+  all: "all"
 
 activity:
   answer:

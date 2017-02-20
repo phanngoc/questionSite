@@ -2,7 +2,6 @@ var Answer = React.createClass({
 
 	getInitialState() {
     var answer = jQuery.parseJSON(this.props.answer);
-
 		return {
       answer: answer,
       content: answer.content,
@@ -110,6 +109,23 @@ var Answer = React.createClass({
 		var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
     var styleShow = this.state.isShow ? {display: "none"} : {display: "block"};
     var styleAnswer = this.state.isShowAnswer ? {display: "block"} : {display: "none"};
+    var actionHtml = (<ul className="menu-action">
+      <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
+      <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
+    </ul>);
+
+    if (gon.current_user && this.state.answer.user.id
+      == gon.current_user.id) {
+        actionHtml = (
+          <ul className="menu-action">
+            <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
+            <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>|
+            <li><a href="javascript:" className="ac-delete" onClick={this.confirmDelete}>{I18n.t("question_page.delete")}</a></li>|
+            <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
+          </ul>
+        )
+    }
+
 		return (
       <div className="fr-answer" style={styleAnswer}>
         <table className="answer">
@@ -151,12 +167,7 @@ var Answer = React.createClass({
             <tr>
               <td></td>
               <td className="wr-menu-action">
-                <ul className="menu-action">
-                  <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
-                  <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>|
-                  <li><a href="javascript:" className="ac-delete" onClick={this.confirmDelete}>{I18n.t("question_page.delete")}</a></li>|
-                  <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
-                </ul>
+                {actionHtml}
               </td>
               <td className="td-wr-author">
                 <div className="user-info">

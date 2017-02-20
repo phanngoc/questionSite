@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   layout "main"
   respond_to :json, :html
-  before_filter :authenticate_user!, :except => [:show]
 
   def index
   end
@@ -14,15 +13,11 @@ class UsersController < ApplicationController
       flash[:danger] = t "flash.user.not_found"
       redirect_to root_path
     end
-    @numberQuestionsOfUser = @user.questions.count
-    @numberAnswersOfUser = @user.answers.count
-    @numberCommentsOfUser = @user.comments.count
-    @numberUserFollow = User.number_user_follow(params[:id])
-
+    @support = Supports::UserSupport.new(@user)
     @activities = User.activity_by_user(params[:id])
-      .paginate(:page => params[:page],
+      .paginate(page: params[:page],
       per_page: Settings.profile.activity.per_page)
-    
+
     if user_signed_in?
       @isFollowUser = User.is_follow_user(params[:id], current_user.id)
     end

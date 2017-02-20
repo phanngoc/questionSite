@@ -17,8 +17,10 @@ Rails.application.routes.draw do
   end
 
   resources :questions do
+    resources :verques
   end
 
+  resources :verques
 
   resources :comments do
     resources :votes

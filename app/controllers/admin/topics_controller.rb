@@ -53,6 +53,8 @@ class Admin::TopicsController < AdminController
     end
   end
 
+  private
+
   def topic_params
     params.require(:topic).permit(:icon, :name, :description)
   end

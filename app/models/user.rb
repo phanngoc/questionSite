@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
   
   include PublicActivity::Model
 
@@ -22,7 +22,8 @@ class User < ApplicationRecord
   validates :story, length: {maximum: Settings.user[:story_max]}
   validates :email, presence: true, length: {maximum: Settings.user[:email_max]}
   validates :role, presence: true
-  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, message: I18n.t("flash.user.email")
+  validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, 
+    message: I18n.t("flash.user.email")
 
   class << self
 
