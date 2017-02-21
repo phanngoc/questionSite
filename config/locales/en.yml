@@ -157,7 +157,7 @@ en:
         delete:
           success: "Delete topic successfully!"
           failed: "Delete topic unsuccessfully!"
-
+  
   profile_page:
     feed: "Feed"
     ask: "Ask"
@@ -194,3 +194,6 @@ en:
           attributes:
             email:
               invalid: "Your email isn't correct'"
+
+  email:
+    notify_answer: "Some people answer your question"

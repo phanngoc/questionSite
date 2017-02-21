@@ -14,6 +14,7 @@ module Blog
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
     config.middleware.use I18n::JS::Middleware
-    
+    config.active_job.queue_adapter = :delayed_job
+
   end
 end

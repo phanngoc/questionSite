@@ -19,9 +19,13 @@ class Topic < ApplicationRecord
   end
 
   def self.is_follow current_user_id, topic_id
-    query = Action.by_user(current_user_id).target("Topic")
+    query = Action.by_user(current_user_id).target(Action.target_acts[:topic])
       .with_id(topic_id).is_follow
     query.length != 0
+  end
+  
+  def sum_ques_lastday
+    self.questions.lastday.length
   end
 
   def self.find_muti id

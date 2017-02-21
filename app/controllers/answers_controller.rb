@@ -13,6 +13,7 @@ class AnswersController < ApplicationController
     if @answer.save
       @answer.create_activity key: Settings.activity.answer.create, owner: current_user
       result = {status: Settings.status.ok}.to_json
+      UserMailer.notifyAnswer(Question.find(params[:reply_to])).deliver_later
     else
       result = {status: Settings.status.not_ok, errors: @answer.errors}.to_json
     end

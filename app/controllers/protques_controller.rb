@@ -25,14 +25,16 @@ class ProtquesController < ApplicationController
   end
 
   private
-  
+
   def verify_admin_mod_owner
     question = Question.find_by id: params[:question_id]
-    flash[:danger] = t "flash.question.verify_admin_mod_owner"
-		redirect_to root_url unless question && (current_user.admin? || 
-      current_user.moderator? || 
+    unless question && (current_user.admin? ||
+      current_user.moderator? ||
       question.user_id = current_user.id)
-	end
+      flash[:danger] = t "flash.question.verify_admin_mod_owner"
+      redirect_to root_url
+    end
+  end
 
   def protque_params
     {actionable_type: Action.target_acts[:question], user_id: current_user.id,

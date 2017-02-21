@@ -24,6 +24,8 @@ class Question < ApplicationRecord
 
   has_many :comments, as: :commentable
 
+  scope :lastday, ->{where updated_at: 1.day.ago..Time.now}
+
   scope :new_feed_nologin,  -> {
     find_by_sql("select count(distinct an.id) from answers an
       inner join questions qu on qu.id = an.reply_to

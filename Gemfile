@@ -74,6 +74,9 @@ gem "chartkick"
 gem "public_activity"
 gem "social-share-button"
 gem "pry"
+gem "figaro"
+gem "whenever", :require => false
+gem "delayed_job_active_record"
 
 # group :development, :test do
 #   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

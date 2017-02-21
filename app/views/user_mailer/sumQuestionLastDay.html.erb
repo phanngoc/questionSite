@@ -1,0 +1,8 @@
+<ul>
+  <% @topics.each do |topic| %>
+    <li><%= link_to topic.name, "topic/#{topic.id}" %>
+      have <strong><%= topic.questions.lastday.count %></strong>
+      questions in last day
+    </li>
+  <% end %>
+</ul>
