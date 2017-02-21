@@ -23,34 +23,34 @@ var AddComment = React.createClass({
 
     $addComment.click(function() {
       if (gon.current_user) {
-         self.setState({isShow: true});
+        self.setState({isShow: true});
       } else {
-         $(this).attr('href', gon.new_user_session_path);
+        $(this).attr('href', gon.new_user_session_path);
       }
     });
 
     $formAdd.submit(function(e){
-        e.preventDefault();
+      e.preventDefault();
     });
 
     $btnAdd.click(function() {
-        var formdata = new FormData($formAdd[0]);
+      var formdata = new FormData($formAdd[0]);
 
-        $.ajax({
-            url: self.props.comments_path,
-            method: 'POST',
-            processData: false,
-            contentType: false,
-            data: formdata
-        }).done(function(result) {
-            if (result.status == 1) {
-              self.props.addCommentToList(result.data);
-              $formAdd.find('textarea[name="content"]').val("");
-              self.setState({errors: (<span></span>)});
-            } else {
-              self.setState({errors: self.extractErrors(result.errors)});
-            }
-        });
+      $.ajax({
+        url: self.props.comments_path,
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        data: formdata
+      }).done(function(result) {
+        if (result.status == 1) {
+          self.props.addCommentToList(result.data);
+          $formAdd.find('textarea[name="content"]').val("");
+          self.setState({errors: (<span></span>)});
+        } else {
+          self.setState({errors: self.extractErrors(result.errors)});
+        }
+      });
     });
   },
 

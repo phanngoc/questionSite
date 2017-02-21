@@ -47,17 +47,42 @@ class Question < ApplicationRecord
     return @questions
   end
 
+  def isProtected
+    havePro = Question.joins(:actions)
+      .where(actions: {actionable_id: self.id, type_act: Action.type_acts[:protect]})
+    havePro.length != 0
+  end
+  
+  def dataProtected
+    havePro = Question.joins(actions: :user)
+      .where(actions: {actionable_id: self.id, type_act: Action.type_acts[:protect]}).first
+    if havePro
+      havePro.actions.first
+    else
+      nil
+    end
+  end
+  
   def self.find_muti id
     question = Question.find_by slug: id
     unless question
       question = Question.find_by id: id
       if question
-        return question
+        return Question.wrap_content(question)
       else
         return false
       end   
     else
-      return question  
+      return Question.wrap_content(question)
     end
-  end  
+  end
+
+  def self.wrap_content question
+    verque = Verque.find_newest question.id
+    if verque
+      question.title = verque.title
+      question.content = verque.content
+    end
+    question
+  end
 end

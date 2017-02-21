@@ -25,27 +25,50 @@
                           <%= social_share_button_tag(@question.title) %>
                         </div>  
                       </div>
-                      
                       <span class="lsep">|</span>
-                      <% if current_user.id == @question.id %>
-                        <a href="<%= edit_question_path %>"
-                          class="suggest-edit-post"
-                          title="revise and improve this post">
-                          <%= t("question_page.edit") %>
-                        </a>
-                      <% else %>
-                        <a href="<%= new_question_verque_path(@question.id) %>"
-                          class="suggest-edit-post"
-                          title="revise and improve this post">
-                          <%= t("question_page.edit") %>
-                        </a>
+
+                      <% unless @question.isProtected || !user_signed_in? %>
+                        <% if current_user.id == @question.id %>
+                          <a href="<%= edit_question_path %>"
+                            class="suggest-edit-post"
+                            title="revise and improve this post">
+                            <%= t("question_page.edit_direct") %>
+                          </a>
+                          <span class="lsep">|</span>
+                        <% end %>
+                          <a href="<%= new_question_verque_path(@question.id) %>"
+                            class="suggest-edit-post"
+                            title="revise and improve this post">
+                            <%= t("question_page.edit") %>
+                          </a>
+                        <span class="lsep">|</span>
                       <% end %>
-                      <span class="lsep">|</span>
+                      
                       <a href="#" class="flag-post-link"
                         title="flag this post for serious problems or
-                        moderator attention" data-postid="33133995">
+                        moderator attention">
                         <%= t("question_page.flag") %>
                       </a>
+                      <% if user_signed_in? && (current_user.admin? || current_user.moderator?) %>
+                        <span class="lsep">|</span>
+                        <% unless @question.isProtected %>
+                          <%= link_to t("question_page.protect"), question_protques_path(@question.id), 
+                            class: "btn btn-primary btn-sm", method: "POST" %>
+                        <% else %>
+                          <%= link_to t("question_page.unprotect"), 
+                            question_protque_path(question_id: @question.id, id: @question.dataProtected.id), 
+                            method: "DELETE",
+                            class: "btn btn-primary btn-sm" %>
+                        <% end %>
+                      <% end %>
+                    </div>
+                    <div class="alert-not-edit">
+                      <% if @question.isProtected %>
+                        <span class="alert alert-danger">
+                          <strong>Alert</strong> <%= t "question_page.alert_protect" %>
+                            <%= @question.dataProtected.user.name %>
+                        </span>
+                      <% end %>
                     </div>
                   </td>
                   <td class="vt-right">
@@ -73,52 +96,52 @@
           </div> <!-- .inner-content -->
 
           <div class="wrapper-answer">
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <%= pluralize(@question.answers.length, "Answer") %>
-                </div>
-                <div class="panel-body">
-                  <div class="list-answers">
-                    <% @question.answers.each do |answer| %>
-                      <%= react_component("Answer", answer_path:
-                        answer_path(answer.id), answer: answer.to_json(include:
-                        [:user, comments: {include: [:actions, :user]}])) %>
-                    <% end %>
-                  </div> <!-- .list-answers -->
-                </div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <%= pluralize(@question.answers.length, "Answer") %>
               </div>
+              <div class="panel-body">
+                <div class="list-answers">
+                  <% @question.answers.each do |answer| %>
+                    <%= react_component("Answer", answer_path:
+                      answer_path(answer.id), answer: answer.to_json(include:
+                      [:user, comments: {include: [:actions, :user]}])) %>
+                  <% end %>
+                </div> <!-- .list-answers -->
+              </div>
+            </div>
           </div>
 
           <div class="wr-answer">
             <% if user_signed_in? %>
-                <form id="fo-answer-ques" method="POST"
-                  action="<%= answers_path %>">
-                  <input type="hidden" name="reply_to"
-                    value="<%= @question.id %>">
-                  <table class="ta-fix">
-                    <tbody>
-                      <tr>
-                        <td>
-                          <textarea class="elem-answer-ques" name="content"></textarea>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <button class="submit-answer">
-                            <%= t("question_page.submit_answer") %>
-                          </button>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </form>
+              <form id="fo-answer-ques" method="POST"
+                action="<%= answers_path %>">
+                <input type="hidden" name="reply_to"
+                  value="<%= @question.id %>">
+                <table class="ta-fix">
+                  <tbody>
+                    <tr>
+                      <td>
+                        <textarea class="elem-answer-ques" name="content"></textarea>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <button class="submit-answer">
+                          <%= t("question_page.submit_answer") %>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </form>
             <% else %>
-                <div class="advice-answer">
-                  <span class="text">
-                    <%= t("question_page.link_to_answer",
-                      {link: new_user_session_path}) %>
-                  </span>
-                </div>
+              <div class="advice-answer">
+                <span class="text">
+                  <%= t("question_page.link_to_answer",
+                    {link: new_user_session_path}) %>
+                </span>
+              </div>
             <% end %>
           </div>
         </section>

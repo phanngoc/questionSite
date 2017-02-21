@@ -1,5 +1,5 @@
 class Topic < ApplicationRecord
-  has_many :question_topics
+  has_many :question_topics, dependent: :destroy
   has_many :questions, through: :question_topics
 
   has_many :actions, as: :actionable

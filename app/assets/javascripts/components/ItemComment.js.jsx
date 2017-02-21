@@ -67,7 +67,8 @@ var ItemComment = React.createClass({
   handleCancel(e) {
     this.setState({
       styleFrEdit: {display: "none"},
-      styleFrShow: {display: "flex"}
+      styleFrShow: {display: "flex"},
+      content: this.props.comment.content
     });
   },
 
@@ -138,9 +139,10 @@ var ItemComment = React.createClass({
             <input type="hidden" name="_method" value="PUT" />
             <div className="form-group">
               <textarea className="form-control content-edit"
-                  name="content"
-                  defaultValue={this.state.content}
-                  onChange={this.handleChangeEdit}>
+                name="content"
+                defaultValue={this.state.content}
+                value={this.state.content}
+                onChange={this.handleChangeEdit}>
               </textarea>
             </div>
 
@@ -162,14 +164,14 @@ var ItemComment = React.createClass({
           </div>
           <div className="vt-action-vote">
             <a href="javascript:"
-                  className={classVoteUp}
-                  onClick={this.upVote}>
-                  <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
+              className={classVoteUp}
+              onClick={this.upVote}>
+              <i className="fa fa-thumbs-o-up" aria-hidden="true"></i>
             </a>
             <a href="javascript:"
-                  className={classDontVote}
-                  onClick={this.removeVote}>
-                  <i className="fa fa-thumbs-up" aria-hidden="true"></i>
+              className={classDontVote}
+              onClick={this.removeVote}>
+              <i className="fa fa-thumbs-up" aria-hidden="true"></i>
             </a>
           </div>
 

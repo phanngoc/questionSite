@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   end
 
   resources :questions do
-    resources :verques
+    resources :verques, :protques
   end
 
   resources :verques

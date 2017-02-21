@@ -123,10 +123,19 @@ en:
     select_question_to_edit: "Select version edit"
     edit_question: "Edit question"
     approve_version: "Approve version"
+    edit_direct: "Edit direct"
+    alert_protect: "This question is protected by"
+    protect: "Protect"
+    unprotect: "Unprotect"
     
   flash:
     question:
       not_found: "Question is not found"
+      verify_admin_mod_owner: "You don't have permission to edit this page"
+      protect_question_success: "Protect question successfully"
+      cant_protected: "You have error and can\'t protect question now"
+      remove_protect_success: "Remove protect question successfully"
+      remove_protect_fail: "Remove protect question failed"
     user:
       email: "Your email not correct"
     admin:
