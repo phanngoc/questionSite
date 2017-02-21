@@ -3,9 +3,11 @@ class Action < ApplicationRecord
   include PublicActivity::Model
   
   belongs_to :actionable, polymorphic: true
-  enum type_act: [:down_vote, :up_vote, :share_fa, :share_tw, :follow], _suffix: true
+  belongs_to :user
+  enum type_act: [:down_vote, :up_vote, :share_fa, :share_tw, :follow, :protect], _suffix: true
 
-  enum target_act: {answer: "Answer", question: "Question", topic: "Topic", comment: "Comment", user: "User"}
+  enum target_act: {answer: "Answer", question: "Question", topic: "Topic", 
+    comment: "Comment", user: "User"}
 
   delegate :url_helpers, to: "Rails.application.routes"
 

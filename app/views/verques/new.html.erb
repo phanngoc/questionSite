@@ -4,7 +4,7 @@
       <div class="wr_select_ver">
         <label for="verques">
           <%= t "question_page.select_question_to_edit" %>
-          <% if current_user.is_admin? || current_user.is_moderator? ||
+          <% if current_user.admin? || current_user.moderator? ||
             current_user.id == @question.user_id %>
             <%= link_to t("question_page.approve_version"), question_verques_path(params[:question_id]),
               class: "btn btn-sm btn-primary" %>
