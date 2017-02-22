@@ -1,0 +1,62 @@
+require "rails_helper"
+
+describe QuestionsController do
+  let(:valid_attributes) {FactoryGirl.attributes_for :question}
+  let(:user) {FactoryGirl.create :user}
+
+  before :each do
+    @user = FactoryGirl.create :user
+    sign_in @user
+  end
+
+  describe "POST create" do
+    context "redirects to the show question detail" do
+      subject {question}
+      before {post :create, {question: valid_attributes.merge({topics: [1, 2]})}}
+      
+      it {expect(response).to redirect_to question_path(Question.last.slug)}
+      it {expect(response).to have_http_status(302)}
+    end
+  end
+
+  describe "GET new" do
+    it "response success 200" do
+      get :new
+      assert_response :success
+    end
+
+    it "render correct template" do
+      get :new
+      expect(response).to render_template("new")
+    end  
+  end
+
+  describe "GET show" do
+    it "response success" do
+      get :show, {id: 1}
+      assert_response :success
+    end
+
+    it "question not found and must set flash message" do
+      before {get :show, {id: -1}}
+      should set_flash[:danger]
+    end
+
+    it "render correct template" do
+      get :show, {id: 1}
+      expect(response).to render_template("show")
+    end
+  end
+
+  describe "GET show" do
+    it "response success" do
+      get :show, {id: 1}
+      assert_response :success
+    end
+
+    it "render correct template" do
+      get :show, {id: 1}
+      expect(response).to render_template("show")
+    end
+  end
+end

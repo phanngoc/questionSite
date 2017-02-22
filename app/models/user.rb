@@ -85,14 +85,6 @@ class User < ApplicationRecord
     end
   end
 
-  def is_admin?
-    self.admin?
-  end
-
-  def is_moderator?
-    self.moderator?
-  end
-
   private
 
   def init_role

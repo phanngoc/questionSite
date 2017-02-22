@@ -16,6 +16,7 @@ class Question < ApplicationRecord
 
   validates :title, presence: true
   validates :content, presence: true, length: {maximum: Settings.question[:content_max]}
+  validates :slug, uniqueness: true
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
