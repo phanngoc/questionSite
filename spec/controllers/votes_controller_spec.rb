@@ -35,12 +35,7 @@ describe VotesController do
       end
     end
 
-    context "mock instance" do
-      # after {post :update, {_method: :put,
-      #   answer_id: answer.id,
-      #   id: Settings.vote.up
-      # }}
-
+    context "check call model" do
       it "should find by answer" do
         expect(Answer).to receive(:find_by).with({id: "#{answer.id}"})
         post :update, {_method: :put,
@@ -52,9 +47,9 @@ describe VotesController do
       it "shound created by action" do
         expect(Action).to receive(:create)
         post :update, {_method: :put,
-            answer_id: answer.id,
-            id: Settings.vote.up
-          }.merge(action_attr)
+          answer_id: answer.id,
+          id: Settings.vote.up
+        }.merge(action_attr)
       end
     end
   end

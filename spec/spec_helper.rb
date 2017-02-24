@@ -5,10 +5,11 @@ RSpec.configure do |config|
   require "factory_girl_rails"
   require "database_cleaner"
   require "simplecov"
-  
+
   SimpleCov.start
 
   config.include SpecTestHelper, :type => :controller
+  config.include Capybara::DSL
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

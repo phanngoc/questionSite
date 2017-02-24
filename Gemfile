@@ -79,10 +79,11 @@ gem "whenever", :require => false
 gem "delayed_job_active_record"
 gem "factory_girl"
 
-# group :development, :test do
-#   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-#   gem 'byebug', platform: :mri
-# end
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem "byebug", platform: :mri
+  gem "selenium-webdriver"
+end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.

@@ -3,6 +3,7 @@ require "rails_helper"
 describe QuestionsController do
   let(:valid_attributes) {FactoryGirl.attributes_for :question}
   let(:user) {FactoryGirl.create :user}
+  let(:topic) {FactoryGirl.create :topic}
 
   before :each do
     @user = FactoryGirl.create :user
@@ -10,9 +11,9 @@ describe QuestionsController do
   end
 
   describe "POST create" do
-    context "redirects to the show question detail" do
+    context "create post successfully and redirects to the show question detail" do
       subject {question}
-      before {post :create, {question: valid_attributes.merge({topics: [1, 2]})}}
+      before {post :create, {question: valid_attributes.merge({topics: [topic.id]})}}
       
       it {expect(response).to redirect_to question_path(Question.last.slug)}
       it {expect(response).to have_http_status(302)}
@@ -33,7 +34,7 @@ describe QuestionsController do
 
   describe "GET show" do
     it "response success" do
-      get :show, {id: 1}
+      get :show, {id: Topic.first.id}
       assert_response :success
     end
 
@@ -43,20 +44,9 @@ describe QuestionsController do
     end
 
     it "render correct template" do
-      get :show, {id: 1}
+      get :show, {id: Topic.first.id}
       expect(response).to render_template("show")
     end
   end
 
-  describe "GET show" do
-    it "response success" do
-      get :show, {id: 1}
-      assert_response :success
-    end
-
-    it "render correct template" do
-      get :show, {id: 1}
-      expect(response).to render_template("show")
-    end
-  end
 end

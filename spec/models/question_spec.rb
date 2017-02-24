@@ -1,6 +1,7 @@
 require "rails_helper"
 
 describe Question, type: :model do
+
   context "associations" do
     let(:question) {FactoryGirl.create :question}
     subject {question}
@@ -20,25 +21,28 @@ describe Question, type: :model do
 
   context "valid question save unvalid" do
     let(:invalid_question) {FactoryGirl.build :invalid_question}
+    let(:question) {FactoryGirl.create :question}
+
     subject {invalid_question}
 
     it "is not valid, without a title" do
-      expect(invalid_question).to_not be_valid
+      question.title = ""
+      expect(question).to_not be_valid
     end
 
     it "is not valid, without a content" do
-      invalid_question.content = ""
-      expect(invalid_question).to_not be_valid
+      question.content = ""
+      expect(question).to_not be_valid
     end
 
     it "is not valid when have over 255 character" do
-      invalid_question.content = Random.rand(257)
-      expect(invalid_question).to_not be_valid
+      question.content = (0...257).map {('a'..'z').to_a[rand(26)]}.join
+      expect(question).to_not be_valid
     end
     
   end
 
-  context "valid object save valid" do
+  context "valid object save" do
     let(:question) {FactoryGirl.build :question}
     subject {question}
     it {expect(question).to be_valid}

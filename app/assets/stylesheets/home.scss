@@ -7,6 +7,10 @@
     a#logo{
       display: block;
       float: left;
+      img.img_logo{
+        width: 60px;
+        height: 60px;
+      }
     }
     div.search-bar{
       display: block;

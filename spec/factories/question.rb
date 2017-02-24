@@ -1,15 +1,3 @@
-def to_slug
-  ret = self.strip
-  ret.gsub! /['`]/,""
-  ret.gsub! /\s*@\s*/, " at "
-  ret.gsub! /\s*&\s*/, " and "
-
-  ret.gsub! /\s*[^A-Za-z0-9\.\-]\s*/, '_'  
-  ret.gsub! /_+/,"_"
-  ret.gsub! /\A[_\.]+|[_\.]+\z/,""
-  ret
-end
-
 FactoryGirl.define do
   factory :question, class: Question do
     before(:create, :build, :attributes_for) do |question|
