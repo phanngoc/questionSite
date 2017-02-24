@@ -3,6 +3,18 @@ class Admin::QuestionsController < AdminController
   def index
     @questions = Question.includes([:user, :topics])
       .paginate(per_page: Settings.admin.per_page, page: params[:page]);
+    respond_to do |format|
+      format.html
+      format.csv {send_data @questions.to_csv}
+    end  
+  end
+
+  def show
+    @question = Question.find_by id: params[:id]
+    unless @question
+      flash[:danger] = t "flash.admin.question.not_found"
+      redirect_to :back
+    end
   end
 
   def destroy

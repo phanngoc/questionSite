@@ -37,9 +37,6 @@
                   </span>
                 <% end %>
               </div>
-              <div class="time">
-                <%= question.updated_at %>
-              </div>
               <span class="feed-ques-title">
                 <%= link_to question.title, question_path(question.slug),
                   alt: question.title %>
@@ -53,6 +50,9 @@
                   <%= question.user.name %>
                 </div>
               </span>
+              <div class="time">
+                <%= question.updated_at %>
+              </div>
               <div class="ques-content">
                 <%= raw question.content %>
               </div>

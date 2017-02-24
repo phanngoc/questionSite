@@ -2,6 +2,14 @@ class Admin::UsersController < AdminController
 
   def index
     @users = User.page(params[:page]).per Settings.admin.per_page;
+    columns = ["name", "email", "avatar", "story", "role"]
+    respond_to do |format|
+      format.html
+      format.csv {
+        # binding.pry
+        send_data @users.to_csv
+      }
+    end
   end
 
   def edit
@@ -26,7 +34,7 @@ class Admin::UsersController < AdminController
       render :edit
     end
   end
-
+  
   private
 
   def user_params

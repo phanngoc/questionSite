@@ -1,5 +1,5 @@
 require_relative 'boot'
-
+require 'csv'
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -13,6 +13,7 @@ module Blog
     # -- all .rb files in that directory are automatically loaded.
 
     config.assets.paths << Rails.root.join('vendor', 'assets', 'bower_components')
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.middleware.use I18n::JS::Middleware
     config.active_job.queue_adapter = :delayed_job
 

@@ -66,26 +66,29 @@ class Question < ApplicationRecord
     end
   end
   
-  def self.find_muti id
-    question = Question.find_by slug: id
-    unless question
-      question = Question.find_by id: id
-      if question
-        return Question.wrap_content(question)
+  class << self
+    include Common
+    def find_muti id
+      question = Question.find_by slug: id
+      unless question
+        question = Question.find_by id: id
+        if question
+          return Question.wrap_content(question)
+        else
+          return false
+        end   
       else
-        return false
-      end   
-    else
-      return Question.wrap_content(question)
+        return Question.wrap_content(question)
+      end
     end
-  end
 
-  def self.wrap_content question
-    verque = Verque.find_newest question.id
-    if verque
-      question.title = verque.title
-      question.content = verque.content
+    def wrap_content question
+      verque = Verque.find_newest question.id
+      if verque
+        question.title = verque.title
+        question.content = verque.content
+      end
+      question
     end
-    question
   end
 end

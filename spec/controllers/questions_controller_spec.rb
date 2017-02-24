@@ -38,8 +38,8 @@ describe QuestionsController do
     end
 
     it "question not found and must set flash message" do
-      before {get :show, {id: -1}}
-      should set_flash[:danger]
+      get :show, {id: -1}
+      expect(flash.key?(:notice)).to be true
     end
 
     it "render correct template" do

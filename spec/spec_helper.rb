@@ -1,4 +1,4 @@
-require "supports/spec_test_helper"
+require "support/spec_test_helper"
 
 RSpec.configure do |config|
   require "capybara/rspec"

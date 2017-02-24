@@ -43,6 +43,7 @@ en:
         register_date: "Registed date"
         role: "Role"
         action: "Action"
+        btn_export_csv: "Export csv"
       edit:
         title: "Edit user"
         sub_title: "Edit information of user"
@@ -66,6 +67,14 @@ en:
           user: "User"
           topic: "Topics"
           action: "Action"
+        count_question_created: "Count question is created"
+        analytic_up_vote: "Analytics up vote"
+        percentage_action: "Percentage action"
+      show:
+        title: "Question detail"
+        sub_title: "Question detail"
+        analytic: "Analytics"
+        number_answer: "Number answer analytic"
   user:
     show:
       follow: "Follow"
@@ -157,7 +166,8 @@ en:
         delete:
           success: "Delete topic successfully!"
           failed: "Delete topic unsuccessfully!"
-  
+      question:
+        not_found: "Question is not found"
   profile_page:
     feed: "Feed"
     ask: "Ask"
