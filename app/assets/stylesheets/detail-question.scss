@@ -201,3 +201,18 @@
     min-width: 65px;
   }
 }
+
+
+.fr-form-ask {
+  .inner-ask{
+    padding: 10px;
+    background-color: #C19969;
+    .wr-title{
+      border-bottom: 1px solid #fff1df;
+      margin-bottom: 22px;
+      .title{
+        color: white;
+      }
+    }
+  }
+}

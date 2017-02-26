@@ -2,6 +2,10 @@ class Admin::TopicsController < AdminController
 
   def index
     @topics = Topic.page(params[:page]).per Settings.admin.per_page
+    respond_to do |format|
+      format.html
+      format.csv {send_data @topics.to_csv}
+    end
   end
 
   def new

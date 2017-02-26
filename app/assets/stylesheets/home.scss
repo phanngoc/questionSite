@@ -1,10 +1,16 @@
 #wrapper{
-  margin-top: 71px;
+  margin-top: 61px;
+  padding-top: 14px;
+  background-color: #fff6DD;
   header{
     background-color: #bc8371;
     a#logo{
       display: block;
       float: left;
+      img.img_logo{
+        width: 60px;
+        height: 60px;
+      }
     }
     div.search-bar{
       display: block;

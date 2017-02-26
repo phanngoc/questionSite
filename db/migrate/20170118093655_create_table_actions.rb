@@ -5,6 +5,7 @@ class CreateTableActions < ActiveRecord::Migration[5.0]
       t.column :actionable_id, :integer
       t.column :actionable_type, :string
       t.column :type_act, :integer
+      t.timestamps
     end
   end
 

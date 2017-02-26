@@ -16,6 +16,7 @@ class Question < ApplicationRecord
 
   validates :title, presence: true
   validates :content, presence: true, length: {maximum: Settings.question[:content_max]}
+  validates :slug, uniqueness: true
 
   extend FriendlyId
   friendly_id :title, use: [:slugged, :finders]
@@ -23,6 +24,8 @@ class Question < ApplicationRecord
   belongs_to :user
 
   has_many :comments, as: :commentable
+
+  scope :lastday, ->{where updated_at: 1.day.ago..Time.now}
 
   scope :new_feed_nologin,  -> {
     find_by_sql("select count(distinct an.id) from answers an
@@ -63,26 +66,29 @@ class Question < ApplicationRecord
     end
   end
   
-  def self.find_muti id
-    question = Question.find_by slug: id
-    unless question
-      question = Question.find_by id: id
-      if question
-        return Question.wrap_content(question)
+  class << self
+    include Common
+    def find_muti id
+      question = Question.find_by slug: id
+      unless question
+        question = Question.find_by id: id
+        if question
+          return Question.wrap_content(question)
+        else
+          return false
+        end   
       else
-        return false
-      end   
-    else
-      return Question.wrap_content(question)
+        return Question.wrap_content(question)
+      end
     end
-  end
 
-  def self.wrap_content question
-    verque = Verque.find_newest question.id
-    if verque
-      question.title = verque.title
-      question.content = verque.content
+    def wrap_content question
+      verque = Verque.find_newest question.id
+      if verque
+        question.title = verque.title
+        question.content = verque.content
+      end
+      question
     end
-    question
   end
 end

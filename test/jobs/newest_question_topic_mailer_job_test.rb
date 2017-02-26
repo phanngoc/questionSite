@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class HomeControllerTest < ActionDispatch::IntegrationTest
+class NewestQuestionTopicMailerJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end

@@ -6,7 +6,7 @@ class User < ApplicationRecord
     :omniauthable
   
   include PublicActivity::Model
-
+  
   has_many :actions
   has_many :questions
   has_many :answers
@@ -65,32 +65,26 @@ class User < ApplicationRecord
       PublicActivity::Activity.order("created_at desc")
         .where owner_id: user_id
     end
-  end  
-  
-  def self.from_omniauth auth
-    @users = where(provider: auth.provider, uid: auth.uid)
-    if @users.length == 0
-      @user = User.new
-      @user.provider = auth.provider
-      @user.uid = auth.uid
-      @user.email = auth.info.email
-      @user.name = auth.info.name
-      @user.remote_avatar_url = auth.info.image
-      @user.password = Devise.friendly_token[0, 20]
-      @user.role = User.roles[:user]
-      @user.save!
-      @user
-    else
-      @users.first
+
+    def from_omniauth auth
+      @users = where(provider: auth.provider, uid: auth.uid)
+      if @users.length == 0
+        @user = User.new
+        @user.provider = auth.provider
+        @user.uid = auth.uid
+        @user.email = auth.info.email
+        @user.name = auth.info.name
+        @user.remote_avatar_url = auth.info.image
+        @user.password = Devise.friendly_token[0, 20]
+        @user.role = User.roles[:user]
+        @user.save!
+        @user
+      else
+        @users.first
+      end
     end
-  end
 
-  def is_admin?
-    self.admin?
-  end
-
-  def is_moderator?
-    self.moderator?
+    include Common
   end
 
   private
