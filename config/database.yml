@@ -18,7 +18,7 @@ development:
   encoding: utf8
   database: blog
   username: root
-  password: Phann123@123
+  password:
   host: 127.0.0.1
   port: 3306
 
