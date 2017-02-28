@@ -11,14 +11,14 @@ class Ability
       can :manage, :all
     elsif user.user?
       can :read, :all
-      can [:update, :destroy, :create], [Question, Answer, Comment]
+      can [:update, :destroy, :create], [Question, Answer, Comment, Verque]
       cannot [:update, :destroy, :create], Topic
       cannot [:update, :destroy], User do |u|
         u.id != user.id
       end
     elsif user.moderator?
       can :read, :all
-      can [:update, :destroy, :create], [Question, Answer, Comment]
+      can [:update, :destroy, :create], [Question, Answer, Comment, Verque]
       cannot [:update, :destroy, :create], Topic
       cannot [:update, :destroy], User do |u|
         u.id != user.id

@@ -23,7 +23,7 @@ describe VotesController do
       }}
 
       it {is_expected.to respond_with_content_type :json}
-      
+
       it {expect(response).to have_http_status(:success)}
 
       it "up vote when don't login", skip_before: true do
@@ -35,7 +35,8 @@ describe VotesController do
       end
     end
 
-    context "check call model" do
+    context "mock instance" do
+
       it "should find by answer" do
         expect(Answer).to receive(:find_by).with({id: "#{answer.id}"})
         post :update, {_method: :put,
@@ -47,9 +48,9 @@ describe VotesController do
       it "shound created by action" do
         expect(Action).to receive(:create)
         post :update, {_method: :put,
-          answer_id: answer.id,
-          id: Settings.vote.up
-        }.merge(action_attr)
+            answer_id: answer.id,
+            id: Settings.vote.up
+          }.merge(action_attr)
       end
     end
   end

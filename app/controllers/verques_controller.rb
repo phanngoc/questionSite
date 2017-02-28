@@ -66,10 +66,12 @@ class VerquesController < ApplicationController
   
   def verify_admin_mod_owner
     question = Question.find_by id: params[:question_id]
-    flash[:danger] = t "flash.question.verify_admin_mod_owner"
-		redirect_to root_url unless question && (current_user.admin? || 
-      current_user.moderator? || 
+    unless question && (current_user.admin? ||
+      current_user.moderator? ||
       question.user_id = current_user.id)
+      flash[:danger] = t "flash.question.verify_admin_mod_owner"
+      redirect_to root_url
+    end
 	end
 
   def verque_update_params
