@@ -14,7 +14,7 @@ comment_ids = []
   user = User.new
   user.name = name
   user.email = Faker::Internet.email
-  user.encrypted_password = "$2a$11$gHWhyOjpXvNJWzqKnwbdTesD87G0MSZV8UH0FRKeByvEz5xjIwSfC"
+  user.password = "123456"
 
   File.open(path) do |f|
     user.avatar = f
