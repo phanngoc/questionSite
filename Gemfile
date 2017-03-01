@@ -96,7 +96,6 @@ group :development do
   gem "factory_girl_rails", require: false
   gem "database_cleaner", "~> 1.5"
   gem "rspec-collection_matchers"
-
 end
 
 group :test do
