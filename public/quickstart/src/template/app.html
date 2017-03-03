@@ -1,0 +1,27 @@
+<div mdl class="wrap-layout">
+  <header-compo></header-compo>
+  <div class="container wr-content">
+    <div class="row inner-content">
+      <div class="col-md-3">
+        <nav class="list-navigation-users">
+          <a href="" class="link_item topic_chat_wr">
+            <b class="topic_chat">Topic chat</b>
+          </a>
+          <a *ngFor="let user of users; let i = index" class="link_item">
+            <img src="{{user.avatar.url}}" alt="" class="avatar img_40 circle">
+            <b class="name">{{user.name}}</b>
+          </a>
+        </nav>
+      </div>
+      <div class="col-md-9">
+        <div class="frame-chat">
+          <div class="content-scroll">
+            <messages-topic></messages-topic>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <main class="mdl-layout__content">
+  </main>
+</div>

@@ -27,6 +27,11 @@ class User < ApplicationRecord
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, 
     message: I18n.t("flash.user.email")
 
+  scope :with_topic, -> topic_id do
+    joins(:actions).where(actions: {actionable_type: Action.target_acts[:topic],
+      type_act: Action.type_acts[:follow], actionable_id: topic_id})
+  end
+
   class << self
 
     def is_follow_user(user_id, current_user_id)

@@ -60,7 +60,6 @@ gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
 gem "mini_magick"
 gem "ckeditor"
-gem "byebug"
 gem "gon"
 gem "react-rails"
 gem "font-awesome-sass"
@@ -78,11 +77,17 @@ gem "figaro"
 gem "whenever", :require => false
 gem "delayed_job_active_record"
 gem "factory_girl"
+gem "redis"
+gem "redis-namespace"
+# Use Rack CORS for handling Cross-Origin Resource Sharing (CORS),
+# making cross-origin AJAX possible
+gem "rack-cors"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
   gem "selenium-webdriver"
+  gem "rubocop", "~> 0.46.0", require: false
 end
 
 group :development do
