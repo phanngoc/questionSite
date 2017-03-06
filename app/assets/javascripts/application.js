@@ -31,4 +31,5 @@
 //= require jsdiff
 //= require simplemde/dist/simplemde.min.js
 //= require social-share-button
+//= require reactcss
 //= require_tree .

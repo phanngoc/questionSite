@@ -4,7 +4,8 @@
       col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
         <section class="main-content">
 
-          <%= react_component("VoteQuestion", question: @question) %>
+          <%= react_component("VoteQuestion", question: @question, 
+            flag_up: @question.flag_up, flag_down: @question.flag_down) %>
 
           <h2 class="title"><%= @question.title %></h2>
           <div class="inner-content">

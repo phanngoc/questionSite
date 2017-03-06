@@ -21,10 +21,10 @@ var ListComment = React.createClass({
     var rows = [];
     var self = this;
     this.state.comments.forEach(function(comment, key) {
-        rows.push(
-          <ItemComment comment={comment} key={key}
-            removeComment={self.removeComment}/>
-        );
+      rows.push(
+        <ItemComment comment={comment} key={key}
+          removeComment={self.removeComment} />
+      );
     });
     return (
       <div className="list-comments ta-fix">
