@@ -66,8 +66,17 @@ class Question < ApplicationRecord
     end
   end
   
+  def des_upvote
+    update_attributes up_vote: up_vote - 1
+  end
+
+  def des_downvote
+    update_attributes down_vote: down_vote - 1
+  end
+
   class << self
     include Common
+
     def find_muti id
       question = Question.find_by slug: id
       unless question
@@ -90,5 +99,29 @@ class Question < ApplicationRecord
       end
       question
     end
+
+    def graph_question_created
+      Question.group_by_day(:created_at).count
+    end
+
+    def graph_question_upvote
+      Action.target(Action.target_acts[:question])
+        .is_upvote.group_by_day(:created_at).count
+    end
+
+    def graph_percentage_type
+      Action.group(:type_act).count
+    end
+  end
+
+  def graph_up_vote
+    Action.with_id(self.id)
+      .target(Action.target_acts[:question])
+      .is_upvote.group_by_day(:created_at).count
+  end
+
+  def graph_show_answer
+    Answer.where(reply_to: self.id)
+      .group_by_day(:created_at).count
   end
 end

@@ -41,6 +41,9 @@ profile:
 admin:
   per_page: 10
 
+question_page:
+  per_page: 4
+
 page:
   approve_ques: 0
   edit_ques: 1 

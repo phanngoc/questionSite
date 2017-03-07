@@ -103,11 +103,14 @@
               </div>
               <div class="panel-body">
                 <div class="list-answers">
-                  <% @question.answers.each do |answer| %>
-                    <%= react_component("Answer", answer_path:
-                      answer_path(answer.id), answer: answer.to_json(include:
+                  <% @answers.each do |answer| %>
+                    <%= react_component("Answer", flag_up: answer.is_up,
+                      flag_down: answer.is_down,
+                      answer_path: answer_path(answer.id), 
+                      answer: answer.to_json(include:
                       [:user, comments: {include: [:actions, :user]}])) %>
                   <% end %>
+                  <%= paginate @answers %>
                 </div> <!-- .list-answers -->
               </div>
             </div>

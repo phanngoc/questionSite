@@ -66,6 +66,30 @@ class User < ApplicationRecord
       return query.length != 0
     end
     
+    def remove_upvote_question current_user_id, question_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:question], question_id, Action.type_acts[:up_vote];
+      query.destroy_all
+    end
+
+    def remove_downvote_question current_user_id, question_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:question], question_id, Action.type_acts[:down_vote];
+      query.destroy_all
+    end
+
+    def remove_upvote_answer current_user_id, answer_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:answer], answer_id, Action.type_acts[:up_vote];
+      query.destroy_all
+    end
+
+    def remove_downvote_answer current_user_id, answer_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:answer], answer_id, Action.type_acts[:down_vote];
+      query.destroy_all
+    end
+
     def activity_by_user user_id
       PublicActivity::Activity.order("created_at desc")
         .where owner_id: user_id

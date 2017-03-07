@@ -37,8 +37,16 @@ class VotesController < ApplicationController
 
   def up_vote
     @answer = Answer.find_by id: params[:answer_id]
-    if @answer.nil? || User.is_upvote_answer(current_user.id, params[:answer_id])
+    if @answer.nil?
       result = {status: Settings.status.not_ok}
+    elsif User.is_upvote_answer(current_user.id, params[:answer_id])
+      objDestroyed = User.remove_upvote_answer(current_user.id, params[:answer_id])
+      if objDestroyed.empty?
+        result = {status: Settings.status.not_ok}
+      else
+        @answer.des_upvote
+        result = {status: Settings.status.ok}
+      end
     else
       @answer.create_activity key: Settings.activity.answer.up_vote, owner: current_user
       if update_vote_answer_up @answer
@@ -65,8 +73,16 @@ class VotesController < ApplicationController
 
   def down_vote
     @answer = Answer.find_by id: params[:answer_id]
-    if @answer.nil? || User.is_downvote_answer(current_user.id, params[:answer_id])
+    if @answer.nil?
       result = {status: Settings.status.not_ok}
+    elsif User.is_downvote_answer(current_user.id, params[:answer_id])
+      objDestroyed = User.remove_downvote_answer(current_user.id, params[:answer_id])
+      if objDestroyed.empty?
+        result = {status: Settings.status.not_ok}
+      else
+        @answer.des_downvote
+        result = {status: Settings.status.ok}
+      end  
     else
       @answer.create_activity key: Settings.activity.answer.down_vote, owner: current_user
       if update_vote_answer_down @answer

@@ -65,7 +65,7 @@ gem "react-rails"
 gem "font-awesome-sass"
 gem "ransack"
 gem "i18n-js", ">= 3.0.0.rc11"
-gem "will_paginate", "~> 3.1.0"
+# gem "will_paginate", "~> 3.1.0"
 gem "config"
 
 gem "groupdate"
