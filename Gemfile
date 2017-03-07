@@ -81,6 +81,7 @@ gem "redis"
 gem "redis-namespace"
 gem "rack-cors"
 gem "draper", "3.0.0.pre1"
+gem "webpacker", github: "rails/webpacker"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

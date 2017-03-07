@@ -32,4 +32,6 @@ config/environments/*.local.yml
 # Ignore application configuration
 /config/application.yml
 
-/public/assets
+/public/assets/public/packs
+/node_modules
+/public/assets/
