@@ -136,7 +136,7 @@ en:
     alert_protect: "This question is protected by"
     protect: "Protect"
     unprotect: "Unprotect"
-    
+    related_question: "Related question"
   flash:
     question:
       not_found: "Question is not found"

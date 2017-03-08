@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <base href="/">
     <meta charset="utf-8">
     <title><%= t "title" %></title>
     
@@ -9,6 +10,9 @@
 
     <%= stylesheet_link_tag "application", debug: true, media: "all", "data-turbolinks-track": "reload" %>
     <%= javascript_include_tag "application", debug: true %>
+
+    <%= javascript_pack_tag "application" %>
+
     <%= csrf_meta_tags %>
 
     <%= Gon::Base.render_data %>
@@ -22,9 +26,11 @@
       <div id="wrapper-body" class="container">
         <%= yield %>
       </div>
+      <my-app></my-app>
       <%= render template: "layouts/_footer" %>
     </div>
   </body>
+  <%= javascript_pack_tag 'hello_angular' %>
   <script type="text/javascript">
     I18n.defaultLocale = "<%= I18n.default_locale %>";
     I18n.locale = "<%= I18n.locale %>";

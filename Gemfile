@@ -60,13 +60,12 @@ gem "wdm", ">= 0.1.0" if Gem.win_platform?
 
 gem "mini_magick"
 gem "ckeditor"
-gem "byebug"
 gem "gon"
 gem "react-rails"
 gem "font-awesome-sass"
 gem "ransack"
 gem "i18n-js", ">= 3.0.0.rc11"
-gem "will_paginate", "~> 3.1.0"
+# gem "will_paginate", "~> 3.1.0"
 gem "config"
 
 gem "groupdate"
@@ -78,11 +77,18 @@ gem "figaro"
 gem "whenever", :require => false
 gem "delayed_job_active_record"
 gem "factory_girl"
+gem "redis"
+gem "redis-namespace"
+gem "rack-cors"
+gem "draper", "3.0.0.pre1"
+gem "webpacker", github: "rails/webpacker"
+gem "fuzzy_match", "~> 2.1"
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platform: :mri
   gem "selenium-webdriver"
+  gem "rubocop", "~> 0.46.0", require: false
 end
 
 group :development do
@@ -107,4 +113,4 @@ group :test do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]

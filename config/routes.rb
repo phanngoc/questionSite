@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   mount Ckeditor::Engine => "/ckeditor"
+  mount ActionCable.server => "/cable"
+
   devise_for :users, controllers: {sessions: "users/sessions", 
     registrations: "users/registrations", 
     omniauth_callbacks: "callbacks"}
 
   root to: "home#index"
-
+  
   resources :users do
     resources :follows, only: :create
   end
@@ -34,4 +36,15 @@ Rails.application.routes.draw do
     resources :topics
     resources :questions
   end
+
+  resources :chats
+
+  namespace :api do
+    root "home#index", path: "/"
+    resources :topics do
+      get "list_user_follow", path: "users"
+      get "push", path: "messages"
+    end
+  end
+
 end

@@ -2,11 +2,11 @@ class Admin::QuestionsController < AdminController
 
   def index
     @questions = Question.includes([:user, :topics])
-      .paginate(per_page: Settings.admin.per_page, page: params[:page]);
+      .page(params[:page]).per Settings.admin.per_page;
     respond_to do |format|
       format.html
       format.csv {send_data @questions.to_csv}
-    end  
+    end
   end
 
   def show

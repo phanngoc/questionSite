@@ -132,11 +132,8 @@ var Answer = React.createClass({
           <tbody>
             <tr>
               <td className="col-vote">
-                <div className="wr-vote">
-                  <a href="javascript:" onClick={this.handleUp} className="icon-up"><i className="fa fa-sort-asc" aria-hidden="true"></i></a>
-                  <span className="number-sum">{this.state.answer.up_vote - this.state.answer.down_vote}</span>
-                  <a href="javascript:" onClick={this.handleDown} className="icon-down"><i className="fa fa-sort-desc" aria-hidden="true"></i></a>
-                </div>
+                <VoteAnswer answer={this.state.answer} flag_up={this.props.flag_up}
+                  flag_down={this.props.flag_down} />
               </td>
               <td>
                 <div className="wr-content-answer" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>
@@ -177,13 +174,13 @@ var Answer = React.createClass({
                   <div className="user-name"><a href="#">{this.state.answer.user.name}</a></div>
                 </div>
               </td>
-             </tr>
-             <tr>
+            </tr>
+            <tr>
                 <td></td>
                 <td className="pa-comment" colSpan="2">
                     <WrapperListComment type='Answer' data={this.props.answer} />
                 </td>
-             </tr>
+            </tr>
           </tbody>
         </table>
       </div>

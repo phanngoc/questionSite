@@ -4,7 +4,8 @@
       col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
         <section class="main-content">
 
-          <%= react_component("VoteQuestion", question: @question) %>
+          <%= react_component("VoteQuestion", question: @question, 
+            flag_up: @question.flag_up, flag_down: @question.flag_down) %>
 
           <h2 class="title"><%= @question.title %></h2>
           <div class="inner-content">
@@ -102,11 +103,14 @@
               </div>
               <div class="panel-body">
                 <div class="list-answers">
-                  <% @question.answers.each do |answer| %>
-                    <%= react_component("Answer", answer_path:
-                      answer_path(answer.id), answer: answer.to_json(include:
+                  <% @answers.each do |answer| %>
+                    <%= react_component("Answer", flag_up: answer.is_up,
+                      flag_down: answer.is_down,
+                      answer_path: answer_path(answer.id), 
+                      answer: answer.to_json(include:
                       [:user, comments: {include: [:actions, :user]}])) %>
                   <% end %>
+                  <%= paginate @answers %>
                 </div> <!-- .list-answers -->
               </div>
             </div>
@@ -122,7 +126,7 @@
                   <tbody>
                     <tr>
                       <td>
-                        <textarea class="elem-answer-ques" name="content"></textarea>
+                        <textarea class="editor_mde" name="content"></textarea>
                       </td>
                     </tr>
                     <tr>
@@ -145,6 +149,21 @@
             <% end %>
           </div>
         </section>
+    </div>
+    <div class="sidebar-related-question col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><%= t "question_page.related_question" %></div>
+        <div class="panel-body">
+          <ul class="list-ques">
+            <% @related_ques.each do |ques| %>
+              <li class="ques_track">
+                <span class="num-vote"><%= ques.num_vote %></span>
+                <%= link_to ques.title, question_path(ques.id) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </div>

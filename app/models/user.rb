@@ -27,6 +27,11 @@ class User < ApplicationRecord
   validates_format_of :email, with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i, 
     message: I18n.t("flash.user.email")
 
+  scope :with_topic, -> topic_id do
+    joins(:actions).where(actions: {actionable_type: Action.target_acts[:topic],
+      type_act: Action.type_acts[:follow], actionable_id: topic_id})
+  end
+
   class << self
 
     def is_follow_user(user_id, current_user_id)
@@ -61,6 +66,30 @@ class User < ApplicationRecord
       return query.length != 0
     end
     
+    def remove_upvote_question current_user_id, question_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:question], question_id, Action.type_acts[:up_vote];
+      query.destroy_all
+    end
+
+    def remove_downvote_question current_user_id, question_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:question], question_id, Action.type_acts[:down_vote];
+      query.destroy_all
+    end
+
+    def remove_upvote_answer current_user_id, answer_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:answer], answer_id, Action.type_acts[:up_vote];
+      query.destroy_all
+    end
+
+    def remove_downvote_answer current_user_id, answer_id
+      query = Action.where "user_id = ? and actionable_type = ? and actionable_id = ? and type_act = ?",
+        current_user_id, Action.target_acts[:answer], answer_id, Action.type_acts[:down_vote];
+      query.destroy_all
+    end
+
     def activity_by_user user_id
       PublicActivity::Activity.order("created_at desc")
         .where owner_id: user_id
