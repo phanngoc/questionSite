@@ -1,3 +1,4 @@
+require "fuzzy_match"
 class Question < ApplicationRecord
 
   include PublicActivity::Model
@@ -49,6 +50,10 @@ class Question < ApplicationRecord
       .find_by_sql(sql)
   end
 
+  def num_vote
+    self.up_vote - self.down_vote
+  end
+
   def isProtected
     havePro = Question.joins(:actions)
       .where(actions: {actionable_id: self.id, type_act: Action.type_acts[:protect]})
@@ -71,6 +76,19 @@ class Question < ApplicationRecord
 
   def des_downvote
     update_attributes down_vote: down_vote - 1
+  end
+
+  def related_ques
+    collect_ques = Question.joins(:question_topics)
+      .where("topic_id in (?) and questions.id != ?", self.topic_ids, self.id)
+    results = Array.new
+    Settings.question_page.num_related_ques.times do
+      fz = FuzzyMatch.new(collect_ques, read: :title)
+      question = fz.find(self.title)
+      results << question unless question.nil?
+      collect_ques = collect_ques.to_a - [question]
+    end
+    results
   end
 
   class << self

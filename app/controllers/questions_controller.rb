@@ -20,11 +20,10 @@ class QuestionsController < ApplicationController
   end
 
   def show
-    @question = QuestionDecorator.decorate(Question.includes({answers: [:user, {comments: [:actions, :user]}]}, 
-      :user, {comments: [:actions, :user]}).find_muti(params[:id]))
+    @question = QuestionDecorator.decorate(Question.includes(:user, {comments: [:actions, :user]}).find_muti(params[:id]))
     @answers = AnswerDecorator.decorate_collection(Answer.with_question(@question.id)
       .page(params[:page]).per(Settings.question_page.per_page))
-    
+    @related_ques = @question.related_ques
     unless @question
       flash[:notice] = t "flash.question.not_found"
       redirect_to root_path

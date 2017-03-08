@@ -186,6 +186,30 @@
         }
       }
     }
+    .sidebar-related-question{
+      .panel-heading{
+
+      }
+      .panel-body{
+        ul.list-ques{
+          padding-left: 0px;
+          li.ques_track{
+            list-style: none;
+            min-height: 33px;
+            .num-vote{
+              display: block;
+              float: left;
+              background-color: #64a264;
+              color: white;
+              text-align: center;
+              min-width: 32px;
+              border-radius: 4px;
+              margin-right: 8px;
+            } 
+          }
+        }
+      }
+    }
   }
 }
 

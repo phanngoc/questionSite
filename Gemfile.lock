@@ -153,6 +153,7 @@ GEM
       sass (>= 3.2)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    fuzzy_match (2.1.0)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     gon (6.1.0)
@@ -437,6 +438,7 @@ DEPENDENCIES
   figaro
   font-awesome-sass
   friendly_id (~> 5.1.0)
+  fuzzy_match (~> 2.1)
   gon
   groupdate
   i18n-js (>= 3.0.0.rc11)
@@ -483,4 +485,4 @@ DEPENDENCIES
   whenever
 
 BUNDLED WITH
-   1.14.5
+   1.14.6

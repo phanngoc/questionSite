@@ -150,5 +150,20 @@
           </div>
         </section>
     </div>
+    <div class="sidebar-related-question col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading"><%= t "question_page.related_question" %></div>
+        <div class="panel-body">
+          <ul class="list-ques">
+            <% @related_ques.each do |ques| %>
+              <li class="ques_track">
+                <span class="num-vote"><%= ques.num_vote %></span>
+                <%= link_to ques.title, question_path(ques.id) %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

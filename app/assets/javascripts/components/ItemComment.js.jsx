@@ -2,14 +2,13 @@ var ItemComment = React.createClass({
 
   getInitialState() {
     var isUpVote = this.checkIsUpVote(this.props.comment.actions);
-
-      return {
-        styleFrEdit: {display: "none"},
-        styleFrShow: {display: "flex"},
-        content: this.props.comment.content,
-        up_vote: this.props.comment.up_vote,
-        isUpVote: isUpVote
-      };
+    return {
+      styleFrEdit: {display: "none"},
+      styleFrShow: {display: "flex"},
+      content: this.props.comment.content,
+      up_vote: this.props.comment.up_vote,
+      isUpVote: isUpVote
+    };
   },
 
   checkIsUpVote(actions) {
@@ -22,7 +21,6 @@ var ItemComment = React.createClass({
         }
       });
     }
-
     return isUpVote;
   },
 
@@ -48,8 +46,8 @@ var ItemComment = React.createClass({
     var formdata = new FormData(this.refs.formEditComment);
 
     $.ajax({
-      url: '/comments/' + this.props.comment.id,
-      method: 'POST',
+      url: "/comments/" + this.props.comment.id,
+      method: "POST",
       processData: false,
       contentType: false,
       data: formdata

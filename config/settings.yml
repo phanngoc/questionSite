@@ -43,6 +43,7 @@ admin:
 
 question_page:
   per_page: 4
+  num_related_ques: 5
 
 page:
   approve_ques: 0
