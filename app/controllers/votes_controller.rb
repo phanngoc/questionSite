@@ -45,7 +45,7 @@ class VotesController < ApplicationController
         result = {status: Settings.status.not_ok}
       else
         @answer.des_upvote
-        result = {status: Settings.status.ok}
+        result = {status: Settings.status.ok, data: @answer}
       end
     else
       @answer.create_activity key: Settings.activity.answer.up_vote, owner: current_user
@@ -81,7 +81,7 @@ class VotesController < ApplicationController
         result = {status: Settings.status.not_ok}
       else
         @answer.des_downvote
-        result = {status: Settings.status.ok}
+        result = {status: Settings.status.ok, data: @answer}
       end  
     else
       @answer.create_activity key: Settings.activity.answer.down_vote, owner: current_user

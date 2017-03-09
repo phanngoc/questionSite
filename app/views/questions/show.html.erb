@@ -12,6 +12,15 @@
             <div class="content marked">
               <%= @question.content %>
             </div>
+            <div class="li-topics">
+              <ul class="in-li-topics">
+                <% @question.topics.each do |topic| %>
+                  <li class="it-to">
+                    <%= link_to topic.name, topic_path(topic.id) %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
             <div class="wrapper-author">
               <table class="list-author">
                 <tr>
@@ -104,11 +113,13 @@
               <div class="panel-body">
                 <div class="list-answers">
                   <% @answers.each do |answer| %>
-                    <%= react_component("Answer", flag_up: answer.is_up,
-                      flag_down: answer.is_down,
-                      answer_path: answer_path(answer.id), 
-                      answer: answer.to_json(include:
-                      [:user, comments: {include: [:actions, :user]}])) %>
+                    <div data-component="Answer"
+                      data-prop-flag_up="<%= answer.is_up %>"
+                      data-prop-flag_down="<%= answer.is_down %>"
+                      data-prop-answer_path="<%= answer_path(answer.id) %>"
+                      data-prop-answer="<%= answer.to_json(include:
+                      [:user, comments: {include: [:actions, :user]}]) %>"
+                    ></div>
                   <% end %>
                   <%= paginate @answers %>
                 </div> <!-- .list-answers -->

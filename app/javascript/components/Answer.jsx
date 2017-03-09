@@ -1,10 +1,13 @@
-var Answer = React.createClass({
+import VoteAnswer from './VoteAnswer.jsx'
+import WrapperListComment from './WrapperListComment.jsx'
+import React from 'react'
+import reactCSS from 'reactcss'
 
+var Answer = React.createClass({
 	getInitialState() {
-    var answer = jQuery.parseJSON(this.props.answer);
 		return {
-      answer: answer,
-      content: answer.content,
+      answer: this.props.answer,
+      content: this.props.answer.content,
       isShow: false,
       errors: (<span></span>),
       act: 0,
@@ -32,30 +35,30 @@ var Answer = React.createClass({
     $btnSave.click(function() {
     	var formdata = new FormData($formEditAnswer[0]);
     	$.ajax({
-			    url: self.props.answer_path,
-			    method: 'POST',
-			    processData: false,
-	        contentType: false,
-			    data: formdata
+        url: self.props.answer_path,
+        method: 'POST',
+        processData: false,
+        contentType: false,
+        data: formdata
 			}).done(function(result) {
-          if (result.status == 1) {
-            self.setState({isShow: false});
-          } else {
-            self.setState({errors: self.extractErrors(result.errors)});
-          }
+        if (result.status == 1) {
+          self.setState({isShow: false});
+        } else {
+          self.setState({errors: self.extractErrors(result.errors)});
+        }
 			});
     });
 	},
 
-  showEditForm: function() {
+  showEditForm() {
     this.setState({isShow: true});
   },
 
-  cancelEditForm: function() {
+  cancelEditForm() {
     this.setState({isShow: false});
   },
 
-  handleChangeContent: function(e) {
+  handleChangeContent(e) {
     this.setState({content: e.target.value});
   },
 
@@ -74,15 +77,19 @@ var Answer = React.createClass({
     }
   },
 
-  mouseOver: function () {
-      this.setState({hover: true});
+  mouseEnter() {
+    this.setState({hover: true});
   },
 
-  mouseOut: function () {
-      this.setState({hover: false});
+  mouseLeave() {
+    this.setState({hover: false});
   },
-  
-	render: function() {
+
+  onChangeVote(answer) {
+    this.setState({answer: answer});
+  },
+
+	render() {
 		var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
     var styleShow = this.state.isShow ? {display: "none"} : {display: "block"};
     var actionHtml = (<ul className="menu-action">
@@ -101,11 +108,12 @@ var Answer = React.createClass({
           </ul>
         )
     }
-    var styleAnswer = reactCSS({
+
+    var styles = reactCSS({
       'default': {
         answer: {
           display: "none",
-          opacity: "1.0",
+          opacity: "0.4",
         },
       },
       'isShowAnswer': {
@@ -117,24 +125,23 @@ var Answer = React.createClass({
         answer: {
           opacity: "1.0"
         }
+      },
+      'vote': {
+        answer: {
+          opacity: "1.0"
+        }
       }
-    }, this.state);
-
-    if ((this.state.answer.up_vote - this.state.answer.down_vote) < 0) {
-      styleAnswer.opacity = "0.4"
-    } else {
-      styleAnswer.opacity = "1.0"
-    }
+    }, this.state, {vote: (this.state.answer.up_vote - this.state.answer.down_vote) >= 0.0});
 
 		return (
-      <div className="fr-answer" style={styleAnswer} onMouseOver={this.mouseOver} 
-        onMouseOut={this.mouseOut}>
+      <div className="fr-answer" style={styles.answer} onMouseEnter={this.mouseEnter} 
+        onMouseLeave={this.mouseLeave}>
         <table className="answer">
           <tbody>
             <tr>
               <td className="col-vote">
                 <VoteAnswer answer={this.state.answer} flag_up={this.props.flag_up}
-                  flag_down={this.props.flag_down} />
+                  flag_down={this.props.flag_down} onChangeVote={this.onChangeVote} />
               </td>
               <td>
                 <div className="wr-content-answer marked" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>
@@ -179,7 +186,7 @@ var Answer = React.createClass({
             <tr>
                 <td></td>
                 <td className="pa-comment" colSpan="2">
-                    <WrapperListComment type='Answer' data={this.props.answer} />
+                  <WrapperListComment type='Answer' data={this.props.answer} />
                 </td>
             </tr>
           </tbody>
@@ -188,3 +195,5 @@ var Answer = React.createClass({
 		);
 	}
 });
+
+export default Answer;

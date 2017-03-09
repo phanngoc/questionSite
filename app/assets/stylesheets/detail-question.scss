@@ -67,6 +67,22 @@
           .content{
 
           }
+          .li-topics{
+            .in-li-topics{
+              padding-left: 0px;
+              .it-to{
+                list-style: none;
+                display: inline-block;
+                padding: 3px;
+                background-color: #c58cc4;
+                font-size: 13px;
+                a{
+                  text-decoration: none;
+                  color: #FFFFFF;
+                }
+              }
+            }
+          }
           .wrapper-author{
             table.list-author{
               width: 100%;

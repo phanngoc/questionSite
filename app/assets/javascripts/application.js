@@ -15,7 +15,6 @@
 //= require bootstrap
 //= require select2-full
 //= require ckeditor/init
-//= require reactcss/src/index.js
 //= require react
 //= require react_ujs
 //= require markdown/lib/markdown
