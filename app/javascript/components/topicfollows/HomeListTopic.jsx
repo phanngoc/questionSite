@@ -3,18 +3,18 @@ var HomeListTopic = React.createClass({
 	getInitialState() {
     var self = this;
     var topics = _.reject(this.props.topics, function(item){
-                        var alreadyVal = _.find(self.props.topicsFollow, function(val) { 
-                            return val.id == item.id
-                        });
-                        return typeof alreadyVal != "undefined"; 
-                     });
+      var alreadyVal = _.find(self.props.topicsFollow, function(val) { 
+        return val.id == item.id
+      });
+      return typeof alreadyVal != "undefined"; 
+    });
 
-  		return {
-        topicsFollow: this.props.topicsFollow,
-        topics: topics,
-        initialTopics: topics,
-        isShowSuggest: false,
-  		}
+    return {
+      topicsFollow: this.props.topicsFollow,
+      topics: topics,
+      initialTopics: topics,
+      isShowSuggest: false,
+    }
 	},
 
 	componentDidMount() {
@@ -23,7 +23,7 @@ var HomeListTopic = React.createClass({
 
   removeTopicFollow(topic) {
     this.state.topicsFollow = _.filter(this.state.topicsFollow, function(item){
-        return item.id != topic.id; 
+      return item.id != topic.id; 
     });
     this.state.topics.push(topic);
     this.forceUpdate();
@@ -32,7 +32,7 @@ var HomeListTopic = React.createClass({
   addTopicFollow(topic) {
     this.state.topicsFollow.push(topic);
     this.state.topics = _.filter(this.state.topics, function(item){
-        return item.id != topic.id; 
+      return item.id != topic.id; 
     });
     this.forceUpdate();
   },
@@ -43,7 +43,7 @@ var HomeListTopic = React.createClass({
 
   handleChangeSearch(e) {
     this.state.topics = _.filter(this.state.initialTopics, function(item){
-        return item.name.includes(e.target.value); 
+      return item.name.includes(e.target.value); 
     });
     this.forceUpdate();
   },
@@ -57,15 +57,15 @@ var HomeListTopic = React.createClass({
     var self = this;
 
     this.state.topicsFollow.forEach(function(topic, key) {
-        rowTopicsFollow.push(
-          <ItemTopicFollow topic={topic} key={key} isShowRemove={self.state.isShowSuggest} removeTopicFollow={self.removeTopicFollow} />
-        );
+      rowTopicsFollow.push(
+        <ItemTopicFollow topic={topic} key={key} isShowRemove={self.state.isShowSuggest} removeTopicFollow={self.removeTopicFollow} />
+      );
     });
 
     this.state.topics.forEach(function(topic, key) {
-        rowTopics.push(
-          <ItemTopic topic={topic} key={key} addTopicFollow={self.addTopicFollow}/>
-        );
+      rowTopics.push(
+        <ItemTopic topic={topic} key={key} addTopicFollow={self.addTopicFollow}/>
+      );
     });
 
 		return (

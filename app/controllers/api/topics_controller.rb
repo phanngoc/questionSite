@@ -6,7 +6,7 @@ class Api::TopicsController < ApplicationController
   end
 
   def push
-    redis = Redis.new(:host => "127.0.0.1", :port => 6379)
+    redis = Redis.new(host: "127.0.0.1", port: 6379)
     message = ActiveSupport::JSON.encode({ name: 'ngoc11', id: 11,
       avatar: "http://lorempixel.com/40/40/", content: "hello", time: Time.now.to_i })
 

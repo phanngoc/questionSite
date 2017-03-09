@@ -1,5 +1,6 @@
 import ReactHabitat from 'react-habitat'
 import Answer from './Answer.jsx'
+import WrapBoxRequest from './requestAnswer/WrapBoxRequest.jsx'
 
 class MyApp extends ReactHabitat.Bootstrapper {
   constructor(){
@@ -10,6 +11,7 @@ class MyApp extends ReactHabitat.Bootstrapper {
 
     // Register your top level component(s) (ie mini/child apps)
     container.register('Answer', Answer);
+    container.register('WrapBoxRequest', WrapBoxRequest);
 
     // Finally, set the container
     this.setContainer(container);

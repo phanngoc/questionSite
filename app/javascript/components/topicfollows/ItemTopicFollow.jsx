@@ -7,7 +7,7 @@ var ItemTopicFollow = React.createClass({
   },
 
   componentDidMount() {
-   
+
   },
 
   componentWillReceiveProps(nextProps) {

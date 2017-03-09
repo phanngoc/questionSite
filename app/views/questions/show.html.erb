@@ -71,6 +71,9 @@
                             class: "btn btn-primary btn-sm" %>
                         <% end %>
                       <% end %>
+                      <div data-component="WrapBoxRequest"
+                        data-prop-question="<%= @question.to_json %>">
+                      </div>
                     </div>
                     <div class="alert-not-edit">
                       <% if @question.isProtected %>
