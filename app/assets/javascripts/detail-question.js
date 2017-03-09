@@ -92,4 +92,9 @@ $(document).ready(function () {
       $divSocial.css("display", "none")
     }
   });
+
+  $(".marked").each(function(index, elem) {
+    var textMarkdown = marked($(elem).html().trim());
+    $(elem).html(textMarkdown);
+  });
 });

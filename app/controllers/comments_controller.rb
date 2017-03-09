@@ -32,13 +32,16 @@ class CommentsController < ApplicationController
         result = {status: Settings.status.not_ok, data: @comment, errors: @comment.errors}
       end
     end
-
     render json: result
   end
 
+  def show
+    
+  end
+
   def destroy
-    isDestroyed = Comment.destroyed? params[:id]
-    if isDestroyed
+    comment = Comment.destroy params[:id]
+    if comment.destroyed?
       result = {status: Settings.status.ok}
     else
       result = {status: Settings.status.not_ok}

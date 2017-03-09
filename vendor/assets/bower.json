@@ -15,6 +15,7 @@
     "datatables.net-dt": "latest",
     "jsdiff": "latest",
     "simplemde": "1.11.2",
-    "reactcss": "https://github.com/casesandberg/reactcss.git#^1.2.0"
+    "reactcss": "https://github.com/casesandberg/reactcss.git#^1.2.0",
+    "marked": "latest"
   }
 }

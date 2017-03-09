@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :questions do
     resources :verques, :protques
+    resources :comments, only: :show
   end
 
   resources :verques

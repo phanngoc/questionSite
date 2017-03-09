@@ -137,6 +137,7 @@ en:
     protect: "Protect"
     unprotect: "Unprotect"
     related_question: "Related question"
+    load_more: "Load more"
   flash:
     question:
       not_found: "Question is not found"

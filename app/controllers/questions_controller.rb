@@ -13,14 +13,14 @@ class QuestionsController < ApplicationController
     @question.user_id = current_user.id
     @question.topic_ids = params[:question][:topics].reject { |c| c.empty? }.map(&:to_i)
     @question.save
-
     @question.create_activity key: Settings.activity.question.create, owner: current_user
 
     redirect_to question_path(@question.slug)
   end
 
   def show
-    @question = QuestionDecorator.decorate(Question.includes(:user, {comments: [:actions, :user]}).find_muti(params[:id]))
+    @question = QuestionDecorator.decorate(Question.includes(:user, {comments: [:actions, :user]})
+      .find_muti(params[:id]))
     @answers = AnswerDecorator.decorate_collection(Answer.with_question(@question.id)
       .page(params[:page]).per(Settings.question_page.per_page))
     @related_ques = @question.related_ques

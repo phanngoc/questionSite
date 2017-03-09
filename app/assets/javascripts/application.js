@@ -30,6 +30,7 @@
 //= require Chart.bundle
 //= require chartkick
 //= require jsdiff
+//= require marked
 //= require simplemde/dist/simplemde.min.js
 //= require social-share-button
 

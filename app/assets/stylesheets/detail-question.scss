@@ -1,3 +1,41 @@
+.list-comments{
+  width: 100%;
+  table-layout: fixed;
+  .item-comment{
+    div.vt-count-vote{
+      min-width: 16px;
+      margin-right: 8px;
+      a.short-link{
+        color: orange;
+        text-decoration: none;
+      }
+    }
+    div.vt-action-vote{
+      width: 20px;
+    }
+    div.vt-comment{
+      .vt-com-con{
+        margin-right: 5px;
+      }
+      time{
+        margin-left: 6px;
+        margin-right: 5px;
+        font-size: 10px;
+        color: #615e5e;
+      }
+    }
+  }
+  .loadmore{
+    text-decoration: none;
+    cursor: pointer;
+    background-color: #5a80af;
+    color: white;
+    border-radius: 7px;
+    font-size: 13px;
+    padding: 3px;
+  }
+}
+
 #wr-detail-question {
   .wr-combine {
     .sec-show-question-detail{
@@ -72,27 +110,7 @@
                 }
               }
             }
-                      
-            .list-comments{
-              width: 100%;
-              table-layout: fixed;
-              tbody{
-                tr{
-                  td.vt-count-vote{
-                    width: 30px;
-                  }
-                  td.vt-action-vote{
-                    width: 30px;
-                  }
-                  td.vt-comment{
-                    time{
-                      font-size: 10px;
-                      color: #615e5e;
-                    }
-                  }
-                }
-              }
-            }
+            @extend .list-comments;
           }
         }
 
@@ -142,31 +160,7 @@
 
                   td.pa-comment{
                     .wrapper-comment-answer{
-                      .list-comments{
-                        .item-comment{
-                          min-height: 32px;
-                          border-bottom: 1px #C0C0C0 dashed;
-                          .wr-fr-show{
-                            display: flex;
-                            .vt-count-vote{
-                              min-width: 15px;
-                            }
-                            .vt-action-vote{
-                              min-width: 15px;
-                            }
-                            .wr-act{
-                              margin-left: 6px;
-                            }
-                          }
-                          .wr-fr-edit{
-                            form.fr-edit{
-                              .form-group{
-                                margin-bottom: 2px;
-                              }
-                            }
-                          }
-                        }
-                      }
+                      @extend .list-comments;
                       table.ta-add-comment{
                         tr{
                           td:nth-child(1){

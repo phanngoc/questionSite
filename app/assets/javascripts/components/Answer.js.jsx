@@ -21,19 +21,15 @@ var Answer = React.createClass({
   },
 
 	componentDidMount() {
-
 		var $formEditAnswer = $(ReactDOM.findDOMNode(this.refs.formEditAnswer));
 		var $btnSave = $(ReactDOM.findDOMNode(this.refs.btnSave));
     var $btnCancel = $(ReactDOM.findDOMNode(this.refs.btnCancel));
 		var self = this;
-
 		$formEditAnswer.submit(function(e){
       e.preventDefault();
     });
-
     $btnSave.click(function() {
     	var formdata = new FormData($formEditAnswer[0]);
-
     	$.ajax({
 			    url: self.props.answer_path,
 			    method: 'POST',
@@ -136,7 +132,7 @@ var Answer = React.createClass({
                   flag_down={this.props.flag_down} />
               </td>
               <td>
-                <div className="wr-content-answer" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>
+                <div className="wr-content-answer marked" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>
                 </div>
                 <div className="wr-edit-answer">
                   <form action={this.props.answer_path} className="form-edit-answer" method="post" ref="formEditAnswer" style={styleEdit}>

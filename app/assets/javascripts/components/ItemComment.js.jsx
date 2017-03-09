@@ -30,9 +30,15 @@ var ItemComment = React.createClass({
     })
   },
 
+  shouldComponentUpdate(nextProps, nextState) {
+    if (_.isEqual(this.state, nextState)) {
+      return false;
+    }
+    return true;
+  },
+
   componentWillReceiveProps(nextProps) {
-    this.setState({comment: nextProps.comment,
-      content: nextProps.comment.content});
+    
   },
 
   handleEdit(e) {
@@ -175,7 +181,7 @@ var ItemComment = React.createClass({
 
           <div className="vt-comment" style={this.state.styleFrShow}>
             <p>
-              {this.state.content}
+              <span className="vt-com-con">{this.state.content}</span>
               <a href="javascript:" title={this.props.comment.user.name}>
                 {this.props.comment.user.name}
               </a>
