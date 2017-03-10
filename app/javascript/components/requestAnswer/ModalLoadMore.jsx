@@ -1,20 +1,16 @@
 import React from 'react'
 import reactCSS from 'reactcss'
-import ModalLoadMore from './ModalLoadMore.jsx'
 
-var WrapBoxRequest = React.createClass({
+var ModalLoadMore = React.createClass({
   getInitialState() {
     return {
-      isRequest: false,
-      shortPeople: [],
-      question: this.props.question,
-      users: []
+      users: this.props.users,
+      question: this.props.question
 		}
 	},
 
   componentDidMount() {
     this.loadPeople();
-    $(".expand-box").hide();
   },
 
   loadPeople() {
@@ -45,30 +41,22 @@ var WrapBoxRequest = React.createClass({
     });
   },
 
-  initFrameLoadmore() {
-    $("#modalLoadMore").modal("show");
-  },
-
-  toggleRequestBoard() {
-    $(".expand-box").slideToggle();
-  },
-
-	render() {
-    var styles = reactCSS({
-      'default': {
-        boxExtend: {
-          display: "none",
-        },
-      },
-      'isRequest': {
-        boxExtend: {
-          display: "block"
-        }
+  typeSearch(e) {
+    var self = this;
+    $.ajax({
+      url: "/questions/" + this.state.question.id + "/searchs",
+      method: "GET",
+      dataType: "json",
+      data: {q: e.target.value}
+    }).done(function(result) {
+      if (result.status == 1) {
+        self.setState({users: result.data});
       }
-    }, this.state);
+    });
+  },
 
+  render() {
     var rows = [];
-    
 
     for (var i = 0; i < this.state.users.length; i++) {
       var actionComponent;
@@ -87,16 +75,13 @@ var WrapBoxRequest = React.createClass({
       }
 
       var classItemuser = classNames("item-user", {isAdded: true });
-      var href = "users/" + this.state.users[i].id;
       rows.push(
         <div className={classItemuser} key={i}>
           <div className="ch-avatar">
             <img src={this.state.users[i].avatar.url} className="img_40" alt="" />
           </div>
           <div className="wr-info">
-            <b className="name">
-              <a href={href}>{this.state.users[i].name}</a>
-            </b>
+            <b className="name">{this.state.users[i].name}</b>
           </div>
           <div className="act">
             {actionComponent}
@@ -105,22 +90,22 @@ var WrapBoxRequest = React.createClass({
       );
     }
 
-		return (
-      <div className="wr-box-request">
-        <a className="target-expand btn btn-default" 
-          onClick={this.toggleRequestBoard}>Request</a>
-        <div className="expand-box">
-          <div className="header">Request Answers</div>
-          <div className="box-list">
-            <div className="in-box-list">
-              {rows}
+    return (
+      <div id="modalLoadMore" className="modal fade" role="dialog">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <button type="button" className="close" data-dismiss="modal">&times;</button>
+              <h4 className="modal-title">Request</h4>
             </div>
-          </div>
-          <div className="fr-search-more">
-            <a className="search-more" 
-              onClick={this.initFrameLoadmore}>
-              Search more </a>
-            <ModalLoadMore users={this.state.users} question={this.state.question} />
+            <div className="modal-body">
+              <div className="fr-search">
+                <input type="text" name="search" onChange={this.typeSearch} />
+              </div>
+              <div className="content-search">
+                {rows}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -128,4 +113,4 @@ var WrapBoxRequest = React.createClass({
 	}
 });
 
-export default WrapBoxRequest;
+export default ModalLoadMore;

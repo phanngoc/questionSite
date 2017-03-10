@@ -6,6 +6,8 @@ class User < ApplicationRecord
     :omniauthable
   
   include PublicActivity::Model
+  has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", 
+    dependent: :destroy
   
   has_many :actions
   has_many :questions

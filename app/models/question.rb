@@ -2,7 +2,9 @@ require "fuzzy_match"
 class Question < ApplicationRecord
 
   include PublicActivity::Model
-
+  has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", 
+    dependent: :destroy
+    
   has_many :question_topics, dependent: :destroy
   has_many :topics, through: :question_topics
 

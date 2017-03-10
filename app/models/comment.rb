@@ -1,7 +1,9 @@
 class Comment < ApplicationRecord
 
   include PublicActivity::Model
-  
+  has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", 
+    dependent: :destroy
+
   before_create :initial_value
   belongs_to :commentable, polymorphic: true
   belongs_to :user

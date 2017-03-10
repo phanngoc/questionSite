@@ -1,6 +1,8 @@
 class Answer < ApplicationRecord
   
   include PublicActivity::Model
+  has_many :activities, as: :trackable, class_name: "PublicActivity::Activity", 
+    dependent: :destroy
 
   belongs_to :question, foreign_key: "reply_to"
 

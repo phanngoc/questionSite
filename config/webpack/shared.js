@@ -67,7 +67,7 @@ const config = {
     modules: [path.resolve('node_modules')],
   }
 }
-console.log(path.resolve('node_modules'));
+
 module.exports = {
   distDir,
   config
