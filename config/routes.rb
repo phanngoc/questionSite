@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 
   resources :verques
 
+  resources :notifies
+
   resources :comments do
     resources :votes
   end

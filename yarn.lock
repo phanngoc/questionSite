@@ -56,6 +56,10 @@ acorn@^4.0.3, acorn@^4.0.4:
   version "4.0.11"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-4.0.11.tgz#edcda3bd937e7556410d42ed5860f67399c794c0"
 
+actioncable-modules@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/actioncable-modules/-/actioncable-modules-5.0.2.tgz#7a3438f96c137d55ec64317d12b7f6b84c251994"
+
 actioncable@^5.0.0:
   version "5.0.2"
   resolved "https://registry.yarnpkg.com/actioncable/-/actioncable-5.0.2.tgz#84dbc39b51aee4e7aeb1a66a5409f28d4e98eeb3"
@@ -1654,6 +1658,16 @@ jodid25519@^1.0.0:
   resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
   dependencies:
     jsbn "~0.1.0"
+
+jquery-slimscroll@^1.3.8:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/jquery-slimscroll/-/jquery-slimscroll-1.3.8.tgz#8481c44e7a47687653908a28f7f70aed64c84e36"
+  dependencies:
+    jquery ">= 1.7"
+
+"jquery@>= 1.7":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.1.1.tgz#347c1c21c7e004115e0a4da32cece041fad3c8a3"
 
 js-tokens@^3.0.0:
   version "3.0.1"

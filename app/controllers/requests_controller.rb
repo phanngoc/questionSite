@@ -16,9 +16,12 @@ class RequestsController < ApplicationController
     eQuestion = content_tag(:a, question.title, href: question_path(question.id))
     content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
     
-    noti = {content: "#{content_noti}", 
+    noti = {
+      id: action.id,
+      content: "#{content_noti}", 
       time: Time.now.to_i,
-      is_read: 0}
+      is_read: 0,
+      url: question_path(question.id)}
     RedisService.new.add_noti params[:id], noti 
     result = {status: Settings.status.ok}
     render json: result
