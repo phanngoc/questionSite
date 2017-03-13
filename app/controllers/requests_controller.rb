@@ -15,18 +15,28 @@ class RequestsController < ApplicationController
     teaser = "request to answer "
     eQuestion = content_tag(:a, question.title, href: question_path(question.id))
     content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
-    
+
     noti = {
       id: action.id,
-      content: "#{content_noti}", 
+      content: "#{content_noti}",
       time: Time.now.to_i,
       is_read: 0,
       url: question_path(question.id)}
-    RedisService.new.add_noti params[:id], noti 
+    RedisService.new.add_noti params[:id], noti
+
+
+    ActionCable.server.broadcast "noti_user_#{current_user.id}",
+      noti: noti
+
     result = {status: Settings.status.ok}
     render json: result
   end
 
+  def test
+    result = ActionCable.server.broadcast "noti_user_#{current_user.id}",
+      noti: 1
+    render json: current_user
+  end
 
   private
 

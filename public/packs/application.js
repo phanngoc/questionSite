@@ -26587,8 +26587,24 @@ var Notifi = _react2.default.createClass({
       self.setState({ notifies: results });
     });
 
+    this.setupSubscription();
     $('.slimscroll').slimscroll({
       height: '200px'
+    });
+  },
+  setupSubscription: function setupSubscription() {
+    var self = this;
+    var actionCable = ActionCable.createConsumer('ws://localhost:3000/cable');
+    actionCable.subscriptions.create("NotiChannel", {
+      connected: function connected() {
+        console.log("connect");
+      },
+
+      received: function received(data) {
+        var data = self.state.notifies;
+        data.push(data.noti);
+        self.setState({ notifies: data });
+      }
     });
   },
   removeComment: function removeComment(id) {

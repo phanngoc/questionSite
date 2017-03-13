@@ -2,12 +2,12 @@ Rails.application.routes.draw do
   mount Ckeditor::Engine => "/ckeditor"
   mount ActionCable.server => "/cable"
 
-  devise_for :users, controllers: {sessions: "users/sessions", 
-    registrations: "users/registrations", 
+  devise_for :users, controllers: {sessions: "users/sessions",
+    registrations: "users/registrations",
     omniauth_callbacks: "callbacks"}
 
   root to: "home#index"
-  
+
   resources :users do
     resources :follows, only: :create
   end
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   resources :topics do
     resources :fotopics, only: :create
   end
-  
+
   resources :answers do
     resources :votes
   end
@@ -51,5 +51,7 @@ Rails.application.routes.draw do
       get "push", path: "messages"
     end
   end
+
+  get "noti", to: "requests#test"
 
 end

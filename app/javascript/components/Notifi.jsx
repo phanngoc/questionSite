@@ -20,8 +20,25 @@ var Notifi = React.createClass({
       self.setState({notifies: results});
     });
 
+    this.setupSubscription();
     $('.slimscroll').slimscroll({
       height: '200px'
+    });
+  },
+
+  setupSubscription(){
+    var self = this;
+    var actionCable = ActionCable.createConsumer('ws://localhost:3000/cable');
+    actionCable.subscriptions.create("NotiChannel", {
+      connected: function () {
+        console.log("connect");
+      },
+
+      received: function (data) {
+        var data = self.state.notifies;
+        data.push(data.noti);
+        self.setState({notifies: data});
+      }
     });
   },
 
