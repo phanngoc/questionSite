@@ -18,7 +18,10 @@ Rails.application.routes.draw do
 
   resources :answers do
     resources :votes
+    resources :verans
   end
+
+  resources :verans
 
   resources :questions do
     resources :verques, :protques

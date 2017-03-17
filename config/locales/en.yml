@@ -89,7 +89,7 @@ en:
     show:
       follow: "Follow"
       unfollow: "Unfollow"
-  
+
   topic_page:
     title: "Result search for work:"
     questions: "questions"
@@ -114,6 +114,9 @@ en:
 
   sign_up_page:
     title: "Sign up"
+
+  answer_page:
+    save_answer: "Save"
 
   question_page:
     add_comment: "Add a comment"

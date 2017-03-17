@@ -117,6 +117,7 @@
                 <div class="list-answers">
                   <% @answers.each do |answer| %>
                     <div data-component="Answer"
+                      data-prop-answerver="<%= answer.for_json().to_json() %>"
                       data-prop-flag_up="<%= answer.is_up %>"
                       data-prop-flag_down="<%= answer.is_down %>"
                       data-prop-answer_path="<%= answer_path(answer.id) %>"

@@ -29,6 +29,12 @@ $(document).ready(function () {
     window.location = '/questions/' + question_id + '/verques/' + verque_id + '/edit';
   });
 
+  $('select[name="verans"]').change(function() {
+    var veran_id = $(this).val();
+    var answer_id = $(this).attr('ansid');
+    window.location = '/answers/' + question_id + '/verans/' + veran_id + '/edit';
+  });
+
   var textOriginal = '';
   var textTitleOriginal = '';
 
@@ -36,10 +42,15 @@ $(document).ready(function () {
     textOriginal = $('.original .content').text();
     textTitleOriginal = $('.original .title').text();
   } else if (gon.page == 1) {
-    textOriginal = gon.question.content;
-    textTitleOriginal = gon.question.title;
+    if (typeof(gon.question) != "undefined") {
+      gon.objTarget = gon.question;
+    } else {
+      gon.objTarget = gon.answer;
+    }
+    textOriginal = gon.objTarget.content;
+    textTitleOriginal = gon.objTarget.title;
   }
-  
+
   function getFragment(original, compare) {
     var diff = JsDiff.diffChars(original, compare);
     var fragment = document.createDocumentFragment();
@@ -66,9 +77,9 @@ $(document).ready(function () {
     $(item).html(fragment);
   });
 
-  var simplemde = new SimpleMDE({element: 
-    document.getElementById("verque_content")});
-  
+  // var simplemde = new SimpleMDE({element:
+  //   document.getElementById("verque_content")});
+
   $(".editor_mde").each(function(index, elem) {
     var simplemde = new SimpleMDE({ element: elem });
   });

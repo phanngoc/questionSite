@@ -4,18 +4,19 @@ import React from 'react'
 import reactCSS from 'reactcss'
 
 var Answer = React.createClass({
-	getInitialState() {
-		return {
+  getInitialState() {
+
+    return {
       answer: this.props.answer,
-      content: this.props.answer.content,
+      content: this.props.answerver.content,
       isShow: false,
       errors: (<span></span>),
       act: 0,
       isShowAnswer: true,
       hover: false
-		}
-	},
-  
+    }
+  },
+
   extractErrors(errors) {
     var rows = [];
     $.each(errors.content, function(k, value) {
@@ -24,31 +25,31 @@ var Answer = React.createClass({
     return rows;
   },
 
-	componentDidMount() {
-		var $formEditAnswer = $(ReactDOM.findDOMNode(this.refs.formEditAnswer));
-		var $btnSave = $(ReactDOM.findDOMNode(this.refs.btnSave));
+  componentDidMount() {
+    var $formEditAnswer = $(ReactDOM.findDOMNode(this.refs.formEditAnswer));
+    var $btnSave = $(ReactDOM.findDOMNode(this.refs.btnSave));
     var $btnCancel = $(ReactDOM.findDOMNode(this.refs.btnCancel));
-		var self = this;
-		$formEditAnswer.submit(function(e){
+    var self = this;
+    $formEditAnswer.submit(function(e){
       e.preventDefault();
     });
     $btnSave.click(function() {
-    	var formdata = new FormData($formEditAnswer[0]);
-    	$.ajax({
+      var formdata = new FormData($formEditAnswer[0]);
+      $.ajax({
         url: self.props.answer_path,
         method: 'POST',
         processData: false,
         contentType: false,
         data: formdata
-			}).done(function(result) {
+      }).done(function(result) {
         if (result.status == 1) {
           self.setState({isShow: false});
         } else {
           self.setState({errors: self.extractErrors(result.errors)});
         }
-			});
+      });
     });
-	},
+  },
 
   showEditForm() {
     this.setState({isShow: true});
@@ -89,11 +90,16 @@ var Answer = React.createClass({
     this.setState({answer: answer});
   },
 
-	render() {
-		var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
+  onEditFormVersion() {
+    window.location = '/answers/' + this.state.answer.id + '/verans/new';
+  },
+
+  render() {
+    var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
     var styleShow = this.state.isShow ? {display: "none"} : {display: "block"};
     var actionHtml = (<ul className="menu-action">
       <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
+      <li><a href="javascript:" className="ac-edit" onClick={this.onEditFormVersion}>{I18n.t("question_page.edit")}</a></li>
       <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
     </ul>);
 
@@ -102,7 +108,7 @@ var Answer = React.createClass({
         actionHtml = (
           <ul className="menu-action">
             <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
-            <li><a href="javascript:" className="ac-edit" onClick={this.showEditForm}>{I18n.t("question_page.edit")}</a></li>|
+            <li><a href="javascript:" className="ac-edit" onClick={this.onEditFormVersion}>{I18n.t("question_page.edit")}</a></li>|
             <li><a href="javascript:" className="ac-delete" onClick={this.confirmDelete}>{I18n.t("question_page.delete")}</a></li>|
             <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
           </ul>
@@ -133,8 +139,8 @@ var Answer = React.createClass({
       }
     }, this.state, {vote: (this.state.answer.up_vote - this.state.answer.down_vote) >= 0.0});
 
-		return (
-      <div className="fr-answer" style={styles.answer} onMouseEnter={this.mouseEnter} 
+    return (
+      <div className="fr-answer" style={styles.answer} onMouseEnter={this.mouseEnter}
         onMouseLeave={this.mouseLeave}>
         <table className="answer">
           <tbody>
@@ -192,8 +198,8 @@ var Answer = React.createClass({
           </tbody>
         </table>
       </div>
-		);
-	}
+    );
+  }
 });
 
 export default Answer;

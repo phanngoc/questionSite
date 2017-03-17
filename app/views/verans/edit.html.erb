@@ -1,0 +1,53 @@
+<div id="wr-edit-question container">
+  <div class="fr-form-ask row">
+    <div class="col-md-5 col-md-offset-1">
+      <div class="wr_select_ver">
+        <label for="verques">
+          <%= t "question_page.select_question_to_edit" %>
+          <% if current_user.admin? || current_user.moderator? ||
+            current_user.id == @answer.user_id %>
+            <%= link_to t("question_page.approve_version"), answer_verans_path(params[:answer_id]),
+              class: "btn btn-sm btn-primary" %>
+          <% end %>
+        </label>
+        <%= select_tag "verans", options_for_select(@verans.collect{|u|
+          ["Rev #{u.version} #{u.user.name}-#{u.created_at}", u.id]},
+          params[:id]), class: "form-control", ansid: params[:question_id] %>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= simple_form_for @veran, url: "/answer/#{params[:answer_id]}/verans",
+            method: :post do |f| %>
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+            <%= f.input :content, as: :text, input_html: {class: "editor_mde"} %>
+            <%= f.button :submit, t("answer_page.save_answer") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <ul class="list-version">
+        <% @verans.each do |veran| %>
+          <div class="item-verque <%= "highlight" if veran.id == params[:id].to_i %>">
+            <div class="header">
+              <div class="rev clear">
+                <%= t("version_question.rev") %> <%= veran.version %>
+              </div>
+              <div class="wr-author">
+                <div class="wr-image">
+                  <%= image_tag veran.user.avatar, class: "img_40 avatar" %>
+                </div>
+                <div class="wr-name">
+                  <p class="name"><%= veran.user.name %></p>
+                </div>
+              </div>
+            </div>
+            <div class="content">
+              <%= veran.content %>
+            </div>
+          </div>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</div>
