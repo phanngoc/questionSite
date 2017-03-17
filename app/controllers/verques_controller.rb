@@ -2,6 +2,7 @@ class VerquesController < ApplicationController
   layout "main"
   before_action :verify_admin_mod_owner, only: [:update, :index]
   authorize_resource
+  include ActionView::Helpers::TagHelper
 
   def index
     @question = Question.find_by id: params[:question_id]
@@ -31,12 +32,30 @@ class VerquesController < ApplicationController
 
   def create
     @verque = Verque.find_newest params[:question_id]
+    @question = Question.find_by(id: params[:question_id])
+
     unless @verque
       @verque = Question.find_by id: params[:question_id]
     end
     @verquetemp = Verque.create verque_params
     if @verquetemp
       redirect_to question_path(params[:question_id])
+      if @question.user_id != current_user.id
+        eUser = content_tag(:a, current_user.name, href: user_path(current_user.id))
+        teaser = "edited your question in"
+        eQuestion = content_tag(:a, @question.title, href: question_path(@question.id))
+        content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
+
+        noti = {
+          content: "#{content_noti}",
+          time: Time.now.to_i,
+          is_read: 0,
+          url: question_path(@question.id)}
+        RedisService.new.add_noti @question.user_id, noti
+
+        ActionCable.server.broadcast "noti_user_#{@question.user_id}",
+          noti: noti
+      end
     end
   end
 
@@ -63,7 +82,7 @@ class VerquesController < ApplicationController
   end
 
   private
-  
+
   def verify_admin_mod_owner
     question = Question.find_by id: params[:question_id]
     unless question && (current_user.admin? ||
@@ -80,8 +99,8 @@ class VerquesController < ApplicationController
 
   def verque_params
     params.require(:verque).permit(:title, :content)
-      .merge(user_id: current_user.id, 
-      question_target: params[:question_id], 
+      .merge(user_id: current_user.id,
+      question_target: params[:question_id],
       status: Verque.statuses[:pending],
       version: Verque.max_ver + 1)
   end

@@ -24,7 +24,6 @@ class RequestsController < ApplicationController
       url: question_path(question.id)}
     RedisService.new.add_noti params[:id], noti
 
-
     ActionCable.server.broadcast "noti_user_#{params[:id]}",
       noti: noti
 

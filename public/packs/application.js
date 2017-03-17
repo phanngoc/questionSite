@@ -43465,7 +43465,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Answer = _react2.default.createClass({
   displayName: 'Answer',
   getInitialState: function getInitialState() {
-
     return {
       answer: this.props.answer,
       content: this.props.answerver.content,
@@ -43547,6 +43546,9 @@ var Answer = _react2.default.createClass({
   onEditFormVersion: function onEditFormVersion() {
     window.location = '/answers/' + this.state.answer.id + '/verans/new';
   },
+  seeEditedVersion: function seeEditedVersion() {
+    window.location = '/answers/' + this.state.answer.id + '/verans';
+  },
   render: function render() {
     var styleEdit = this.state.isShow ? { display: "block" } : { display: "none" };
     var styleShow = this.state.isShow ? { display: "none" } : { display: "block" };
@@ -43572,6 +43574,7 @@ var Answer = _react2.default.createClass({
           I18n.t("question_page.edit")
         )
       ),
+      '|',
       _react2.default.createElement(
         'li',
         null,
@@ -43580,7 +43583,17 @@ var Answer = _react2.default.createClass({
           { href: '#', className: 'ac-flag' },
           I18n.t("question_page.flag")
         )
-      )
+      ),
+      this.props.answerver.is_edited ? "|" : "",
+      this.props.answerver.is_edited ? _react2.default.createElement(
+        'li',
+        null,
+        _react2.default.createElement(
+          'a',
+          { href: '#', className: 'ac-edited' },
+          I18n.t("question_page.edited")
+        )
+      ) : _react2.default.createElement('span', null)
     );
 
     if (gon.current_user && this.state.answer.user.id == gon.current_user.id) {
@@ -43625,7 +43638,17 @@ var Answer = _react2.default.createClass({
             { href: '#', className: 'ac-flag' },
             I18n.t("question_page.flag")
           )
-        )
+        ),
+        this.props.answerver.is_edited ? "|" : "",
+        this.props.answerver.is_edited ? _react2.default.createElement(
+          'li',
+          null,
+          _react2.default.createElement(
+            'a',
+            { href: 'javascript:', onClick: this.seeEditedVersion, className: 'ac-edited' },
+            I18n.t("question_page.edited")
+          )
+        ) : _react2.default.createElement('span', null)
       );
     }
 
@@ -43669,8 +43692,8 @@ var Answer = _react2.default.createClass({
             _react2.default.createElement(
               'td',
               { className: 'col-vote' },
-              _react2.default.createElement(_VoteAnswer2.default, { answer: this.state.answer, flag_up: this.props.flag_up,
-                flag_down: this.props.flag_down, onChangeVote: this.onChangeVote })
+              _react2.default.createElement(_VoteAnswer2.default, { answer: this.state.answer, flag_up: this.props.answerver.flag_up,
+                flag_down: this.props.answerver.flag_down, onChangeVote: this.onChangeVote })
             ),
             _react2.default.createElement(
               'td',

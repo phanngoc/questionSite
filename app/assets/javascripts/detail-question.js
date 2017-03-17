@@ -77,19 +77,33 @@ $(document).ready(function () {
     $(item).html(fragment);
   });
 
-  // var simplemde = new SimpleMDE({element:
-  //   document.getElementById("verque_content")});
-
   $(".editor_mde").each(function(index, elem) {
     var simplemde = new SimpleMDE({ element: elem });
   });
 
+  function stripQueryStringAndHashFromPath(url) {
+    return url.split("?")[0].split("#")[0];
+  }
+
+  function appendGet(params, truncate = false) {
+    var url = window.location.href;
+    if (truncate) {
+      url = stripQueryStringAndHashFromPath(url);
+    }
+    if (url.indexOf('?') > -1){
+      url += '&' + params;
+    }else{
+      url += '?' + params;
+    }
+    window.location.href = url;
+  }
+
   $('#col-sort').change(function() {
     var status = $(this).val();
     if (status == "all") {
-      window.location = '?status=all';
+      appendGet("status=all", true);
     } else {
-      window.location = '?status=' + status;
+      appendGet("status=" + status, true);
     }
   });
 

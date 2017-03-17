@@ -141,6 +141,8 @@ en:
     unprotect: "Unprotect"
     related_question: "Related question"
     load_more: "Load more"
+    edited: "edited"
+
   flash:
     question:
       not_found: "Question is not found"

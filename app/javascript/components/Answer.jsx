@@ -5,7 +5,6 @@ import reactCSS from 'reactcss'
 
 var Answer = React.createClass({
   getInitialState() {
-
     return {
       answer: this.props.answer,
       content: this.props.answerver.content,
@@ -94,13 +93,22 @@ var Answer = React.createClass({
     window.location = '/answers/' + this.state.answer.id + '/verans/new';
   },
 
+  seeEditedVersion() {
+    window.location = '/answers/' + this.state.answer.id + '/verans';
+  },
+
   render() {
     var styleEdit = this.state.isShow ? {display: "block"} : {display: "none"};
     var styleShow = this.state.isShow ? {display: "none"} : {display: "block"};
     var actionHtml = (<ul className="menu-action">
       <li><a href="#" className="ac-share">{I18n.t("question_page.share")}</a></li>|
-      <li><a href="javascript:" className="ac-edit" onClick={this.onEditFormVersion}>{I18n.t("question_page.edit")}</a></li>
+      <li><a href="javascript:" className="ac-edit" onClick={this.onEditFormVersion}>
+        {I18n.t("question_page.edit")}</a></li>|
       <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
+      {this.props.answerver.is_edited ? "|" : ""}
+      {this.props.answerver.is_edited ? (<li>
+          <a href="#" className="ac-edited">{I18n.t("question_page.edited")}</a>
+        </li>) : (<span></span>)}
     </ul>);
 
     if (gon.current_user && this.state.answer.user.id
@@ -111,6 +119,10 @@ var Answer = React.createClass({
             <li><a href="javascript:" className="ac-edit" onClick={this.onEditFormVersion}>{I18n.t("question_page.edit")}</a></li>|
             <li><a href="javascript:" className="ac-delete" onClick={this.confirmDelete}>{I18n.t("question_page.delete")}</a></li>|
             <li><a href="#" className="ac-flag">{I18n.t("question_page.flag")}</a></li>
+            {this.props.answerver.is_edited ? "|" : ""}
+            {this.props.answerver.is_edited ? (<li>
+                <a href="javascript:" onClick={this.seeEditedVersion} className="ac-edited">{I18n.t("question_page.edited")}</a>
+              </li>) : (<span></span>)}
           </ul>
         )
     }
@@ -146,8 +158,8 @@ var Answer = React.createClass({
           <tbody>
             <tr>
               <td className="col-vote">
-                <VoteAnswer answer={this.state.answer} flag_up={this.props.flag_up}
-                  flag_down={this.props.flag_down} onChangeVote={this.onChangeVote} />
+                <VoteAnswer answer={this.state.answer} flag_up={this.props.answerver.flag_up}
+                  flag_down={this.props.answerver.flag_down} onChangeVote={this.onChangeVote} />
               </td>
               <td>
                 <div className="wr-content-answer marked" dangerouslySetInnerHTML={{__html: this.state.content}} style={styleShow}>

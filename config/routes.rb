@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   resources :answers do
     resources :votes
     resources :verans
+    resources :hisans
   end
 
   resources :verans
@@ -28,9 +29,11 @@ Rails.application.routes.draw do
     resources :comments, only: :show
     resources :requests
     resources :searchs, only: :index
+    resources :hisques, only: :index
   end
 
-  resources :verques
+  resources :verques do
+  end
 
   resources :notifies
 

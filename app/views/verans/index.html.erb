@@ -44,7 +44,8 @@
             <div class="item-verque">
               <div class="header">
                 <div class="rev clear">
-                  <%= t("version_question.rev") %> <%= veran.version %>
+                  <b><%= t("version_question.rev") %> <%= veran.version %></b>
+                  <time><%= veran.updated_at %></time>
                 </div>
                 <div class="wr-action">
                   <% if veran.status.to_sym == :pending %>

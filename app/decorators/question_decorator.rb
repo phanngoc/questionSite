@@ -10,10 +10,10 @@ class QuestionDecorator < Draper::Decorator
   end
 
   def is_up
-    Action.is_upvote_question(h.current_user.id, self.id).empty? ? 0 : 1;
+    (h.current_user && Action.is_upvote_question(h.current_user.id, self.id).empty?) ? 0 : 1;
   end
 
   def is_down
-    Action.is_downvote_question(h.current_user.id, self.id).empty? ? 0 : 1;
+    (h.current_user && Action.is_downvote_question(h.current_user.id, self.id).empty?) ? 0 : 1;
   end
 end

@@ -54,6 +54,12 @@ ul.list-version{
     background-color: #ffffff;
     .header{
       @extend .clearfix;
+      .rev{
+        time{
+          color: #a2a2a2;
+          font-size: 12px;
+        }
+      }
       .title{
         @extend .block_left;
       }

@@ -1,0 +1,46 @@
+<div id="wr-list-ver container">
+  <div class="inner-list-ver row">
+    <div class="col-md-8 col-md-offset-1">
+      <div class="list-version-all">
+        <div class="original">
+          <div class="header">
+            <div class="wr-author">
+              <div class="wr-image">
+                <%= image_tag @answer.user.avatar, class: "img_40 avatar" %>
+              </div>
+              <div class="wr-name">
+                <p class="name"><%= @answer.user.name %></p>
+              </div>
+            </div>
+          </div>
+          <div class="content">
+            <%= @answer.content %>
+          </div>
+        </div>
+        <ul class="list-version">
+          <% @verans.each do |veran| %>
+            <div class="item-verque">
+              <div class="header">
+                <div class="rev clear">
+                  <b><%= t("version_question.rev") %> <%= veran.version %></b>
+                  <time><%= veran.updated_at %></time>
+                </div>
+                <div class="wr-author">
+                  <div class="wr-image">
+                    <%= image_tag veran.user.avatar, class: "img_40 avatar" %>
+                  </div>
+                  <div class="wr-name">
+                    <p class="name"><%= veran.user.name %></p>
+                  </div>
+                </div>
+              </div>
+              <div class="content">
+                <%= veran.content %>
+              </div>
+            </div>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -59,6 +59,12 @@
                         moderator attention">
                         <%= t("question_page.flag") %>
                       </a>
+
+                      <span class="lsep">|</span>
+                      <a href="<%= question_hisques_path(@question.id) %>" class="flag-post-link">
+                        <%= t("question_page.edited") %>
+                      </a>
+
                       <% if user_signed_in? && (current_user.admin? || current_user.moderator?) %>
                         <span class="lsep">|</span>
                         <% unless @question.isProtected %>

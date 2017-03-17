@@ -2,6 +2,7 @@ class VeransController < ApplicationController
   layout "main"
   before_action :verify_admin_mod_owner, only: [:update, :index]
   authorize_resource
+  include ActionView::Helpers::TagHelper
 
   def index
     @answer = Answer.find_by id: params[:answer_id]
@@ -38,6 +39,21 @@ class VeransController < ApplicationController
     @verantemp = Veran.create veran_params
     if @verantemp
       redirect_to question_path(answer.question)
+    end
+
+    if answer.user_id != current_user.id
+      eUser = content_tag(:a, current_user.name, href: user_path(current_user.id))
+      teaser = "edited your answer in"
+      eQuestion = content_tag(:a, answer.question.title, href: question_path(answer.question.id))
+      content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
+      noti = {
+        content: "#{content_noti}",
+        time: Time.now.to_i,
+        is_read: 0,
+        url: question_path(answer.question.id)}
+      RedisService.new.add_noti answer.user_id, noti
+      ActionCable.server.broadcast "noti_user_#{answer.user_id}",
+        noti: noti
     end
   end
 
