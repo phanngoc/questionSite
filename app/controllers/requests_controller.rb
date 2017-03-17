@@ -25,7 +25,7 @@ class RequestsController < ApplicationController
     RedisService.new.add_noti params[:id], noti
 
 
-    ActionCable.server.broadcast "noti_user_#{current_user.id}",
+    ActionCable.server.broadcast "noti_user_#{params[:id]}",
       noti: noti
 
     result = {status: Settings.status.ok}
@@ -46,7 +46,7 @@ class RequestsController < ApplicationController
     question.topic_ids.each do |topic_id|
       users_list = users_list | RedisService.new.get_user_popular_topic(topic_id)
     end
-    results = User.where(id: users_list).decorate.collect{|c| c.for_json};
+    results = User.where(id: users_list).decorate(context: {question_id: params[:question_id]}).collect{|c| c.for_json};
     return results
   end
 

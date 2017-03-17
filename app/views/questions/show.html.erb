@@ -4,7 +4,7 @@
       col-md-6 col-lg-6 col-md-offset-1 col-lg-offset-1">
         <section class="main-content">
 
-          <%= react_component("VoteQuestion", question: @question, 
+          <%= react_component("VoteQuestion", question: @question,
             flag_up: @question.flag_up, flag_down: @question.flag_down) %>
 
           <h2 class="title"><%= @question.title %></h2>
@@ -33,7 +33,7 @@
                         </a>
                         <div class="wr-share body-item">
                           <%= social_share_button_tag(@question.title) %>
-                        </div>  
+                        </div>
                       </div>
                       <span class="lsep">|</span>
 
@@ -53,7 +53,7 @@
                           </a>
                         <span class="lsep">|</span>
                       <% end %>
-                      
+
                       <a href="#" class="flag-post-link"
                         title="flag this post for serious problems or
                         moderator attention">
@@ -62,11 +62,11 @@
                       <% if user_signed_in? && (current_user.admin? || current_user.moderator?) %>
                         <span class="lsep">|</span>
                         <% unless @question.isProtected %>
-                          <%= link_to t("question_page.protect"), question_protques_path(@question.id), 
+                          <%= link_to t("question_page.protect"), question_protques_path(@question.id),
                             class: "btn btn-primary btn-sm", method: "POST" %>
                         <% else %>
-                          <%= link_to t("question_page.unprotect"), 
-                            question_protque_path(question_id: @question.id, id: @question.dataProtected.id), 
+                          <%= link_to t("question_page.unprotect"),
+                            question_protque_path(question_id: @question.id, id: @question.dataProtected.id),
                             method: "DELETE",
                             class: "btn btn-primary btn-sm" %>
                         <% end %>
@@ -145,7 +145,7 @@
                     </tr>
                     <tr>
                       <td>
-                        <button class="submit-answer">
+                        <button class="submit-answer btn btn-primary">
                           <%= t("question_page.submit_answer") %>
                         </button>
                       </td>

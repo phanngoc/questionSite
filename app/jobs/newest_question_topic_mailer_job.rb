@@ -5,7 +5,7 @@ class NewestQuestionTopicMailerJob < ApplicationJob
     @users = User.all
     @users.each do |user|
       actions = Action.by_user(user.id).target(Action.target_acts[:topic])
-                    .is_follow
+        .is_follow
       results = Array.new
       actions.each do |action|
         results << action.actionable

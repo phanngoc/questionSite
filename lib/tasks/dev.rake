@@ -11,12 +11,12 @@ namespace :dev do
       teaser = "request to answer "
       eQuestion = content_tag(:a, question.title, href: question_path(question.id))
       content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
-  
-      noti = {content: "#{content_noti}", 
+
+      noti = {content: "#{content_noti}",
         time: Time.now.to_i,
         is_read: 0,
         url: question_path(question.id)}
-      RedisService.new.add_noti user.id, noti 
+      RedisService.new.add_noti user.id, noti
 
       userRand = User.all.sample(1)[0]
 
@@ -35,27 +35,27 @@ namespace :dev do
 
     user = User.find args[:user_id]
     10.times do
+      userRand = User.all.sample(1)[0]
       question = Question.all.sample(1)[0]
-      eUser = content_tag(:a, user.name, href: user_path(user.id))
+      eUser = content_tag(:a, userRand.name, href: user_path(userRand.id))
+
       teaser = "request to answer "
       eQuestion = content_tag(:a, question.title, href: question_path(question.id))
       content_noti = content_tag(:div, "#{eUser} #{teaser} #{eQuestion}", class: "noti-it")
-      
-      userRand = User.all.sample(1)[0]
 
-      request_params = {actionable_id: userRand.id, actionable_type: Action.target_acts[:user],
-        user_id: user.id, type_act: Action.type_acts[:request],
+      request_params = {actionable_id: user.id, actionable_type: Action.target_acts[:user],
+        user_id: userRand.id, type_act: Action.type_acts[:request],
         param: {question_id: question.id, type: "seed"}}
 
       action = Action.create request_params
 
       noti = {
         id: action.id,
-        content: "#{content_noti}", 
+        content: "#{content_noti}",
         time: Time.now.to_i,
         is_read: 0,
         url: question_path(question.id)}
-      RedisService.new.add_noti user.id, noti 
+      RedisService.new.add_noti user.id, noti
     end
   end
 

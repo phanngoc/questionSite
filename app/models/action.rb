@@ -1,13 +1,13 @@
 class Action < ApplicationRecord
 
   include PublicActivity::Model
-  
+
   belongs_to :actionable, polymorphic: true
   belongs_to :user
   enum type_act: [:down_vote, :up_vote, :share_fa, :share_tw, :follow, :protect,
     :request], _suffix: true
 
-  enum target_act: {answer: "Answer", question: "Question", topic: "Topic", 
+  enum target_act: {answer: "Answer", question: "Question", topic: "Topic",
     comment: "Comment", user: "User"}
 
   delegate :url_helpers, to: "Rails.application.routes"
@@ -58,10 +58,10 @@ class Action < ApplicationRecord
     Action.type_acts[:down_vote] ;
   end
 
-  scope :is_request, -> (current_user_id, user_id) do
+  scope :is_request, -> (current_user_id, user_id, question_id) do
     where "user_id = ? and actionable_type = ? and actionable_id = ?
-    and type_act = ?", current_user_id, Action.target_acts[:user], user_id,
-    Action.type_acts[:request] ;
+    and type_act = ? and JSON_EXTRACT(`param` , '$.question_id') = ?", current_user_id,
+    Action.target_acts[:user], user_id, Action.type_acts[:request], question_id;
   end
 
   def destroy_question_down current_user_id, question_id

@@ -7,8 +7,9 @@ class RedisService
     @redis.zadd "noti_user_#{user_id}", Time.now.to_i, item.to_json
   end
 
-  def noti_user user_id, time_ago
-    @redis.zrangebyscore("noti_user_#{user_id}", time_ago.to_i, "(#{Time.now.to_i}")
+  def noti_user user_id
+    @redis.zrangebyscore("noti_user_#{user_id}", "0", "(#{Time.now.to_i}").reverse
+
   end
 
   def update_noti_isread noti_id, user_id

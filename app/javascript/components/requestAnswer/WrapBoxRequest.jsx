@@ -9,8 +9,8 @@ var WrapBoxRequest = React.createClass({
       shortPeople: [],
       question: this.props.question,
       users: []
-		}
-	},
+    }
+  },
 
   componentDidMount() {
     this.loadPeople();
@@ -39,7 +39,7 @@ var WrapBoxRequest = React.createClass({
         var index = _.findIndex(self.state.users, function(value) {
           return value.id == user.id;
         });
-        self.state.users[index].isAdded = true; 
+        self.state.users[index].isAdded = true;
         self.forceUpdate();
       }
     });
@@ -53,7 +53,7 @@ var WrapBoxRequest = React.createClass({
     $(".expand-box").slideToggle();
   },
 
-	render() {
+  render() {
     var styles = reactCSS({
       'default': {
         boxExtend: {
@@ -68,14 +68,14 @@ var WrapBoxRequest = React.createClass({
     }, this.state);
 
     var rows = [];
-    
+
 
     for (var i = 0; i < this.state.users.length; i++) {
       var actionComponent;
       let isAdded = false;
-      if (_.isUndefined(this.state.users[i].isAdded) || 
-      !this.state.users[i].isAdded) {
-        actionComponent = (<a href="javascript:" className="act-link" 
+      if (_.isUndefined(this.state.users[i].isAdded) ||
+        !this.state.users[i].isAdded) {
+        actionComponent = (<a href="javascript:" className="act-link"
           onClick={this.onAddPeople.bind(this, this.state.users[i])} >
           <i className="fa fa-plus" aria-hidden="true"></i>
         </a>)
@@ -105,9 +105,9 @@ var WrapBoxRequest = React.createClass({
       );
     }
 
-		return (
+    return (
       <div className="wr-box-request">
-        <a className="target-expand btn btn-default" 
+        <a className="target-expand btn btn-default"
           onClick={this.toggleRequestBoard}>Request</a>
         <div className="expand-box">
           <div className="header">Request Answers</div>
@@ -117,15 +117,15 @@ var WrapBoxRequest = React.createClass({
             </div>
           </div>
           <div className="fr-search-more">
-            <a className="search-more" 
+            <a className="search-more"
               onClick={this.initFrameLoadmore}>
               Search more </a>
             <ModalLoadMore users={this.state.users} question={this.state.question} />
           </div>
         </div>
       </div>
-		);
-	}
+    );
+  }
 });
 
 export default WrapBoxRequest;

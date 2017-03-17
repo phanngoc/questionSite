@@ -2,7 +2,7 @@ class NotifiesController < ApplicationController
   before_filter :authenticate_user!
 
   def index
-    result = RedisService.new.noti_user(current_user.id, 7.days.ago);
+    result = RedisService.new.noti_user(current_user.id);
     render json: result
   end
 

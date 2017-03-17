@@ -1,5 +1,6 @@
 import React from 'react'
 import reactCSS from 'reactcss'
+import moment from 'moment'
 
 var Notifi = React.createClass({
   getInitialState() {
@@ -21,6 +22,7 @@ var Notifi = React.createClass({
     });
 
     this.setupSubscription();
+
     $('.slimscroll').slimscroll({
       height: '200px'
     });
@@ -35,9 +37,25 @@ var Notifi = React.createClass({
       },
 
       received: function (data) {
-        var data = self.state.notifies;
-        data.push(data.noti);
-        self.setState({notifies: data});
+        var n = noty({
+          text        : "You have new notification.",
+          type        : "success",
+          dismissQueue: true,
+          layout      : "bottomRight",
+          theme       : "relax",
+          callback: {
+            onShow: function() {},
+            afterShow: function() {},
+            onClose: function() {
+              self.setState({isExpand: true});
+            },
+            afterClose: function() {},
+            onCloseClick: function() {},
+          },
+        });
+        var arrNoti = self.state.notifies;
+        arrNoti.unshift(data.noti);
+        self.setState({notifies: arrNoti});
       }
     });
   },
@@ -84,8 +102,8 @@ var Notifi = React.createClass({
     var self = this;
     this.state.notifies.forEach(function(noti, key) {
       var content = $("<textarea />").html(noti.content).text();
+      content += "<time class='time'>" + moment.unix(noti.time).fromNow() + "</time>";
       var classNameNoti= classNames("item-noti", {is_read: !noti.is_read});
-      console.log(classNameNoti);
       rows.push(
         <li key={key} className={classNameNoti} onClick={self.watchLink.bind(self, noti)}>
           <a className="wr-link" dangerouslySetInnerHTML={{__html: content}}
